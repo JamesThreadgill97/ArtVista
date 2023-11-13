@@ -1,2 +1,1 @@
-Hello there.
-General Kenobi.
+This is a Readme file, we should put stuff here eventually
