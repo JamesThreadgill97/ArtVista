@@ -56,7 +56,14 @@ export default function Register() {
         }
         const response = await fetch('https://artvista-api.onrender.com/users/register', options)
         const data = await response.json()
-        loginAccount()
+        if (response.status == 201) {
+          loginAccount()
+        } else {
+          setMessage("Failed to register.")
+          setTimeout(()=>{
+            setMessage("")
+          }, 5000)
+        }
       } 
       catch (err) {
         console.error(err.message)
