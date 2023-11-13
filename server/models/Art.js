@@ -50,15 +50,22 @@ class Art {
     return response.rows;
   }
   
+static async getAllByTag(tag_id) {
+  const response = await db.query('SELECT * FROM art WHERE tag_id = $1', [tag_id])
+  if (response.rows.length === 0) {
+    throw new Error('Unable to locate art.');
+  }
 
+  return response.rows;
+}
 
 
 
   static async create(data) {
-    const { user_id, title, description, likes } = data;
+    const { user_id, title, description, likes, tag_id } = data;
     const response = await db.query(
-      'INSERT INTO art (user_id, title, description, likes) VALUES ($1, $2, $3, $4) RETURNING *;',
-      [user_id, title, description, likes]
+      'INSERT INTO art (user_id, tag_id, title, description, likes) VALUES ($1, $2, $3, $4) RETURNING *;',
+      [user_id, tag_id,title, description, likes]
     );
 
     return new Art(response.rows[0]);
@@ -66,10 +73,10 @@ class Art {
 
   async update(data) {
     console.log(this.id);
-    const { user_id, title, description, likes } = data;
+    const { user_id, title, description, likes, tag_id } = data;
     const response = await db.query(
-      'UPDATE art SET user_id = $1, title = $2, description = $3, likes = $4 WHERE art_id = $5 RETURNING *;',
-      [user_id, title, description, likes, this.id]
+      'UPDATE art SET user_id = $1, title = $2, description = $3, likes = $4, tag_id = $5 WHERE art_id = $6 RETURNING *;',
+      [user_id, title, description, likes, tag_id, this.id]
     );
     if (response.rows.length !== 1) {
       throw new Error('Unable to update art.');

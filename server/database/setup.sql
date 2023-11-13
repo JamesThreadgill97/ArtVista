@@ -1,6 +1,13 @@
-DROP TABLE IF EXISTS art;
-DROP TABLE IF EXISTS token;
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS art CASCADE;
+DROP TABLE IF EXISTS token CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS tags CASCADE;
+
+CREATE TABLE tags (
+    tag_id INT GENERATED ALWAYS AS IDENTITY,
+    tag VARCHAR (100) NOT NULL,
+    PRIMARY KEY (tag_id)
+);
 
 CREATE TABLE Users (
     user_id INT GENERATED ALWAYS AS IDENTITY,
@@ -14,6 +21,7 @@ CREATE TABLE art (
     user_id INT NOT NULL,
     title VARCHAR(50) NOT NULL,
     description VARCHAR(10000),
+    tag INT NOT NULL,
     likes INT NOT NULL,
     PRIMARY KEY(art_id),
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
@@ -36,7 +44,23 @@ CREATE TABLE token (
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 
-
+INSERT INTO tags (tag)
+VALUES 
+    ('Painting'),
+    ('Drawing'),
+    ('Sculpture'),
+    ('Photography'),
+    ('Printmaking'),
+    ('Ceramics'),
+    ('Digital Art'),
+    ('Installation Art'),
+    ('Performance Art'),
+    ('Textile Art'),
+    ('Graffiti Art'),
+    ('Mosaic Art'),
+    ('Collage'),
+    ('Street Art'),
+    ('Abstract Art');
 
 INSERT INTO Users (username, password)
 VALUES
@@ -74,18 +98,18 @@ VALUES
 
 
 -- Insert dummy data into the art table
-INSERT INTO art (user_id, title, description, likes)
+INSERT INTO art (user_id, title, tag,  description, likes)
 VALUES
-    (1, 'Sunset Landscape', 'A beautiful landscape with a colorful sunset.', 15),
-    (2, 'Abstract Sculpture', 'A unique abstract sculpture made from recycled materials.', 8),
-    (1, 'Portrait of a Woman', 'A detailed portrait capturing the essence of a woman.', 22),
-    (3, 'City Skyline at Night', 'A city skyline illuminated against the night sky.', 10),
-    (2, 'Still Life with Flowers', 'A classic still life composition featuring vibrant flowers.', 18),
-    (3, 'Digital Art Exploration', 'Experimenting with digital tools to create abstract art.', 5),
-    (1, 'Wildlife Photography', 'Capturing the beauty of wildlife in their natural habitat.', 12),
-    (2, 'Surreal Fantasy World', 'Creating a surreal fantasy world with imaginative elements.', 25),
-    (3, 'Black and White Architecture', 'Exploring architectural details in black and white photography.', 14),
-    (1, 'Impressionist Seascape', 'An impressionistic portrayal of the sea and sky.', 20);
+    (1, 'Sunset Landscape', 4, 'A beautiful landscape with a colorful sunset.', 15),
+    (2, 'Abstract Sculpture', 5, 'A unique abstract sculpture made from recycled materials.', 8),
+    (1, 'Portrait of a Woman', 1,'A detailed portrait capturing the essence of a woman.', 22),
+    (3, 'City Skyline at Night', 8,'A city skyline illuminated against the night sky.', 10),
+    (2, 'Still Life with Flowers', 2, 'A classic still life composition featuring vibrant flowers.', 18),
+    (3, 'Digital Art Exploration', 9, 'Experimenting with digital tools to create abstract art.', 5),
+    (1, 'Wildlife Photography', 2, 'Capturing the beauty of wildlife in their natural habitat.', 12),
+    (2, 'Surreal Fantasy World', 2, 'Creating a surreal fantasy world with imaginative elements.', 25),
+    (3, 'Black and White Architecture', 6, 'Exploring architectural details in black and white photography.', 14),
+    (1, 'Impressionist Seascape', 10, 'An impressionistic portrayal of the sea and sky.', 20);
 
 -- Insert dummy data into the comments table
 INSERT INTO comments (art_id, user_id, content)
