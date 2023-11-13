@@ -32,9 +32,9 @@ export default function Register() {
         const response = await fetch('https://artvista-api.onrender.com/users/login',options)
         const data = await response.json()
         localStorage.setItem("token", data.token) //check is correct
-        localStorage.setItem("user_id", data.user_id) //check this is correct
         if (response.status == 200) {
           setMessage("Register and Login successful!")
+
           setTimeout(()=>{
             setMessage("")
           },5000)
@@ -84,6 +84,9 @@ export default function Register() {
         setMessage("")
       }, 5000)
     }
+    setUsername("")
+    setPassword1("")
+    setPassword2("")
   }
 
   return (

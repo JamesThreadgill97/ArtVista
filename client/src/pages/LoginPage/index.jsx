@@ -28,7 +28,6 @@ export default function LoginPage() {
         const response = await fetch('https://artvista-api.onrender.com/users/login',options)
         const data = await response.json()
         localStorage.setItem("token", data.token) //check is correct
-        localStorage.setItem("user_id", data.user_id) //check this is correct
         if (response.status == 200) {
           setMessage("Login successful!")
           setTimeout(()=>{
@@ -46,6 +45,8 @@ export default function LoginPage() {
       }
     }
     loginAccount()
+    setUsername("")
+    setPassword("")
   }
   return (
     <>
