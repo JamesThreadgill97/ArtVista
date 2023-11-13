@@ -18,7 +18,15 @@ class User {
     return new User(response.rows[0]);
   }
 
-
+  static async getOneByUsername(username) {
+    const response = await db.query('SELECT * FROM Users WHERE username = $1', [
+      username,
+    ]);
+    if (response.rows.length != 1) {
+      throw new Error('Unable to locate user.');
+    }
+    return new User(response.rows[0]);
+  }
 
   static async create(data) {
     const { username, password } = data;
