@@ -39,6 +39,21 @@ class Art {
     return new Art(response.rows[0]);
   }
 
+  static async getCommentsById(id) {
+    const response = await db.query('SELECT * FROM comments WHERE art_id = $1;', [
+      id
+    ]);
+    if (response.rows.length === 0) {
+      return "no comments"
+    }
+
+    return response.rows;
+  }
+  
+
+
+
+
   static async create(data) {
     const { user_id, title, description, likes } = data;
     const response = await db.query(
@@ -50,10 +65,11 @@ class Art {
   }
 
   async update(data) {
+    console.log(this.id);
     const { user_id, title, description, likes } = data;
     const response = await db.query(
-      'UPDATE art SET user_id = $1, title = $2, description = $3 WHERE likes = $4 RETURNING *;',
-      [user_id, title, description, likes]
+      'UPDATE art SET user_id = $1, title = $2, description = $3, likes = $4 WHERE art_id = $5 RETURNING *;',
+      [user_id, title, description, likes, this.id]
     );
     if (response.rows.length !== 1) {
       throw new Error('Unable to update art.');

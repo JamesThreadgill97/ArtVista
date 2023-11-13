@@ -5,10 +5,11 @@ const artController = require('../controllers/art');
 
 const artRouter = Router();
 
-artRouter.get('/', authenticator, artController.index);
-artRouter.get('/:id', authenticator, artController.show);
-artRouter.post('/', authenticator, artController.create);
-artRouter.patch('/:id', authenticator, artController.update);
-artRouter.delete('/:id', authenticator, artController.destroy);
+artRouter.get('/', artController.index);
+artRouter.get('/:id', artController.show);
+artRouter.get('/:id/comments', artController.comments)
+artRouter.post('/', artController.create);
+artRouter.patch('/:id', artController.update);
+artRouter.delete('/:id', artController.destroy);
 
 module.exports = artRouter;
