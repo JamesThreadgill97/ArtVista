@@ -33,7 +33,6 @@ async function show(req, res) {
 const create = async (req, res) => {
   try {
     const data = req.body;
-    console.log("Here");
     const newArt = await Art.create(data);
     res.status(201).send(newArt);
   } catch (err) {
