@@ -99,12 +99,93 @@ input {
   transform: scale(1.05);
 }
 /* Gallery */
-/* .gallery-container{
-  
-} */
+
 .gallery {
   display: flex;
   flex-wrap: wrap;
   gap:10px;
   
+}
+
+.displayed-artwork {
+  width:auto;
+  height:auto;
+  max-width: 55%;
+  max-height: 800px;
+}
+.displayed-artwork > img {
+  width: 100%;
+  height:100%;
+  border-radius: 15px;
+  object-fit: cover;
+}
+
+/* artwork page */
+.artwork-and-info {
+  display: flex;
+  padding: 30px
+}
+.artwork-info {
+  background-color: white;
+  width: 40%;
+  height: auto;
+  margin-left: 20px;
+  border-radius: 15px;
+}
+
+/* MODAL */
+.modal-image{
+  width:auto;
+  height:auto;
+  max-width: 95vw;
+  max-height: 95vh;
+}
+.modal-image-div {
+  display: flex;
+  align-items: center;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  background-color: rgba(0,0,0,0.5);
+}
+.modal.is-open {
+  display: block;
+}
+.modal-content {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  width:100%;
+  height:100%;
+  margin: auto;
+
+}
+
+.close {
+  float: right;
+  position: fixed;
+  top: 0.5vh;
+  right: 3.5vh;
+  color: #ff0000;
+  font-size: 10vh;
+  font-weight: bold;
+  transition: 0.3s;
+  margin-left: 1vh;
+  margin-top: -2.5vh;
+  margin-right: 1vh;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
 }
