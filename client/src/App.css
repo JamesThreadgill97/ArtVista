@@ -1,3 +1,9 @@
+:root {
+  --primary-colour: black;
+  --secondary-colour: red;
+  --tertiary-colour: white;
+}
+
 /* Reset some default styles */
 body, h1, h2, h3, p, ul, ol, li {
   margin: 0;
@@ -73,4 +79,32 @@ input {
   box-sizing: border-box;
   border: 1px solid #ccc;
   border-radius: 4px;
+}
+
+/* ARTWORK CARD */
+.artwork-card {
+  background-color: rgb(0, 0, 0);
+  width: 300px;
+  height:300px;
+  overflow: hidden;
+  border-radius: 70px;
+}
+.artwork-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.artwork-card-img:hover {
+  transform: scale(1.05);
+}
+/* Gallery */
+/* .gallery-container{
+  
+} */
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap:10px;
+  
 }
