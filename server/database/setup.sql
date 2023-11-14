@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS art CASCADE;
 DROP TABLE IF EXISTS token CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS tags CASCADE;
+DROP TABLE IF EXISTS comments CASCADE;
 
 CREATE TABLE tags (
     tag_id INT GENERATED ALWAYS AS IDENTITY,
@@ -21,10 +22,12 @@ CREATE TABLE art (
     user_id INT NOT NULL,
     title VARCHAR(50) NOT NULL,
     description VARCHAR(10000),
-    tag INT NOT NULL,
+    tag_id INT NOT NULL,
     likes INT NOT NULL,
+    url VARCHAR(1000) NOT NULL,
     PRIMARY KEY(art_id),
-    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+    FOREIGN KEY (user_id) REFERENCES Users(user_id),
+    FOREIGN KEY (tag_id) REFERENCES tags(tag_id)
 );
 
 CREATE TABLE comments (
@@ -98,18 +101,18 @@ VALUES
 
 
 -- Insert dummy data into the art table
-INSERT INTO art (user_id, title, tag,  description, likes)
+INSERT INTO art (user_id, title, tag_id,  description, likes, url)
 VALUES
-    (1, 'Sunset Landscape', 4, 'A beautiful landscape with a colorful sunset.', 15),
-    (2, 'Abstract Sculpture', 5, 'A unique abstract sculpture made from recycled materials.', 8),
-    (1, 'Portrait of a Woman', 1,'A detailed portrait capturing the essence of a woman.', 22),
-    (3, 'City Skyline at Night', 8,'A city skyline illuminated against the night sky.', 10),
-    (2, 'Still Life with Flowers', 2, 'A classic still life composition featuring vibrant flowers.', 18),
-    (3, 'Digital Art Exploration', 9, 'Experimenting with digital tools to create abstract art.', 5),
-    (1, 'Wildlife Photography', 2, 'Capturing the beauty of wildlife in their natural habitat.', 12),
-    (2, 'Surreal Fantasy World', 2, 'Creating a surreal fantasy world with imaginative elements.', 25),
-    (3, 'Black and White Architecture', 6, 'Exploring architectural details in black and white photography.', 14),
-    (1, 'Impressionist Seascape', 10, 'An impressionistic portrayal of the sea and sky.', 20);
+    (1, 'Sunset Landscape', 4, 'A beautiful landscape with a colorful sunset.', 15, 'https://storage.cloud.google.com/artvista-images/moa.png'),
+    (2, 'Abstract Sculpture', 5, 'A unique abstract sculpture made from recycled materials.', 8, 'https://storage.cloud.google.com/artvista-images/moa.png'),
+    (1, 'Portrait of a Woman', 1,'A detailed portrait capturing the essence of a woman.', 22, 'https://storage.cloud.google.com/artvista-images/moa.png'),
+    (3, 'City Skyline at Night', 8,'A city skyline illuminated against the night sky.', 10, 'https://storage.cloud.google.com/artvista-images/moa.png'),
+    (2, 'Still Life with Flowers', 2, 'A classic still life composition featuring vibrant flowers.', 18, 'https://storage.cloud.google.com/artvista-images/moa.png'),
+    (3, 'Digital Art Exploration', 9, 'Experimenting with digital tools to create abstract art.', 5, 'https://storage.cloud.google.com/artvista-images/moa.png'),
+    (1, 'Wildlife Photography', 2, 'Capturing the beauty of wildlife in their natural habitat.', 12, 'https://storage.cloud.google.com/artvista-images/moa.png'),
+    (2, 'Surreal Fantasy World', 2, 'Creating a surreal fantasy world with imaginative elements.', 25, 'https://storage.cloud.google.com/artvista-images/moa.png'),
+    (3, 'Black and White Architecture', 6, 'Exploring architectural details in black and white photography.', 14, 'https://storage.cloud.google.com/artvista-images/moa.png'),
+    (1, 'Impressionist Seascape', 10, 'An impressionistic portrayal of the sea and sky.', 20, 'https://storage.cloud.google.com/artvista-images/moa.png');
 
 -- Insert dummy data into the comments table
 INSERT INTO comments (art_id, user_id, content)

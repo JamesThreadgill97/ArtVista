@@ -23,7 +23,6 @@ async function register(req, res) {
 }
 
 async function login(req, res) {
-  console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
   const data = req.body;
   try {
     const user = await User.getOneByUsername(data.username);
