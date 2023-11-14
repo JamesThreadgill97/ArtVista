@@ -13,7 +13,6 @@ async function comments(req, res) {
   try {
     const id = parseInt(req.params.id);
     const comments = await Art.getCommentsById(id);
-    console.log(comments);
     res.status(200).json(comments)
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -48,7 +47,6 @@ async function update(req, res) {
     const artToUpdate = await Art.getOneById(id);
 
     const updatedArt = await artToUpdate.update(data);
-    console.log(updatedArt);
     res.status(200).json(updatedArt);
   } catch (err) {
     res.status(404).json({ error: err.message });

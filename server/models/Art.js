@@ -62,18 +62,18 @@ static async getAllByTag(tag_id) {
 
 
   static async create(data) {
-    const { user_id, title, description, likes, tag_id } = data;
+    const { user_id, title, description, likes, tag_id, url } = data;
+    console.log("is it this bit");
     const response = await db.query(
-      'INSERT INTO art (user_id, tag_id, title, description, likes) VALUES ($1, $2, $3, $4) RETURNING *;',
-      [user_id, tag_id,title, description, likes]
+      'INSERT INTO art (user_id, tag_id, title, description, likes, url) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;',
+      [user_id, tag_id, title, description, likes, url]
     );
-
+    console.log("we made it to the end");
     return new Art(response.rows[0]);
   }
 
   async update(data) {
-    console.log(this.id);
-    const { user_id, title, description, likes, tag_id } = data;
+    const { user_id, title, description, likes, tag_id} = data;
     const response = await db.query(
       'UPDATE art SET user_id = $1, title = $2, description = $3, likes = $4, tag_id = $5 WHERE art_id = $6 RETURNING *;',
       [user_id, title, description, likes, tag_id, this.id]
