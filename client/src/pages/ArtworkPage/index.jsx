@@ -3,10 +3,11 @@ import { useParams } from "react-router-dom"
 import { Gallery, ProfileLink, Comments, CommentForm, Modal } from "../../components"
 
 export default function ArtworkPage() {
+  const { id } = useParams()
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [comments,setComments] =useState("")
   const [artwork,setArtwork] = useState({})
   const [artworks,setArtworks] = useState([])
+  const [comments,setComments] = useState([])
 
   //gets all images
   useEffect(()=>{
@@ -26,7 +27,6 @@ export default function ArtworkPage() {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-  const { id } = useParams()
 
   useEffect(()=> {
     const fetchArtwork = async () => {
@@ -42,6 +42,19 @@ export default function ArtworkPage() {
       }
     }
     fetchArtwork()
+  },[id])
+
+  useEffect(()=>{
+    const fetchComments = async () => {
+      const response = await fetch(`https://artvista-api.onrender.com/art/${id}/comments`)
+      const data = await response.json()
+      if (data == "no comments") {
+        setComments([])
+      } else {
+        setComments(data)
+      }
+    }
+    fetchComments()
   },[id])
 
   return (
@@ -60,9 +73,8 @@ export default function ArtworkPage() {
           <ProfileLink id={artwork.user_id} />
           <h3>TAGS HERE</h3>
           <p>{artwork.description}</p>
-          
-          <Comments comments={comments} id={id}/>
-          <CommentForm setComments={setComments} id={id}/>
+          <Comments id={id} comments={comments}/>
+          <CommentForm id={id} setComments={setComments}/>
         </div>
       </div>
       <Gallery artworks={artworks}/>
