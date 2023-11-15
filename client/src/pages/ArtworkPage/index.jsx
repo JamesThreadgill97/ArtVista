@@ -88,7 +88,7 @@ export default function ArtworkPage() {
           <p>{artwork.description}</p>
           <div>
           <h3>{commentMessage}</h3>
-          <Likes id={id}/>
+          <Likes id={id} artwork={artwork}/>
           </div>
           <Comments id={id} comments={comments} />
           <CommentForm id={id} setComments={setComments} />
