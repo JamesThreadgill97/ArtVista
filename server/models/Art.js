@@ -8,7 +8,8 @@ class Art {
     this.title = data.title;
     this.description = data.description;
     this.likes = data.likes;
-    this.url = data.url
+    this.url = data.url;
+    this.username = data.username;
   }
 
   static async getAll() {
