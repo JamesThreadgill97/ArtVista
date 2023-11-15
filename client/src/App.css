@@ -122,6 +122,8 @@ textarea {
 .displayed-artwork {
   width:auto;
   height:auto;
+  min-width: 35%;
+  min-height: 35%;
   max-width: 55%;
   max-height: 800px;
 }
@@ -200,4 +202,10 @@ textarea {
   color: #bbb;
   text-decoration: none;
   cursor: pointer;
+}
+
+.comment-card {
+  text-align: left;
+  background-color: gainsboro;
+  margin: 10px;
 }
