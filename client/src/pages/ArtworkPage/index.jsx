@@ -6,6 +6,18 @@ export default function ArtworkPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [comments,setComments] =useState("")
   const [artwork,setArtwork] = useState({})
+  const [artworks,setArtworks] = useState([])
+
+  //gets all images
+  useEffect(()=>{
+    const fetchArtworks = async () => {
+      const response = await fetch("https://artvista-api.onrender.com/art/")
+      const data = await response.json()
+      setArtworks(data)
+    }
+    fetchArtworks()
+  },[])
+
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -30,7 +42,7 @@ export default function ArtworkPage() {
       }
     }
     fetchArtwork()
-  },[])
+  },[id])
 
   return (
     <>
@@ -48,11 +60,12 @@ export default function ArtworkPage() {
           <ProfileLink id={artwork.user_id} />
           <h3>TAGS HERE</h3>
           <p>{artwork.description}</p>
+          
           <Comments comments={comments} id={id}/>
           <CommentForm setComments={setComments} id={id}/>
         </div>
       </div>
-      <Gallery />
+      <Gallery artworks={artworks}/>
     </>
   )
 }

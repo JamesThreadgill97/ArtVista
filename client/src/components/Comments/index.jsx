@@ -3,6 +3,7 @@ import CommentCard from '../CommentCard'
 
 export default function Comments({id}) {
   const [comments, setComments] = useState([])
+
   useEffect(()=>{
     const fetchComments = async () => {
       const response = await fetch(`https://artvista-api.onrender.com/art/${id}/comments`)
@@ -11,6 +12,8 @@ export default function Comments({id}) {
     }
     fetchComments()
   },[comments])
+
+
   return (
     <>
     {comments.map((el)=> <CommentCard data={el}/>)}
