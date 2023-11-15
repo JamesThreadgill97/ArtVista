@@ -23,7 +23,7 @@ function GoogleStorageFileUploader() {
     };
     setFile(img);
   };
-  return (
+  return ( 
     <form onSubmit={handleSubmit}>
       <input type="file" name="file" onChange={handleFileChange}></input>
       <button type="submit">Submit</button>
