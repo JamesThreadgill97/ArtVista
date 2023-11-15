@@ -15,6 +15,15 @@ class Tag {
     return response.rows.map(g => new Tag(g));
   }
 
+  static async getTagsByArtId(id) {
+    const response = await db.query();
+    if(response.rows.length === 0) {
+      throw new Error("This art has no tags")
+    }
+    return response.rows.map(g => new Tag(g))
+  }
+
+
   static async getOneById(id) {
     const response = await db.query("SELECT * FROM tags WHERE tag_id = $1;", [id]);
     if (response.rows.length != 1) {

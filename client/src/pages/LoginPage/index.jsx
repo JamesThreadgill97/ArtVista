@@ -47,6 +47,8 @@ export default function LoginPage() {
       }
     }
     loginAccount()
+    setUsername("")
+    setPassword("")
   }
   return (
     <>
