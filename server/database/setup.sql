@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS token CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS tags CASCADE;
 DROP TABLE IF EXISTS comments CASCADE;
+DROP TABLE IF EXISTS artTags CASCADE;
 
 CREATE TABLE tags (
     tag_id INT GENERATED ALWAYS AS IDENTITY,
@@ -29,6 +30,15 @@ CREATE TABLE art (
     FOREIGN KEY (user_id) REFERENCES Users(user_id),
     FOREIGN KEY (tag_id) REFERENCES tags(tag_id)
 );
+
+CREATE TABLE artTags (
+    art_id INT,
+    tag_id INT,
+    PRIMARY KEY (art_id, tag_id),
+    FOREIGN KEY (art_id) REFERENCES art(art_id),
+    FOREIGN KEY (tag_id) REFERENCES Tags(tag_id)
+);
+
 
 CREATE TABLE comments (
     comment_id INT GENERATED ALWAYS AS IDENTITY,
@@ -136,3 +146,15 @@ VALUES
     (5, 4, 'The still life is a work of art.'),
     (6, 2, 'Digital art allows for such creativity.'),
     (7, 5, 'Wildlife photography at its best.');
+
+INSERT INTO artTags (art_id, tag_id)
+    VALUES
+        (1, 1),
+        (1, 6),
+        (1, 2),
+        (4, 3),
+        (4, 4),
+        (7, 12),
+        (1, 8),
+        (3, 5);
+

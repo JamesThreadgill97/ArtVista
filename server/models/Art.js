@@ -1,3 +1,4 @@
+const { log } = require('console');
 const db = require('../database/connect');
 
 class Art {
@@ -7,10 +8,12 @@ class Art {
     this.title = data.title;
     this.description = data.description;
     this.likes = data.likes;
+    this.url = data.url;
+    this.username = data.username;
   }
 
   static async getAll() {
-    const response = await db.query('SELECT * from art');
+    const response = await db.query('SELECT art.*, users.username FROM art INNER JOIN users ON art.user_id = users.user_id;');
     if (response.rows.length === 0) {
       throw new Error('No art available.');
     }
@@ -59,18 +62,42 @@ static async getAllByTag(tag_id) {
   return response.rows;
 }
 
+ static async uploadAndCreate(data, file) {
+  const { user_id, title, description, likes, tag_id } = data;
+  // Upload the file to Cloud Storage
+  const publicUrl = await this.uploadFileToStorage(file);
+  // Create a new art entry in the database
+  const response = await db.query(
+    'INSERT INTO art (user_id, tag_id, title, description, likes, url) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;',
+    [user_id, tag_id, title, description, likes, publicUrl]
+  );
+  return new Art(response.rows[0]);
+}
 
+// Add a new method for uploading files to Cloud Storage
+ static async uploadFileToStorage(file) {
+  const { Storage } = require('@google-cloud/storage');
+  const { format } = require('util');
+  const cloudStorage = new Storage({
+    keyFilename: `./service_account_key.json`,
+    projectId: 'artvista-405109',
+  });
+  const bucketName = 'artvista-images';
+  const bucket = cloudStorage.bucket(bucketName);
 
-  static async create(data) {
-    const { user_id, title, description, likes, tag_id, url } = data;
-    console.log("is it this bit");
-    const response = await db.query(
-      'INSERT INTO art (user_id, tag_id, title, description, likes, url) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;',
-      [user_id, tag_id, title, description, likes, url]
-    );
-    console.log("we made it to the end");
-    return new Art(response.rows[0]);
-  }
+  const blob = bucket.file(file.originalname);
+  const blobStream = blob.createWriteStream();
+  return new Promise((resolve, reject) => {
+    blobStream.on('error', (err) => {
+      reject(err);
+    });
+    blobStream.on('finish', () => {
+      const publicUrl = format(`https://storage.googleapis.com/${bucket.name}/${blob.name}`);
+      resolve(publicUrl);
+    });
+    blobStream.end(file.buffer);
+  });
+}
 
   async update(data) {
     const { user_id, title, description, likes, tag_id} = data;
