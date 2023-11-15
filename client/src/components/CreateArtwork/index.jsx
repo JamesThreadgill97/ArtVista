@@ -20,11 +20,13 @@ export default function CreateArtwork() {
     setDescription(e.target.value)
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log(file)
     let formData = new FormData()
     formData.append("file", file.data)
+
+    
+    formData.append("user_id", 1)
     formData.append("title", title)
     formData.append("description", description) //add tags at some point too
     formData.append("likes", 0)
@@ -34,12 +36,10 @@ export default function CreateArtwork() {
         const options = {
           method: "POST",
           body: formData,
-          // headers: {
-          //   "content-type": "multipart/form-data"
-          // }
-        }
-        console.log(options.body)
+        }  
+              console.log("we are here currently");
         const response = await fetch("https://artvista-api.onrender.com/art/", options)
+
         const responseWithBody = await response.json()
         // setUrl(responseWithBody.publicUrl)
         // console.log(url)

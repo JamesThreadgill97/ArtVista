@@ -34,7 +34,6 @@ async function create(req, res) {
   try {
     const data = req.body;
     const file = req.file;
-
     const newArt = await Art.uploadAndCreate(data, file);
     res.status(201).json(newArt);
   } catch (err) {

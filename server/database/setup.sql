@@ -31,11 +31,11 @@ CREATE TABLE art (
     FOREIGN KEY (tag_id) REFERENCES tags(tag_id)
 );
 
-CREATE TABLE ArtworkTags (
-    artwork_id INT,
+CREATE TABLE artTags (
+    art_id INT,
     tag_id INT,
-    PRIMARY KEY (artwork_id, tag_id),
-    FOREIGN KEY (artwork_id) REFERENCES Artwork(artwork_id),
+    PRIMARY KEY (art_id, tag_id),
+    FOREIGN KEY (art_id) REFERENCES art(art_id),
     FOREIGN KEY (tag_id) REFERENCES Tags(tag_id)
 );
 
@@ -151,10 +151,10 @@ INSERT INTO artTags (art_id, tag_id)
     VALUES
         (1, 1),
         (1, 6),
-        (17, 2),
-        (12, 3),
-        (14, 4),
-        (11, 11),
+        (1, 2),
+        (4, 3),
+        (4, 4),
+        (7, 12),
         (1, 8),
         (3, 5);
 
