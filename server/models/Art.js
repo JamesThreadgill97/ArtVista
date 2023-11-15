@@ -100,10 +100,10 @@ static async getAllByTag(tag_id) {
 }
 
   async update(data) {
-    const { user_id, title, description, likes, tag_id} = data;
+    const { user_id, title, description, likes} = data;
     const response = await db.query(
-      'UPDATE art SET user_id = $1, title = $2, description = $3, likes = $4, tag_id = $5 WHERE art_id = $6 RETURNING *;',
-      [user_id, title, description, likes, tag_id, this.id]
+      'UPDATE art SET user_id = $1, title = $2, description = $3, likes = $4 WHERE art_id = $5 RETURNING *;',
+      [user_id, title, description, likes, this.id]
     );
     if (response.rows.length !== 1) {
       throw new Error('Unable to update art.');
