@@ -115,28 +115,43 @@ describe('Art Model Tests', () => {
             });
         });
 
-        describe('create function', () => {
-            test('should create a new Art instance', async () => {
-                
-                const mockRow = { art_id: 1, user_id: 1, title: 'New Art', description: 'New Description', likes: 0 };
-                db.query.mockResolvedValue({ rows: [mockRow] });
+         describe('create function', () => {
+        test('should create a new Art instance', async () => {
+            // Mock data for the test
+            const mockData = {
+                user_id: 1,
+                title: 'New Art',
+                description: 'New Description',
+                likes: 0,
+                tag_id: 1, // Add tag_id here
+                url: 'www.google.com' // Add url here
+            };
 
-                
-                const result = await Art.create({
-                    user_id: 1,
-                    title: 'New Art',
-                    description: 'New Description',
-                    likes: 0
-                });
+            // Mock response from the database
+            const mockRow = {
+                art_id: 1,
+                user_id: 1,
+                title: 'New Art',
+                description: 'New Description',
+                likes: 0,
+                tag_id: 1, // Add tag_id here
+                url: 'www.google.com' // Add url here
+            };
 
-                
-                expect(db.query).toHaveBeenCalledWith(
-                    'INSERT INTO art (user_id, title, description, likes) VALUES ($1, $2, $3, $4) RETURNING *;',
-                    [1, 'New Art', 'New Description', 0]
-                );
-                expect(result).toEqual(new Art(mockRow));
-            });
+            // Mock the database query function
+            db.query.mockResolvedValue({ rows: [mockRow] });
+
+            // Call the create function with the mock data
+            const result = await Art.create(mockData);
+
+            // Assertions
+            expect(db.query).toHaveBeenCalledWith(
+                'INSERT INTO art (user_id, tag_id, title, description, likes, url) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;',
+                [1, 1, 'New Art', 'New Description', 0, 'www.google.com']
+            );
+            expect(result).toEqual(new Art(mockRow));
         });
+    });
 
         describe('destroy function', () => {
   test('should delete an existing Art instance', async () => {
