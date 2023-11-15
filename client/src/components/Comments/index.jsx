@@ -11,7 +11,7 @@ export default function Comments({id}) {
       setComments(data)
     }
     fetchComments()
-  },[comments])
+  },[])
 
 
   return (

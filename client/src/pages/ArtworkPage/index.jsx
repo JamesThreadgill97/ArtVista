@@ -4,7 +4,7 @@ import { Gallery, ProfileLink, Comments, CommentForm, Modal } from "../../compon
 
 export default function ArtworkPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [comments,setComments] =useState("")
+  const [comments,setComments] =useState([])
   const [artwork,setArtwork] = useState({})
   const [artworks,setArtworks] = useState([])
 
@@ -61,7 +61,7 @@ export default function ArtworkPage() {
           <h3>TAGS HERE</h3>
           <p>{artwork.description}</p>
           
-          <Comments comments={comments} id={id}/>
+          {/* <Comments id={id}/> */}
           <CommentForm setComments={setComments} id={id}/>
         </div>
       </div>
