@@ -1,0 +1,211 @@
+:root {
+  --primary-colour: black;
+  --secondary-colour: red;
+  --tertiary-colour: white;
+}
+
+/* Reset some default styles */
+body, h1, h2, h3, p, ul, ol, li {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  background-color: #F2E8CF;
+}
+
+/* Header Styles */
+header {
+  background-color: #333;
+  color: var(--tertiary-colour);
+  padding: 20px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+}
+
+nav {
+  display: flex;
+  justify-content: space-around;
+}
+
+.nav-link{
+  text-decoration: none;
+  color: #fff;
+  font-size: 20px;
+}
+
+
+/* Footer Styles */
+footer {
+  background-color: #D9D9D9;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+/* Optional: Style the content between header and footer */
+main {
+  padding: 20px;
+}
+
+/* form */
+form {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  resize: vertical; /* Allow vertical resizing */
+}
+
+/* ARTWORK CARD */
+.artwork-card {
+  background-color: rgb(0, 0, 0);
+  width: 300px;
+  height:300px;
+  overflow: hidden;
+  border-radius: 70px;
+}
+.artwork-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.artwork-card-img:hover {
+  transform: scale(1.05);
+}
+/* Gallery */
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap:10px;
+  
+}
+
+.displayed-artwork {
+  width:auto;
+  height:auto;
+  min-width: 35%;
+  min-height: 35%;
+  max-width: 55%;
+  max-height: 800px;
+}
+.displayed-artwork > img {
+  width: 100%;
+  height:100%;
+  border-radius: 15px;
+  object-fit: cover;
+}
+
+/* artwork page */
+.artwork-and-info {
+  display: flex;
+  padding: 30px
+}
+.artwork-info {
+  background-color: white;
+  width: 40%;
+  height: auto;
+  margin-left: 20px;
+  border-radius: 15px;
+}
+
+/* MODAL */
+.modal-image{
+  width:auto;
+  height:auto;
+  max-width: 95vw;
+  max-height: 95vh;
+}
+.modal-image-div {
+  display: flex;
+  align-items: center;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  background-color: rgba(0,0,0,0.5);
+}
+.modal.is-open {
+  display: block;
+}
+.modal-content {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  width:100%;
+  height:100%;
+  margin: auto;
+
+}
+
+.close {
+  float: right;
+  position: fixed;
+  top: 0.5vh;
+  right: 3.5vh;
+  color: #ff0000;
+  font-size: 10vh;
+  font-weight: bold;
+  transition: 0.3s;
+  margin-left: 1vh;
+  margin-top: -2.5vh;
+  margin-right: 1vh;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.comment-card {
+  text-align: left;
+  background-color: gainsboro;
+  margin: 10px;
+}

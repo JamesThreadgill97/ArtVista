@@ -1,10 +1,12 @@
 import React from 'react'
+import ArtworkCard from "../ArtworkCard"
 
-export default function Gallery() {
+export default function Gallery({artworks}) {
+
   return (
-    <>
-        Gallery
-    </>
+    <div className='gallery'>
+      {artworks.map((el)=><ArtworkCard id={el.id} title={el.title} url={el.url} key={el.id}/>)}
+    </div>
   )
 }
 
