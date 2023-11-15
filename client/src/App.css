@@ -20,7 +20,7 @@ body {
 /* Header Styles */
 header {
   background-color: #333;
-  color: #fff;
+  color: var(--tertiary-colour);
   padding: 20px;
   text-align: center;
 }
@@ -81,6 +81,18 @@ input {
   border-radius: 4px;
 }
 
+textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  resize: vertical; /* Allow vertical resizing */
+}
+
 /* ARTWORK CARD */
 .artwork-card {
   background-color: rgb(0, 0, 0);
@@ -110,6 +122,8 @@ input {
 .displayed-artwork {
   width:auto;
   height:auto;
+  min-width: 35%;
+  min-height: 35%;
   max-width: 55%;
   max-height: 800px;
 }
@@ -188,4 +202,10 @@ input {
   color: #bbb;
   text-decoration: none;
   cursor: pointer;
+}
+
+.comment-card {
+  text-align: left;
+  background-color: gainsboro;
+  margin: 10px;
 }
