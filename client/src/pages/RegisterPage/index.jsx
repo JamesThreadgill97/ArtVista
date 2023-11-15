@@ -1,6 +1,8 @@
 import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 export default function Register() {
+  const navigate = useNavigate()
   const [username, setUsername] = useState("")
   const [password1, setPassword1] = useState("")
   const [password2, setPassword2] = useState("")
@@ -37,8 +39,9 @@ export default function Register() {
           setMessage("Register and Login successful!")
 
           setTimeout(()=>{
+            navigate("/")
             setMessage("")
-          },5000)
+          },1000)
         }
       }
       catch(err) {

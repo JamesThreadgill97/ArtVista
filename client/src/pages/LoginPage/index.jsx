@@ -1,9 +1,13 @@
 import React, {useState} from "react"
+import { useNavigate } from "react-router-dom"
 
 export default function LoginPage() {
+  const navigate = useNavigate()
+
   const [username,setUsername] = useState("")
   const [password,setPassword] = useState("")
   const [message,setMessage] = useState("")
+
 
   const handleTextInput = (e) => {
     setUsername(e.target.value)
@@ -32,8 +36,9 @@ export default function LoginPage() {
         if (response.status == 200) {
           setMessage("Login successful!")
           setTimeout(()=>{
+            navigate("/")
             setMessage("")
-          },5000)
+          },1000)
         }
         
       }
