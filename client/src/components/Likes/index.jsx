@@ -5,6 +5,7 @@ export default function Likes({id, artwork}) {
   const [likeImg, setLikeImg] = useState("../../../assets/blackheart.png")
    useEffect(()=>{
     setLikeNum(artwork.likes)
+    setLikeImg("../../../assets/blackheart.png")
   },[artwork])
 
   const handleClick = () => {
