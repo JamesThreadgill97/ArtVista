@@ -5,8 +5,11 @@ function GoogleStorageFileUploader() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let formData = new FormData();
+    //get other input forms and add them here.
+
+
     formData.append("file", file.data);
-    const response = await fetch("http://localhost:3000/upload", {
+    const response = await fetch("http://localhost:3000/art/", {
       method: "POST",
       body: formData,
     });

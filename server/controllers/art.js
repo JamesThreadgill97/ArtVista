@@ -30,15 +30,17 @@ async function show(req, res) {
   }
 }
 
-const create = async (req, res) => {
+async function create(req, res) {
   try {
     const data = req.body;
-    const newArt = await Art.create(data);
-    res.status(201).send(newArt);
+    const file = req.file;
+
+    const newArt = await Art.uploadAndCreate(data, file);
+    res.status(201).json(newArt);
   } catch (err) {
-    res.status(400).send({ error: err.message });
+    res.status(400).json({ error: err.message });
   }
-};
+}
 
 async function update(req, res) {
   try {
