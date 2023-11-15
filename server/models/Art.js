@@ -12,7 +12,7 @@ class Art {
   }
 
   static async getAll() {
-    const response = await db.query('SELECT * from art');
+    const response = await db.query('SELECT art.*, users.username FROM art INNER JOIN users ON art.user_id = users.user_id;');
     if (response.rows.length === 0) {
       throw new Error('No art available.');
     }
