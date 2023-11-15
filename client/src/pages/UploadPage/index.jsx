@@ -9,7 +9,7 @@ function GoogleStorageFileUploader() {
 
 
     formData.append("file", file.data);
-    const response = await fetch("http://localhost:3000/art/", {
+    const response = await fetch("https://artvista-api.onrender.com/art/", {
       method: "POST",
       body: formData,
     });
