@@ -143,15 +143,31 @@ textarea {
 /* artwork page */
 .artwork-and-info {
   display: flex;
-  padding: 30px
+  height: 80vh;
+  padding: 30px;
+  justify-content: center;
 }
+
+.artwork-and-info > .displayed-artwork {
+  height: inherit;
+  width: auto;
+  margin-right: calc((30% + 5vw));
+  
+
+}
+
 .artwork-info {
   background-color: var(--light-dialogue);
-  width: 40%;
-  height: auto;
-  margin-left: 20px;
-  border-radius: 15px;
+  width: 30%;
+  height: inherit;
   
+  border-radius: 15px;
+
+  /* display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap; */
+  right: 7.5vw;
+  position: absolute;
 }
 
 /* MODAL */

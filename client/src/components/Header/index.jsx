@@ -44,8 +44,8 @@ export default function Header() {
     <>
       <header>
         <nav>
-          <NavLink className="nav-link" to="/create">Add</NavLink>
           <NavLink className="nav-link" to="/">Home</NavLink>
+          <NavLink className="nav-link" to="/create">Add</NavLink>
           {/* changes header based on login status, doesn't automatically update though */}
           {localStorage.getItem("token") &&
             <div>
