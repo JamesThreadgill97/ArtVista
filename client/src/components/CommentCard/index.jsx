@@ -1,15 +1,21 @@
 import React, {useEffect, useState} from 'react'
 
-export default function CommentCard({data}) {
+export default function CommentCard({commentData}) {
+  const [userInfo,setUserInfo] = useState("")
   useEffect(()=>{
     const fetchUserDataById = async () => {
-
+      const response = await fetch(`https://artvista-api.onrender.com/users/userInfo/${commentData.user_id}`)
+      const data = await response.json()
+      if (response.status == 200) {
+        setUserInfo(data)
+      }
     }
+    fetchUserDataById()
   },[])
   return (
     <div className='comment-card'>
-      <h2>User: {data.user_id}</h2>
-      <h3>{data.content}</h3>
+      <h2>{userInfo.username}</h2>
+      <h3>{commentData.content}</h3>
     </div>
   )
 }
