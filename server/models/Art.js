@@ -62,6 +62,16 @@ static async getAllByTag(tag_id) {
   return response.rows;
 }
 
+static async getTagsById(art_id) {
+  const response = await db.query('SELECT * FROM artTags JOIN tags ON artTags.tag_id = tags.tag_id WHERE artTags.art_id = $1',[art_id])
+  if (response.rows.length === 0) {
+    throw new Error('Unable to locate tags.');
+  }
+
+  return response.rows;
+}
+
+
 static async uploadAndCreate(data, file, tag_ids) {
   const { user_id, title, description, likes } = data;
 
