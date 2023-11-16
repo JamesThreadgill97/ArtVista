@@ -54,7 +54,7 @@ class Art {
   }
   
 static async getAllByTag(tag_id) {
-  const response = await db.query('SELECT * FROM art WHERE tag_id = $1', [tag_id])
+  const response = await db.query('SELECT * FROM artTags WHERE tag_id = $1', [tag_id])
   if (response.rows.length === 0) {
     throw new Error('Unable to locate art.');
   }
@@ -62,15 +62,25 @@ static async getAllByTag(tag_id) {
   return response.rows;
 }
 
- static async uploadAndCreate(data, file) {
-  const { user_id, title, description, likes, tag_id } = data;
+static async uploadAndCreate(data, file, tag_ids) {
+  const { user_id, title, description, likes } = data;
+
   // Upload the file to Cloud Storage
   const publicUrl = await this.uploadFileToStorage(file);
+
   // Create a new art entry in the database
   const response = await db.query(
-    'INSERT INTO art (user_id, tag_id, title, description, likes, url) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;',
-    [user_id, tag_id, title, description, likes, publicUrl]
+    'INSERT INTO art (user_id, title, description, likes, url) VALUES ($1, $2, $3, $4, $5) RETURNING art_id;',
+    [user_id, title, description, likes, publicUrl]
   );
+
+  const artId = response.rows[0].art_id;
+
+  // Associate the art piece with multiple tags
+  for (const tag_id of tag_ids) {
+    await db.query('INSERT INTO artTags (art_id, tag_id) VALUES ($1, $2);', [artId, tag_id]);
+  }
+
   return new Art(response.rows[0]);
 }
 
