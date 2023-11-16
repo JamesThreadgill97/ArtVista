@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const multer = require('multer');
 const artController = require('../controllers/art');
+const authenticator = require('../middleware/authenticator');
 
 const artRouter = Router();
 const upload = multer(); // Initialize Multer
