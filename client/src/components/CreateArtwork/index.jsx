@@ -5,11 +5,13 @@ export default function CreateArtwork() {
   const [file, setFile] = useState(null)
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
+  const [message, setMessage] = useState("")
 
   const handleFileChange = (e) => {
     const img = {
       preview: URL.createObjectURL(e.target.files[0]),
       data: e.target.files[0],
+
     }
     setFile(img)
   }
@@ -23,6 +25,7 @@ export default function CreateArtwork() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     let formData = new FormData()
+    formData.append("user_id", localStorage.getItem("user_id"))
     formData.append("file", file.data)
 
     
@@ -35,34 +38,39 @@ export default function CreateArtwork() {
       try {
         const options = {
           method: "POST",
-          body: formData,
-        }  
-              console.log("we are here currently");
+          body: formData
+        }
         const response = await fetch("https://artvista-api.onrender.com/art/", options)
 
         const responseWithBody = await response.json()
         // setUrl(responseWithBody.publicUrl)
         // console.log(url)
-        // if (response == 201) {
-        // }
+        if (response.status == 201) {
+          setMessage("Artwork Uploaded!")
+          setTimeout(() => {
+            setMessage("")
+          }, 5000)
+        }
       }
       catch (err) {
         console.error({ error: err.message })
       }
     }
-
     uploadFile()
+    setDescription("")
+    setTitle("")
   }
   return (
     <>
       <form onSubmit={handleSubmit}>
         <h2>Post your art!</h2>
         <input type="file" accept="image/*" onChange={handleFileChange} />
-        <input type="text" placeholder="Enter title..." onChange={handleTextInput} />
-        <textarea placeholder="Enter description..." onChange={handleTextarea}></textarea>
+        <input type="text" placeholder="Enter title..." onChange={handleTextInput} value={title} />
+        <textarea placeholder="Enter description..." onChange={handleTextarea} value={description}></textarea>
         <h3>(tags here too)</h3>
         <input type="submit" />
       </form>
+      <h2>{message}</h2>
     </>
   )
 }

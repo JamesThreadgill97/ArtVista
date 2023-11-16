@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
-import { Gallery, ProfileLink, Comments, CommentForm, Modal } from "../../components"
+import { Gallery, ProfileLink, Comments, CommentForm, Modal, Likes} from "../../components"
 
 export default function ArtworkPage() {
+  const { id } = useParams()
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [comments,setComments] =useState("")
-  const [artwork,setArtwork] = useState({})
-  const [artworks,setArtworks] = useState([])
+  const [artwork, setArtwork] = useState({})
+  const [artworks, setArtworks] = useState([])
+  const [comments, setComments] = useState([])
+  const [commentMessage, setCommentMessage] = useState([])
 
   //gets all images
-  useEffect(()=>{
+  useEffect(() => {
     const fetchArtworks = async () => {
       const response = await fetch("https://artvista-api.onrender.com/art/")
       const data = await response.json()
       setArtworks(data)
     }
     fetchArtworks()
-  },[])
+  }, [])
 
 
   const openModal = () => {
@@ -26,9 +28,8 @@ export default function ArtworkPage() {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-  const { id } = useParams()
 
-  useEffect(()=> {
+  useEffect(() => {
     const fetchArtwork = async () => {
       try {
         const response = await fetch(`https://artvista-api.onrender.com/art/${id}`)
@@ -38,11 +39,36 @@ export default function ArtworkPage() {
         }
       }
       catch (err) {
-        console.error({error: err.message})
+        console.error({ error: err.message })
       }
     }
     fetchArtwork()
-  },[id])
+  }, [id])
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      const response = await fetch(`https://artvista-api.onrender.com/art/${id}/comments`)
+      const data = await response.json()
+      if (data == "no comments") {
+        setComments([])
+        setCommentMessage("No comments")
+      } else {
+        setComments(data)
+      }
+    }
+    fetchComments()
+    
+  }, [id])
+
+  useEffect(()=> {
+    if (comments.length == 0) {
+      setCommentMessage("No comments")
+    } else if (comments.length == 1) {
+      setCommentMessage("1 comment")
+    } else {
+      setCommentMessage(`${comments.length} comments`)
+    }
+  }, [comments])
 
   return (
     <>
@@ -60,12 +86,15 @@ export default function ArtworkPage() {
           <ProfileLink id={artwork.user_id} />
           <h3>TAGS HERE</h3>
           <p>{artwork.description}</p>
-          
-          <Comments comments={comments} id={id}/>
-          <CommentForm setComments={setComments} id={id}/>
+          <div>
+          <h3>{commentMessage}</h3>
+          <Likes id={id} artwork={artwork}/>
+          </div>
+          <Comments id={id} comments={comments} />
+          <CommentForm id={id} setComments={setComments} />
         </div>
       </div>
-      <Gallery artworks={artworks}/>
+      <Gallery artworks={artworks} />
     </>
   )
 }

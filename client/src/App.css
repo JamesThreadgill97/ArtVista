@@ -209,3 +209,8 @@ textarea {
   background-color: gainsboro;
   margin: 10px;
 }
+
+/* like button */
+.like-image { 
+  width:25px;
+}
