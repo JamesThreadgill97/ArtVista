@@ -22,14 +22,12 @@ describe('Authenticator Middleware Tests', () => {
 
     const next = jest.fn();
 
-    // Mock the getOneByToken method of the Token model
     Token.getOneByToken.mockResolvedValue({
       user_id: 'fakeUserId',
     });
 
     await authenticator(req, res, next);
 
-    // Assertions
     expect(Token.getOneByToken).toHaveBeenCalledWith('validToken');
     expect(next).toHaveBeenCalled();
     expect(res.status).not.toHaveBeenCalled();
@@ -50,12 +48,12 @@ describe('Authenticator Middleware Tests', () => {
 
     const next = jest.fn();
 
-    // Mock the getOneByToken method of the Token model
+    
     Token.getOneByToken.mockRejectedValue(new Error('Invalid token'));
 
     await authenticator(req, res, next);
 
-    // Assertions
+    
     expect(Token.getOneByToken).toHaveBeenCalledWith('invalidToken');
     expect(next).not.toHaveBeenCalled();
     expect(res.status).toHaveBeenCalledWith(403);

@@ -21,7 +21,6 @@ describe('User Controller Tests', () => {
       body: {
         username: 'testuser',
         password: 'testpassword',
-        // other required data
       },
     };
 
@@ -32,19 +31,14 @@ describe('User Controller Tests', () => {
 
     await register(req, res);
 
-    // Assertions for a successful registration
     expect(bcrypt.genSalt).toHaveBeenCalledWith(parseInt(process.env.BCRYPT_SALT_ROUNDS));
     expect(bcrypt.hash).toHaveBeenCalledWith('testpassword', 'fakeSalt');
     expect(User.create).toHaveBeenCalledWith({
       username: 'testuser',
       password: 'hashedPassword',
-      // other expected data
     });
     expect(res.status).toHaveBeenCalledWith(201);
-    // You may want to further validate the response depending on your implementation
-    // For example, you can check if res.send has been called with the expected result.
-
-    // Test registration error scenario
+    
     const errorMessage = 'Registration error';
     jest.spyOn(User, 'create').mockRejectedValue(new Error(errorMessage));
 
@@ -91,14 +85,12 @@ describe('User Controller Tests', () => {
 
       await login(req, res);
 
-      // Assertions for a successful login
       expect(User.getOneByUsername).toHaveBeenCalledWith('testuser');
       expect(bcrypt.compare).toHaveBeenCalledWith('testpassword', 'hashedPassword');
       expect(Token.create).toHaveBeenCalledWith('fakeUserId');
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith({ authenticated: true, token: 'fakeToken' });
 
-      // Test incorrect password scenario
       bcrypt.compare.mockResolvedValue(false);
 
       await login(req, res);
@@ -106,7 +98,6 @@ describe('User Controller Tests', () => {
       expect(res.status).toHaveBeenCalledWith(403);
       expect(res.json).toHaveBeenCalledWith({ error: 'Incorrect credentials.' });
 
-      // Test error during login scenario
       jest.spyOn(User, 'getOneByUsername').mockRejectedValue(new Error('Some error'));
 
       await login(req, res);
@@ -119,7 +110,6 @@ describe('User Controller Tests', () => {
   beforeEach(() => {
     jest.resetAllMocks();
 
-    // Mock User model
     const userMock = {
       id: 'fakeUserId',
       username: 'testuser',
@@ -127,7 +117,6 @@ describe('User Controller Tests', () => {
     };
     jest.spyOn(User, 'getOneById').mockResolvedValue(userMock);
 
-    // Mock Token model
     const tokenMock = {
       user_id: 'fakeUserId',
     };
@@ -148,7 +137,6 @@ describe('User Controller Tests', () => {
 
     await getUserId(req, res);
 
-    // Assertions for a successful user ID retrieval
     expect(Token.getOneByToken).toHaveBeenCalledWith('fakeToken');
     expect(User.getOneById).toHaveBeenCalledWith('fakeUserId');
     expect(res.status).toHaveBeenCalledWith(201);
@@ -171,7 +159,6 @@ describe('User Controller Tests', () => {
       json: jest.fn(),
     };
 
-    // Test error during user ID retrieval scenario
     jest.spyOn(Token, 'getOneByToken').mockRejectedValue(new Error('Token error'));
 
     await getUserId(req, res);
