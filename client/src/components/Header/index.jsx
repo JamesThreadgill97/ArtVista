@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react"
 import { NavLink, Outlet } from "react-router-dom"
-import {SearchForm} from "../../components"
 
 
 export default function Header() {
@@ -53,7 +52,6 @@ export default function Header() {
               <NavLink>{username}</NavLink>
             </div>
           }
-          <SearchForm/>
 
           {localStorage.getItem("token") && <NavLink className="nav-link" onClick={handleLogout}>Logout</NavLink>}
           {!localStorage.getItem("token") &&

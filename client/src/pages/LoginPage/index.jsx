@@ -39,6 +39,12 @@ export default function LoginPage() {
             navigate("/")
             setMessage("")
           },1000)
+        } else {
+          setMessage("Login unsuccessful!")
+          setTimeout(()=>{
+            navigate("/")
+            setMessage("")
+          },1000)
         }
         
       }
