@@ -7,6 +7,7 @@ export default function CreateArtwork() {
   const [message, setMessage] = useState("")
   const [tags, setTags] = useState([])
   const [selectedTags, setSelectedTags] = useState([])
+  const [newTag,setNewTag] = useState("")
 
   useEffect(() => {
     const fetchTags = async () => {
@@ -29,9 +30,8 @@ export default function CreateArtwork() {
     if (e.target.checked) {
       setSelectedTags(prevState => [...prevState, parseInt(e.target.dataset.number)])
     } else {
-      setSelectedTags(prevState => prevState.filter((el)=> el !== parseInt(e.target.dataset.number)))
+      setSelectedTags(prevState => prevState.filter((el) => el !== parseInt(e.target.dataset.number)))
     }
-    console.log(selectedTags)
   }
 
   const handleFileChange = (e) => {
@@ -57,7 +57,7 @@ export default function CreateArtwork() {
     formData.append("title", title)
     formData.append("description", description) //add tags at some point too
     formData.append("likes", 0)
-    formData.append("tag_ids", [1, 3, 8])
+    formData.append("tag_ids", selectedTags)
     const uploadFile = async () => {
       try {
         const options = {
@@ -66,8 +66,8 @@ export default function CreateArtwork() {
         }
         const response = await fetch("https://artvista-api.onrender.com/art/", options)
 
+        setMessage("Artwork Uploaded!")
         if (response.status == 201) {
-          setMessage("Artwork Uploaded!")
           setTimeout(() => {
             setMessage("")
           }, 5000)
@@ -88,19 +88,26 @@ export default function CreateArtwork() {
         <input type="file" accept="image/*" onChange={handleFileChange} />
         <input type="text" placeholder="Enter title..." onChange={handleTextInput} value={title} />
         <textarea placeholder="Enter description..." onChange={handleTextarea} value={description}></textarea>
-        <div>
+
+
+
+        <input type="submit" />
+      </form>
+      <div>
           <h3>Tags</h3>
           <div>
             {tags.map((el) => <label key={el.id}>
               <span>{el.tag}</span>
-              <input type="checkbox" onChange={handleCheckbox} data-number={el.id}/>
+              <input type="checkbox" onChange={handleCheckbox} data-number={el.id} />
             </label>)}
-              <input type="text" placeholder="create a tag"/>
-              <input type="submit" />
+            <div>
+              <form>
+                <input type="text" placeholder="create a tag" />
+                <input type="submit" />
+              </form>
+            </div>
           </div>
         </div>
-        <input type="submit" />
-      </form>
       <h2>{message}</h2>
     </>
   )
