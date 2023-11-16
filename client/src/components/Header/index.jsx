@@ -64,10 +64,10 @@ export default function Header() {
       </header>
       <Outlet />
       <footer>
-        <NavLink>About</NavLink>
-        <NavLink>DMCA</NavLink>
-        <NavLink>Etiquette</NavLink>
-        <NavLink>Contact Us</NavLink>
+        <NavLink to="/about">About</NavLink>
+        <NavLink to="/dmca">DMCA</NavLink>
+        <NavLink to="/etiquette">Etiquette</NavLink>
+        <NavLink to="/contactUs">Contact Us</NavLink>
       </footer>
     </>
   )

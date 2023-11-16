@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {NavLink} from "react-router-dom"
 
 export default function CommentCard({commentData}) {
-  const [userInfo,setUserInfo] = useState("")
+  const [userInfo,setUserInfo] = useState({})
   useEffect(()=>{
     const fetchUserDataById = async () => {
       const response = await fetch(`https://artvista-api.onrender.com/users/userInfo/${commentData.user_id}`)
