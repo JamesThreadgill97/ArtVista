@@ -13,5 +13,6 @@ artRouter.get('/:id/comments', artController.comments);
 artRouter.post('/', upload.single('file'), artController.create); // Use Multer middleware for file upload
 artRouter.patch('/:id', artController.update);
 artRouter.delete('/:id', artController.destroy);
+artRouter.get('/tags/:id', artController.showTags) //gets tags for specific artwork
 
 module.exports = artRouter;

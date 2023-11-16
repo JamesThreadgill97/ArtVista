@@ -63,7 +63,12 @@ static async getAllByTag(tag_id) {
 }
 
 static async getTagsById(art_id) {
-  const response = await db.query
+  const response = await db.query('SELECT * FROM artTags JOIN tags ON artTags.tag_id = tags.tag_id WHERE artTags.art_id = $1',[art_id])
+  if (response.rows.length === 0) {
+    throw new Error('Unable to locate tags.');
+  }
+
+  return response.rows;
 }
 
 
