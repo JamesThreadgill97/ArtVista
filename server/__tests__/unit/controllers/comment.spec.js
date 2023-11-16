@@ -1,6 +1,5 @@
 const Comment = require('../../../models/Comment');
 const commentController = require('../../../controllers/comment'); 
-// jest.mock('../../../models/Comment'); 
 
 
 describe('Comment Controller Tests', () => {
