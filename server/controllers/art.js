@@ -34,7 +34,9 @@ async function create(req, res) {
   try {
     const data = req.body;
     const file = req.file;
-    const newArt = await Art.uploadAndCreate(data, file);
+    const tagIds = req.body.tag_ids; // Assuming the frontend sends tag_ids as an array
+
+    const newArt = await Art.uploadAndCreate(data, file, tagIds);
     res.status(201).json(newArt);
   } catch (err) {
     res.status(400).json({ error: err.message });

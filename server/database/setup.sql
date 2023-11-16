@@ -23,7 +23,6 @@ CREATE TABLE art (
     user_id INT NOT NULL,
     title VARCHAR(50) NOT NULL,
     description VARCHAR(10000),
-    tag_id INT NOT NULL,
     likes INT NOT NULL,
     url VARCHAR(1000) NOT NULL,
     PRIMARY KEY(art_id),
