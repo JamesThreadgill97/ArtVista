@@ -1,6 +1,6 @@
 import React from "react"
 import { Routes, Route } from 'react-router-dom';
-import { HomePage, ArtworkPage, LoginPage, RegisterPage, ProfilePage,CreatePage, NotFoundPage } from './pages';
+import { HomePage, ArtworkPage, LoginPage, RegisterPage, ProfilePage,CreatePage, NotFoundPage, UploadPage } from './pages';
 import {Header} from "./components"
 import './App.css';
 
@@ -10,6 +10,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Header/>}>
           <Route index element={<HomePage />} />
+          <Route path="upload" element={<UploadPage/>} />
           <Route path="artwork/:id" element={<ArtworkPage/>} />
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegisterPage/>}/>
