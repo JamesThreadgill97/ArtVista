@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import {NavLink} from "react-router-dom"
 
 export default function CommentCard({commentData}) {
   const [userInfo,setUserInfo] = useState("")
@@ -14,7 +15,8 @@ export default function CommentCard({commentData}) {
   },[])
   return (
     <div className='comment-card'>
-      <h2>{userInfo.username}</h2>
+      <NavLink to={`/profile/${userInfo.id}`}><h2>{userInfo.username}</h2></NavLink>
+      
       <h3>{commentData.content}</h3>
     </div>
   )
