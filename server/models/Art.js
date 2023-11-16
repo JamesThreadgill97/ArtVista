@@ -77,8 +77,11 @@ static async uploadAndCreate(data, file, tag_ids) {
   const artId = response.rows[0].art_id;
 
   // Associate the art piece with multiple tags
-  for (const tag_id of tag_ids) {
-    await db.query('INSERT INTO artTags (art_id, tag_id) VALUES ($1, $2);', [artId, tag_id]);
+  for (let i = 0; i < tag_ids.length; i++) {
+    const tag_id = tag_ids[i]
+    if(tag_id != ','){
+      await db.query('INSERT INTO artTags (art_id, tag_id) VALUES ($1, $2);', [artId, tag_id]);
+    }
   }
 
   return new Art(response.rows[0]);
