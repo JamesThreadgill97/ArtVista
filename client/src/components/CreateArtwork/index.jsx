@@ -30,7 +30,7 @@ export default function CreateArtwork() {
     formData.append("title", title)
     formData.append("description", description) //add tags at some point too
     formData.append("likes", 0)
-    formData.append("tag_id", 1)
+    formData.append("tag_ids", [6,9])
     const uploadFile = async () => {
       try {
         const options = {
