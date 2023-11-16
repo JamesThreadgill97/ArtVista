@@ -63,7 +63,12 @@ export default function Header() {
         </nav>
       </header>
       <Outlet />
-      <footer>&copy; npm-run-dev-vous 2023</footer>
+      <footer>
+        <NavLink>About</NavLink>
+        <NavLink>DMCA</NavLink>
+        <NavLink>Etiquette</NavLink>
+        <NavLink>Contact Us</NavLink>
+      </footer>
     </>
   )
 }
