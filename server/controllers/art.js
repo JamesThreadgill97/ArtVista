@@ -1,4 +1,5 @@
 const Art = require('../models/Art.js');
+const { search } = require('../routers/art.js');
 
 async function index(req, res) {
   try {
@@ -65,5 +66,17 @@ async function destroy(req, res) {
   }
 }
 
+// async function showBySearch(req, res) {
+//   try {
+//     console.log("controller")
+//     const searchString = req.params.string;
+//     console.log(searchString)
+//     // const decodedString = decodeURIComponent(searchString)
+//     const arts = await Art.searchForArt(searchString);
+//     res.status(200).json(arts)
+//   } catch (err) {
+//     res.status(404).json({ error: err.message })
+//   }
+// }
 
 module.exports = { index, show, create, comments, update, destroy };
