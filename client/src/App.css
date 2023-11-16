@@ -151,6 +151,7 @@ textarea {
   height: auto;
   margin-left: 20px;
   border-radius: 15px;
+  
 }
 
 /* MODAL */
@@ -236,9 +237,9 @@ textarea {
 .comment-create > input {
   /* background-image: url("../assets/send-comment.png");
   background-size: cover; */
-  /* width: 2vw; */
+  width: 2vw;
   /* z-index: 1; */
-  /* height: 2vw; */
+  height: 2vw;
   /* float:right; */
   font-size: 2vh;
   font-weight: bold;
@@ -256,10 +257,13 @@ textarea {
   mask-repeat: no-repeat;
   -webkit-mask-size: 2vw 2vw;
   mask-size: 2vw 2vw;
+  -webkit-mask-position: right;
+  mask-position:right;
+  background-color: var(--logo-colour);
 }
 
 .comment-create > input:hover {
-  background-color: #ff0000;
+  background-color: var(--text-colour);
 }
 
 /* like button */
