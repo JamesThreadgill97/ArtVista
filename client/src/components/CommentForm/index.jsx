@@ -17,7 +17,7 @@ export default function CommentForm({id, setComments}) {
             "Authorization": localStorage.getItem('token')
           },
           body: JSON.stringify({
-            user_id: 2,//need to get this
+            user_id: localStorage.getItem('user_id'),
             art_id: id,
             content: comment
           })
