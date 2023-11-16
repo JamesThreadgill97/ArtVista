@@ -40,11 +40,9 @@ export default function CommentForm({id, setComments}) {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+      <div className="comment-create" onSubmit={handleSubmit}>
         <textarea name="" id="" cols="30" rows="3" placeholder='Comment here...' onChange={handleTextarea} value={comment}></textarea>
-        <input type="submit" />
-      </form>
-    </div>
+        <input value="" type="submit" onClick={handleSubmit}/>
+      </div>
   )
 }
