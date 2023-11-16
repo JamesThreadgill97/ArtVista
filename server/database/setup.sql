@@ -26,8 +26,7 @@ CREATE TABLE art (
     likes INT NOT NULL,
     url VARCHAR(1000) NOT NULL,
     PRIMARY KEY(art_id),
-    FOREIGN KEY (user_id) REFERENCES Users(user_id),
-    FOREIGN KEY (tag_id) REFERENCES tags(tag_id)
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 
 CREATE TABLE artTags (
@@ -35,7 +34,7 @@ CREATE TABLE artTags (
     tag_id INT,
     PRIMARY KEY (art_id, tag_id),
     FOREIGN KEY (art_id) REFERENCES art(art_id),
-    FOREIGN KEY (tag_id) REFERENCES Tags(tag_id)
+    FOREIGN KEY (tag_id) REFERENCES tags(tag_id)
 );
 
 
@@ -110,18 +109,18 @@ VALUES
 
 
 -- Insert dummy data into the art table
-INSERT INTO art (user_id, title, tag_id,  description, likes, url)
+INSERT INTO art (user_id, title, description, likes, url)
 VALUES
-    (1, 'Sunset Landscape', 4, 'A beautiful landscape with a colorful sunset.', 15, 'https://storage.cloud.google.com/artvista-images/moa.png'),
-    (2, 'Abstract Sculpture', 5, 'A unique abstract sculpture made from recycled materials.', 8, 'https://storage.cloud.google.com/artvista-images/moa.png'),
-    (1, 'Portrait of a Woman', 1,'A detailed portrait capturing the essence of a woman.', 22, 'https://storage.cloud.google.com/artvista-images/moa.png'),
-    (3, 'City Skyline at Night', 8,'A city skyline illuminated against the night sky.', 10, 'https://storage.cloud.google.com/artvista-images/moa.png'),
-    (2, 'Still Life with Flowers', 2, 'A classic still life composition featuring vibrant flowers.', 18, 'https://storage.cloud.google.com/artvista-images/moa.png'),
-    (3, 'Digital Art Exploration', 9, 'Experimenting with digital tools to create abstract art.', 5, 'https://storage.cloud.google.com/artvista-images/moa.png'),
-    (1, 'Wildlife Photography', 2, 'Capturing the beauty of wildlife in their natural habitat.', 12, 'https://storage.cloud.google.com/artvista-images/moa.png'),
-    (2, 'Surreal Fantasy World', 2, 'Creating a surreal fantasy world with imaginative elements.', 25, 'https://storage.cloud.google.com/artvista-images/moa.png'),
-    (3, 'Black and White Architecture', 6, 'Exploring architectural details in black and white photography.', 14, 'https://storage.cloud.google.com/artvista-images/moa.png'),
-    (1, 'Impressionist Seascape', 10, 'An impressionistic portrayal of the sea and sky.', 20, 'https://storage.cloud.google.com/artvista-images/moa.png');
+    (1, 'Sunset Landscape', 'A beautiful landscape with a colorful sunset.', 15, 'https://storage.cloud.google.com/artvista-images/moa.png'),
+    (2, 'Abstract Sculpture', 'A unique abstract sculpture made from recycled materials.', 8, 'https://storage.cloud.google.com/artvista-images/moa.png'),
+    (1, 'Portrait of a Woman','A detailed portrait capturing the essence of a woman.', 22, 'https://storage.cloud.google.com/artvista-images/moa.png'),
+    (3, 'City Skyline at Night','A city skyline illuminated against the night sky.', 10, 'https://storage.cloud.google.com/artvista-images/moa.png'),
+    (2, 'Still Life with Flowers', 'A classic still life composition featuring vibrant flowers.', 18, 'https://storage.cloud.google.com/artvista-images/moa.png'),
+    (3, 'Digital Art Exploration', 'Experimenting with digital tools to create abstract art.', 5, 'https://storage.cloud.google.com/artvista-images/moa.png'),
+    (1, 'Wildlife Photography', 'Capturing the beauty of wildlife in their natural habitat.', 12, 'https://storage.cloud.google.com/artvista-images/moa.png'),
+    (2, 'Surreal Fantasy World', 'Creating a surreal fantasy world with imaginative elements.', 25, 'https://storage.cloud.google.com/artvista-images/moa.png'),
+    (3, 'Black and White Architecture', 'Exploring architectural details in black and white photography.', 14, 'https://storage.cloud.google.com/artvista-images/moa.png'),
+    (1, 'Impressionist Seascape', 'An impressionistic portrayal of the sea and sky.', 20, 'https://storage.cloud.google.com/artvista-images/moa.png');
 
 -- Insert dummy data into the comments table
 INSERT INTO comments (art_id, user_id, content)
