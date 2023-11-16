@@ -261,3 +261,8 @@ textarea {
 .comment-create > input:hover {
   background-color: #ff0000;
 }
+
+/* like button */
+.like-image { 
+  width:25px;
+}
