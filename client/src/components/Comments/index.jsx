@@ -5,7 +5,7 @@ export default function Comments({id, comments}) {
 
   return (
     <>
-    {comments.map((el,i)=> <CommentCard data={el} key={i}/>)}
+    {comments.map((el,i)=> <CommentCard commentData={el} key={i}/>)}
     </>
   )
 }
