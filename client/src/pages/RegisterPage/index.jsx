@@ -1,6 +1,8 @@
 import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 export default function Register() {
+  const navigate = useNavigate()
   const [username, setUsername] = useState("")
   const [password1, setPassword1] = useState("")
   const [password2, setPassword2] = useState("")
@@ -31,13 +33,15 @@ export default function Register() {
         }
         const response = await fetch('https://artvista-api.onrender.com/users/login',options)
         const data = await response.json()
-        localStorage.setItem("token", data.token) //check is correct
+        localStorage.setItem("token", data.token)
+        localStorage.setItem("user_id",data.user_id)
         if (response.status == 200) {
           setMessage("Register and Login successful!")
 
           setTimeout(()=>{
+            navigate("/")
             setMessage("")
-          },5000)
+          },1000)
         }
       }
       catch(err) {

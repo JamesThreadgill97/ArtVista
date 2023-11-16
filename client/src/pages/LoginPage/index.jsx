@@ -1,9 +1,13 @@
 import React, {useState} from "react"
+import { useNavigate } from "react-router-dom"
 
 export default function LoginPage() {
+  const navigate = useNavigate()
+
   const [username,setUsername] = useState("")
   const [password,setPassword] = useState("")
   const [message,setMessage] = useState("")
+
 
   const handleTextInput = (e) => {
     setUsername(e.target.value)
@@ -30,11 +34,13 @@ export default function LoginPage() {
         const response = await fetch('https://artvista-api.onrender.com/users/login', options)
         const data = await response.json()
         localStorage.setItem("token", data.token)
+        localStorage.setItem("user_id",data.user_id)
         if (response.status == 200) {
           setMessage("Login successful!")
           setTimeout(()=>{
+            navigate("/")
             setMessage("")
-          },5000)
+          },1000)
         }
         
       }
