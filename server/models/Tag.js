@@ -16,7 +16,7 @@ class Tag {
   }
 
   static async getTagsByArtId(id) {
-    const response = await db.query();
+    const response = await db.query("SELECT tags.* FROM artTags JOIN tags ON artTags.tag_id = tags.tag_id WHERE artTags.art_id = $1;", [id]);
     if(response.rows.length === 0) {
       throw new Error("This art has no tags")
     }
