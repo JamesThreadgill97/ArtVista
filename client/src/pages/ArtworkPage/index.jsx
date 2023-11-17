@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
-import { Gallery, ProfileLink, Comments, CommentForm, Modal, Likes} from "../../components"
+import { Gallery, ProfileLink, Comments, CommentForm, Modal, Likes, TagsCard} from "../../components"
 
 export default function ArtworkPage() {
   const { id } = useParams()
@@ -84,7 +84,7 @@ export default function ArtworkPage() {
         <div className="artwork-info">
           <h1>{artwork.title}</h1>
           <ProfileLink id={artwork.user_id} />
-          <h3>TAGS HERE</h3>
+          <TagsCard id={id}/>
           <p>{artwork.description}</p>
           <div>
           <h3>{commentMessage}</h3>
