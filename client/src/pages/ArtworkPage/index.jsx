@@ -56,7 +56,9 @@ export default function ArtworkPage() {
         setComments(data)
       }
     }
-    fetchComments()
+    setInterval(()=>{
+      fetchComments()
+    },30000)
     
   }, [id])
 
