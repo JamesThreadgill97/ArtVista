@@ -12,13 +12,7 @@ CREATE TABLE tags (
     PRIMARY KEY (tag_id)
 );
 
-CREATE TABLE userLikes (
-    user_id INT,
-    art_id INT,
-    PRIMARY KEY (art_id, user_id),
-    FOREIGN KEY (art_id) REFERENCES art(art_id),
-    FOREIGN KEY (user_id) REFERENCES Users(user_id)
-);
+
 
 CREATE TABLE Users (
     user_id INT GENERATED ALWAYS AS IDENTITY,
@@ -46,6 +40,13 @@ CREATE TABLE artTags (
     FOREIGN KEY (tag_id) REFERENCES tags(tag_id)
 );
 
+CREATE TABLE userLikes (
+    user_id INT,
+    art_id INT,
+    PRIMARY KEY (art_id, user_id),
+    FOREIGN KEY (art_id) REFERENCES art(art_id),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+);
 
 CREATE TABLE comments (
     comment_id INT GENERATED ALWAYS AS IDENTITY,
@@ -172,7 +173,7 @@ INSERT INTO userLikes (user_id, art_id)
         (6, 1),
         (4, 3),
         (4, 4),
-        (7, 12),
+        (7, 4),
         (1, 8),
         (3, 5);
 

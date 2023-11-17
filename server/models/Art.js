@@ -72,7 +72,7 @@ static async isLiked(user_id, art_id) {
 }
 
 static async addLike(user_id, art_id) {
-  const response = await db.query('INSERT INTO userLikes (user_id, art_id) VALUES ($1, $2)', [user_id, art_id])
+  const response = await db.query('INSERT INTO userLikes (user_id, art_id) VALUES ($1, $2) RETURNING *', [user_id, art_id])
   if (response.rows.length === 0) {
     throw new Error('Unable to add like.');
   }
