@@ -62,7 +62,7 @@ export default function Header() {
           }
         </nav>
       </header>
-      <Outlet />
+      <Outlet  />
       <footer>
         <NavLink to="/about">About</NavLink>
         <NavLink to="/dmca">DMCA</NavLink>
