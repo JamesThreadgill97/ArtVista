@@ -32,15 +32,14 @@ export default function SearchForm({setArtworks}) {
         //if word found in an artwork, add that artwork to filteredArtworks, and remove it from artworks
         for (let j = artworksToBeSearched.length - 1; j >= 0; j--) {
           //searches title
-          if (artworksToBeSearched[j].title.toLowerCase().includes(searchArr[i].toLowerCase())) {
+          if (
+            artworksToBeSearched[j].title.toLowerCase().includes(searchArr[i].toLowerCase()) ||
+            artworksToBeSearched[j].description.toLowerCase().includes(searchArr[i].toLowerCase()) ||
+            artworksToBeSearched[j].username.toLowerCase().includes(searchArr[i].toLowerCase())
+          ) {
             artworksMatchingSearch.push(artworksToBeSearched[j])
             artworksToBeSearched.splice(j, 1)
-          } else {
-            if (artworksToBeSearched[j].description.toLowerCase().includes(searchArr[i].toLowerCase())) {
-              artworksMatchingSearch.push(artworksToBeSearched[j])
-              artworksToBeSearched.splice(j, 1)
-            } //add more for usernames and tags too?
-          }
+           }
         }
       }
       setArtworks(artworksMatchingSearch)
