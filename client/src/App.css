@@ -7,6 +7,27 @@
   --font-family: 'Montserrat', sans-serif;
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--logo-colour); 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-colour); 
+}
+
 /* Reset some default styles */
 body, h1, h2, h3, p, ul, ol, li {
   margin: 0;
@@ -233,11 +254,12 @@ textarea {
   background-color: var(--logo-colour);
   margin: 10px;
   border-radius: 15px;
+  word-wrap: break-word;
 }
 
 .comment-section {
   overflow-y: scroll;
-  height: 30%;
+  height: 35%;
   margin-bottom: calc((85px + 2vw));
   position: relative;
 }
