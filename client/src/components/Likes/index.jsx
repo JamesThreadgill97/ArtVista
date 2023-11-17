@@ -41,7 +41,6 @@ export default function Likes({ id, artwork }) {
     } else {
       setLikeImg("https://storage.googleapis.com/artvista-images/blackheart.png")
     }
-    console.log(typeof liked)
   },[liked])
 
 
@@ -59,7 +58,6 @@ export default function Likes({ id, artwork }) {
         }
         const response = await fetch(`https://artvista-api.onrender.com/art/like/${id}/${localStorage.getItem("user_id")}`, options)
         const data = await response.json()
-        console.log(data)
       } catch (err) {
         console.error({ error: err.message })
       }
@@ -74,7 +72,6 @@ export default function Likes({ id, artwork }) {
         }
         const response = await fetch(`https://artvista-api.onrender.com/art/like/${id}/${localStorage.getItem("user_id")}`, options)
         const data = await response.json()
-        console.log(data)
       } catch (err) {
         console.error({ error: err.message })
       }

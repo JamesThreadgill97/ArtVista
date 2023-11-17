@@ -1,8 +1,11 @@
+const { log } = require("console");
 const express = require('express');
 const cors = require('cors');
 
-const userRouter = require('./routers/users');
-
+const userRouter = require('./routers/user');
+const artRouter = require('./routers/art');
+const commentRouter = require('./routers/comment');
+const tagRouter = require('./routers/tag')
 const app = express();
 
 // Middleware
@@ -14,7 +17,9 @@ app.get('/', (req, res) => {
 });
 
 // Routes
-
+app.use('/art', artRouter);
 app.use('/users', userRouter);
+app.use('/comment', commentRouter);
+app.use('/tag', tagRouter);
 
 module.exports = app;
