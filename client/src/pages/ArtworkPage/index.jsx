@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
-import { Gallery, ProfileLink, Comments, CommentForm, Modal, Likes, TagsCard} from "../../components"
+import { Gallery, ProfileLink, Comments, CommentForm, Modal, Likes, TagsCard } from "../../components"
 
 export default function ArtworkPage() {
   const { id } = useParams()
@@ -15,7 +15,11 @@ export default function ArtworkPage() {
     const fetchArtworks = async () => {
       const response = await fetch("https://artvista-api.onrender.com/art/")
       const data = await response.json()
-      setArtworks(data)
+      if (response.status == 200) {
+        let array = data;
+        array.sort((a, b) => b.id - a.id)
+        setArtworks(array)
+      }
     }
     fetchArtworks()
   }, [])
@@ -35,7 +39,9 @@ export default function ArtworkPage() {
         const response = await fetch(`https://artvista-api.onrender.com/art/${id}`)
         const data = await response.json()
         if (response.status == 200) {
-          setArtwork(data)
+          let array = data;
+          array.sort((a, b) => b.id - a.id)
+          setArtworks(array)
         }
       }
       catch (err) {
@@ -56,13 +62,14 @@ export default function ArtworkPage() {
         setComments(data)
       }
     }
-    setInterval(()=>{
+    fetchComments()
+    setInterval(() => {
       fetchComments()
-    },30000)
-    
+    }, 30000)
+
   }, [id])
 
-  useEffect(()=> {
+  useEffect(() => {
     if (comments.length == 0) {
       setCommentMessage("No comments")
     } else if (comments.length == 1) {
@@ -86,13 +93,13 @@ export default function ArtworkPage() {
         <div className="artwork-info">
           <h1>{artwork.title}</h1>
           <ProfileLink id={artwork.user_id} />
-          <TagsCard id={id}/>
+          <TagsCard id={id} />
           <p>{artwork.description}</p>
           <div>
-          <h3>{commentMessage}</h3>
-          <Likes id={id} artwork={artwork}/>
+            <h3>{commentMessage}</h3>
+            <Likes id={id} artwork={artwork} />
           </div>
-          <Comments id={id} comments={comments} />
+          <Comments comments={comments} />
           <CommentForm id={id} setComments={setComments} />
         </div>
       </div>
