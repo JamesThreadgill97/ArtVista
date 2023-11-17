@@ -9,7 +9,7 @@
 
 /* width */
 ::-webkit-scrollbar {
-  width: 20px;
+  width: 10px;
 }
 
 /* Track */
@@ -164,7 +164,7 @@ textarea {
 /* artwork page */
 .artwork-and-info {
   display: flex;
-  height: 80vh;
+  height: 75vh;
   padding: 30px;
   justify-content: center;
 }
@@ -182,8 +182,8 @@ textarea {
   width: 30%;
   height: inherit;
   
-  border-radius: 15px;
-
+  border-radius: 5px;
+  box-shadow: 0px 1px 1px 0px var(--text-colour);
   /* display: flex;
   flex-direction: column;
   flex-wrap: nowrap; */
@@ -272,6 +272,7 @@ textarea {
   bottom: 0;
   width: 90%;
   padding: 5%;
+  padding-bottom: 0;
 }
 
 .comment-create > textarea {
