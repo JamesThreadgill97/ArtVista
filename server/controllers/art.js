@@ -19,6 +19,38 @@ async function comments(req, res) {
   }
 }
 
+async function likes(req, res) {
+  try {
+    const user_id = req.params.user_id
+    const art_id = req.params.art_id
+    const liked = await Art.isLiked(user_id, art_id)
+    res.status(200).json(liked)
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+async function postLike(req, res) {
+  try {
+    const user_id = req.params.user_id
+    const art_id = req.params.art_id
+    const like = await Art.addLike(user_id, art_id)
+    res.status(200).json(like)
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+async function destroyLike(req, res) {
+  try {
+    const user_id = req.params.user_id
+    const art_id = req.params.art_id
+    const like = await Art.deleteLike(user_id, art_id)
+    res.status(200).json(like)
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
 
 async function show(req, res) {
   try {
@@ -68,4 +100,4 @@ async function destroy(req, res) {
 }
 
 
-module.exports = { index, show, create, comments, update, destroy };
+module.exports = { index, show, create, comments, likes, postLike, destroyLike,update, destroy };

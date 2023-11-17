@@ -4,11 +4,20 @@ DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS tags CASCADE;
 DROP TABLE IF EXISTS comments CASCADE;
 DROP TABLE IF EXISTS artTags CASCADE;
+DROP TABLE IF EXISTS userLikes CASCADE;
 
 CREATE TABLE tags (
     tag_id INT GENERATED ALWAYS AS IDENTITY,
     tag VARCHAR (100) NOT NULL,
     PRIMARY KEY (tag_id)
+);
+
+CREATE TABLE userLikes (
+    user_id INT,
+    art_id INT,
+    PRIMARY KEY (art_id, user_id),
+    FOREIGN KEY (art_id) REFERENCES art(art_id),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 
 CREATE TABLE Users (
@@ -150,6 +159,17 @@ INSERT INTO artTags (art_id, tag_id)
         (1, 1),
         (1, 6),
         (1, 2),
+        (4, 3),
+        (4, 4),
+        (7, 12),
+        (1, 8),
+        (3, 5);
+
+INSERT INTO userLikes (user_id, art_id)
+    VALUES
+        (1, 1),
+        (2, 1),
+        (6, 1),
         (4, 3),
         (4, 4),
         (7, 12),
