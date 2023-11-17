@@ -51,11 +51,14 @@ export default function CreateArtwork() {
     setDescription(e.target.value)
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     let formData = new FormData()
     formData.append("user_id", localStorage.getItem("user_id"))
     formData.append("file", file.data)
+
+    
+    formData.append("user_id", 1)
     formData.append("title", title)
     formData.append("description", description) //add tags at some point too
     formData.append("likes", 0)

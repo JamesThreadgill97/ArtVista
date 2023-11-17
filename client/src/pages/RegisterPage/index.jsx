@@ -61,6 +61,7 @@ export default function Register() {
             password: password1
           })
         }
+        
         const response = await fetch('https://artvista-api.onrender.com/users/register', options)
         const data = await response.json()
         if (response.status == 201) {
