@@ -61,9 +61,7 @@ export default function ArtworkPage() {
       }
     }
     fetchComments()
-    setInterval(() => {
-      fetchComments()
-    }, 30000)
+ 
 
   }, [id])
 
