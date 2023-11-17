@@ -39,9 +39,7 @@ export default function ArtworkPage() {
         const response = await fetch(`https://artvista-api.onrender.com/art/${id}`)
         const data = await response.json()
         if (response.status == 200) {
-          let array = data;
-          array.sort((a, b) => b.id - a.id)
-          setArtworks(array)
+          setArtwork(data)
         }
       }
       catch (err) {
