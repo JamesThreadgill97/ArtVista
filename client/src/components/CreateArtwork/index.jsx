@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { TagForm } from "../../components"
 
 export default function CreateArtwork() {
   const [file, setFile] = useState(null)
@@ -7,7 +8,7 @@ export default function CreateArtwork() {
   const [message, setMessage] = useState("")
   const [tags, setTags] = useState([])
   const [selectedTags, setSelectedTags] = useState([])
-  const [newTag,setNewTag] = useState("")
+  const [newTag, setNewTag] = useState("")
 
   useEffect(() => {
     const fetchTags = async () => {
@@ -88,26 +89,10 @@ export default function CreateArtwork() {
         <input type="file" accept="image/*" onChange={handleFileChange} />
         <input type="text" placeholder="Enter title..." onChange={handleTextInput} value={title} />
         <textarea placeholder="Enter description..." onChange={handleTextarea} value={description}></textarea>
-
-
-
         <input type="submit" />
       </form>
-      <div>
-          <h3>Tags</h3>
-          <div>
-            {tags.map((el) => <label key={el.id}>
-              <span>{el.tag}</span>
-              <input type="checkbox" onChange={handleCheckbox} data-number={el.id} />
-            </label>)}
-            <div>
-              <form>
-                <input type="text" placeholder="create a tag" />
-                <input type="submit" />
-              </form>
-            </div>
-          </div>
-        </div>
+      <TagForm tags={tags} setTags={setTags} handleCheckbox={handleCheckbox} />
+
       <h2>{message}</h2>
     </>
   )
