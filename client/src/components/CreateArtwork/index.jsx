@@ -64,17 +64,23 @@ export default function CreateArtwork() {
     formData.append("tag_ids", selectedTags)
     const uploadFile = async () => {
       try {
+
         const options = {
           method: "POST",
+          headers: {
+            "Authorization": localStorage.getItem('token')
+          },
           body: formData
         }
         const response = await fetch("https://artvista-api.onrender.com/art/", options)
 
-        setMessage("Artwork Uploaded!")
         if (response.status == 201) {
+          setMessage("Artwork Uploaded!")
           setTimeout(() => {
             setMessage("")
           }, 5000)
+        } else {
+          alert("Login before you post an artwork")
         }
       }
       catch (err) {

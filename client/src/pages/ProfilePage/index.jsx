@@ -22,10 +22,16 @@ export default function ProfilePage() {
   },[])
   useEffect(()=>{
     const fetchUserDataById = async () => {
-      const response = await fetch(`https://artvista-api.onrender.com/users/userInfo/${id}`)
-      const data = await response.json()
-      if (response.status == 200) {
-        setUserInfo(data)
+      try {
+        if (localStorage.getItem("token")) {
+          const response = await fetch(`https://artvista-api.onrender.com/users/userInfo/${id}`)
+          const data = await response.json()
+          if (response.status == 200) {
+            setUserInfo(data)
+          }
+        }
+      } catch (err) {
+        console.error({error:err.message})
       }
     }
     fetchUserDataById()

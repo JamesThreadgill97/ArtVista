@@ -10,26 +10,30 @@ export default function CommentForm({id, setComments}) {
     e.preventDefault()
     const postComment = async () => {
       try{
-        const options = {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json",
-            "Authorization": localStorage.getItem('token')
-          },
-          body: JSON.stringify({
-            user_id: localStorage.getItem('user_id'),
-            art_id: id,
-            content: comment
-          })
-        }
-        const response = await fetch("https://artvista-api.onrender.com/comment", options)
-        if (response.status == 201) {
-          const fetchComments = async () => {
-            const response = await fetch(`https://artvista-api.onrender.com/art/${id}/comments`)
-            const data = await response.json()
-            setComments(data)
+        if (localStorage.getItem("token")) {
+          const options = {
+            method: "POST",
+            headers: {
+              "Content-type": "application/json",
+              "Authorization": localStorage.getItem('token')
+            },
+            body: JSON.stringify({
+              user_id: localStorage.getItem('user_id'),
+              art_id: id,
+              content: comment
+            })
           }
-          fetchComments()
+          const response = await fetch("https://artvista-api.onrender.com/comment", options)
+          if (response.status == 201) {
+            const fetchComments = async () => {
+              const response = await fetch(`https://artvista-api.onrender.com/art/${id}/comments`)
+              const data = await response.json()
+              setComments(data)
+            }
+            fetchComments()
+          } else {
+            alert("Login before you leave a comment.")
+          }
         }
       } catch (err) {
         console.error({error: err.message})
