@@ -10,6 +10,8 @@ export default function TagsCard({ id }) {
         const data = await response.json()
         if (response.status == 200) {
           setTags(data)
+        } else {
+          setTags([])
         }
       } catch (err) {
         console.error({ error: err.message })
