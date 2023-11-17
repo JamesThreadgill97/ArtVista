@@ -80,7 +80,7 @@ static async addLike(user_id, art_id) {
 }
 
 static async deleteLike(user_id, art_id) {
-  const response = await db.query('DELETE FROM userLikes WHERE user_id = $1 AND art_id = $2', [user_id, art_id])
+  const response = await db.query('DELETE FROM userLikes WHERE user_id = $1 AND art_id = $2 RETURNING *', [user_id, art_id])
   if (response.rows.length !== 1) {
     throw new Error('Unable to delete like from table.');
   }
