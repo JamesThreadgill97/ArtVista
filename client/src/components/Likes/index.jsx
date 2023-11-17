@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react'
 
 export default function Likes({ id, artwork }) {
   const [likeNum, setLikeNum] = useState(0)
-  const [likeImg, setLikeImg] = useState("../../../assets/blackheart.png")
+  const [likeImg, setLikeImg] = useState("https://storage.googleapis.com/artvista-images/blackheart.png")
   const [liked, setLiked] = useState(false)
 
 
 
   useEffect(() => {
     setLikeNum(artwork.likes)
-    setLikeImg("../../../assets/blackheart.png")
+    setLikeImg("https://storage.googleapis.com/artvista-images/blackheart.png")
 
     const checkIfLiked = async () => {
       try {
@@ -19,9 +19,9 @@ export default function Likes({ id, artwork }) {
           setLiked(await response.json())
   
           if (liked) { //issue here?
-            setLikeImg("../../../assets/heart.png")
+            setLikeImg("https://storage.googleapis.com/artvista-images/heart.png")
           } else {
-            setLikeImg("../../../assets/blackheart.png")
+            setLikeImg("https://storage.googleapis.com/artvista-images/blackheart.png")
           }
         }
       } catch (err) {
@@ -37,9 +37,9 @@ export default function Likes({ id, artwork }) {
 
   useEffect(()=>{
     if (liked) {
-      setLikeImg("../../../assets/heart.png")
+      setLikeImg("https://storage.googleapis.com/artvista-images/heart.png")
     } else {
-      setLikeImg("../../../assets/blackheart.png")
+      setLikeImg("https://storage.googleapis.com/artvista-images/blackheart.png")
     }
     console.log(typeof liked)
   },[liked])
