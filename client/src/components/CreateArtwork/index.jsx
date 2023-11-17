@@ -1,11 +1,40 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
+import { TagForm } from "../../components"
 
 export default function CreateArtwork() {
-  const [url, setUrl] = useState("")
   const [file, setFile] = useState(null)
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
   const [message, setMessage] = useState("")
+  const [tags, setTags] = useState([])
+  const [selectedTags, setSelectedTags] = useState([])
+  const [newTag, setNewTag] = useState("")
+
+  useEffect(() => {
+    const fetchTags = async () => {
+      try {
+        const response = await fetch("https://artvista-api.onrender.com/tag")
+        const data = await response.json()
+        if (response.status == 200) {
+          setTags(data.data)
+        } else {
+          setTags([])
+        }
+      } catch (err) {
+        console.error({ error: err.message })
+      }
+    }
+    fetchTags()
+  }, [tags])
+
+  const handleCheckbox = (e) => {
+    console.log("checked")
+    if (e.target.checked) {
+      setSelectedTags(prevState => [...prevState, parseInt(e.target.dataset.number)])
+    } else {
+      setSelectedTags(prevState => prevState.filter((el) => el !== parseInt(e.target.dataset.number)))
+    }
+  }
 
   const handleFileChange = (e) => {
     const img = {
@@ -30,7 +59,7 @@ export default function CreateArtwork() {
     formData.append("title", title)
     formData.append("description", description) //add tags at some point too
     formData.append("likes", 0)
-    formData.append("tag_ids", [1,3,8])
+    formData.append("tag_ids", selectedTags)
     const uploadFile = async () => {
       try {
         const options = {
@@ -38,11 +67,9 @@ export default function CreateArtwork() {
           body: formData
         }
         const response = await fetch("https://artvista-api.onrender.com/art/", options)
-        const responseWithBody = await response.json()
-        // setUrl(responseWithBody.publicUrl)
-        // console.log(url)
+
+        setMessage("Artwork Uploaded!")
         if (response.status == 201) {
-          setMessage("Artwork Uploaded!")
           setTimeout(() => {
             setMessage("")
           }, 5000)
@@ -63,9 +90,10 @@ export default function CreateArtwork() {
         <input type="file" accept="image/*" onChange={handleFileChange} />
         <input type="text" placeholder="Enter title..." onChange={handleTextInput} value={title} />
         <textarea placeholder="Enter description..." onChange={handleTextarea} value={description}></textarea>
-        <h3>(tags here too)</h3>
         <input type="submit" />
       </form>
+      <TagForm tags={tags} setTags={setTags} handleCheckbox={handleCheckbox} />
+
       <h2>{message}</h2>
     </>
   )

@@ -295,3 +295,21 @@ textarea {
 .like-image { 
   width:25px;
 }
+
+/* tag checkbox */
+
+.tag-checkbox {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #e0e0e0;
+  border: 1px solid #999;
+  border-radius: 5px;
+  cursor: pointer;
+}
+/* .tag-checkbox > input {
+  display: none
+} */
+/* .tag-checkbox > input[type="checkbox"]:checked + span {
+  background-color: #4CAF50;
+  color: white;
+} */

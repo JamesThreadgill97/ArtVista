@@ -1,6 +1,6 @@
 import React from "react"
 import { Routes, Route } from 'react-router-dom';
-import { HomePage, ArtworkPage, LoginPage, RegisterPage, ProfilePage, CreatePage, NotFoundPage, AboutPage, DMCAPage, EtiquettePage, ContactUsPage } from './pages';
+import { HomePage, ArtworkPage, LoginPage, RegisterPage, ProfilePage, CreatePage, NotFoundPage, AboutPage, DMCAPage, EtiquettePage, ContactUsPage, SearchPage } from './pages';
 import { Header } from "./components"
 import './App.css';
 
