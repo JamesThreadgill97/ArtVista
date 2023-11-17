@@ -232,21 +232,30 @@ textarea {
   text-align: left;
   background-color: var(--logo-colour);
   margin: 10px;
+  border-radius: 15px;
+}
+
+.comment-section {
+  overflow-y: scroll;
+  height: 30%;
+  margin-bottom: calc((85px + 2vw));
+  position: relative;
 }
 
 .comment-create {
-  background-color: var(--light-dialogue);
   display: flex;
   /* flex-direction: row;  */
   flex-direction: column;
+  position: absolute;
+  bottom: 0;
   width: 90%;
   padding: 5%;
 }
 
 .comment-create > textarea {
   width: 100%;
-  resize:none;
-  height:auto;
+  resize: none;
+  height: 85px;
   margin-bottom: 0%;
 }
 

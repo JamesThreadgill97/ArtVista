@@ -90,7 +90,9 @@ export default function ArtworkPage() {
           <h3>{commentMessage}</h3>
           <Likes id={id} artwork={artwork}/>
           </div>
-          <Comments id={id} comments={comments} />
+          <div className="comment-section">
+            <Comments id={id} comments={comments} />
+          </div>
           <CommentForm id={id} setComments={setComments} />
         </div>
       </div>
