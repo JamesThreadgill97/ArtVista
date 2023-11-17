@@ -112,4 +112,4 @@ async function destroy(req, res) {
 
 
 
-module.exports = { index, show, create, comments, likes, postLike, destroyLike,update, destroy };
+module.exports = { index, show, create, comments, likes, postLike, destroyLike, showTags, update, destroy };
