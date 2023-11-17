@@ -28,7 +28,6 @@ export default function CreateArtwork() {
   }, [tags])
 
   const handleCheckbox = (e) => {
-    console.log("checked")
     if (e.target.checked) {
       setSelectedTags(prevState => [...prevState, parseInt(e.target.dataset.number)])
     } else {
