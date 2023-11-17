@@ -64,7 +64,7 @@ static async getAllByTag(tag_id) {
 
 
 static async isLiked(user_id, art_id) {
-  const response = await db.query('SELECT * FROM userLikes WHERE art_id = $1, user_id = $2', [art_id, user_id]);
+  const response = await db.query('SELECT * FROM userLikes WHERE art_id = $1 AND user_id = $2', [art_id, user_id]);
   if(response.rows.length === 0) {
     return false;
   }
@@ -80,7 +80,7 @@ static async addLike(user_id, art_id) {
 }
 
 static async deleteLike(user_id, art_id) {
-  const response = await db.query('DELETE FROM userLikes WHERE user_id = $1, art_id = $2', [user_id, art_id])
+  const response = await db.query('DELETE FROM userLikes WHERE user_id = $1 AND art_id = $2', [user_id, art_id])
   if (response.rows.length !== 1) {
     throw new Error('Unable to delete like from table.');
   }
