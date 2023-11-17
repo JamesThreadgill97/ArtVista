@@ -1,4 +1,5 @@
 const Art = require('../models/Art.js');
+const { search } = require('../routers/art.js');
 
 async function index(req, res) {
   try {
@@ -62,6 +63,16 @@ async function show(req, res) {
   }
 }
 
+async function showTags(req,res) {
+  try {
+    const id = parseInt(req.params.id);
+    const tags = await Art.getTagsById(id)
+    res.status(200).json(tags);
+  } catch (err) {
+    res.status(404).json({ error: err.message });
+  }
+}
+
 async function create(req, res) {
   try {
     const data = req.body;
@@ -98,6 +109,7 @@ async function destroy(req, res) {
     res.status(404).json({ error: err.message });
   }
 }
+
 
 
 module.exports = { index, show, create, comments, likes, postLike, destroyLike,update, destroy };

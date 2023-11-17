@@ -52,8 +52,21 @@ async function getUserId(req, res) {
   }
 }
 
+  async function getUserInfo(req,res) {
+    //uses getOneById
+    const user_id = req.params.id
+    try {
+      const response = await User.getOneById(user_id);
+      delete response.password;
+      res.status(200).json(response);
+    } catch (err) {
+      res.status(404).json({error:err.message})
+    }
+  }
+
 module.exports = {
   register,
   login,
   getUserId,
+  getUserInfo
 };

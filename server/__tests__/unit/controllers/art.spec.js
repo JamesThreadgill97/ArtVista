@@ -7,7 +7,11 @@ const {
   destroy,
 } = require('../../../controllers/art');
 const Art = require('../../../models/Art')
-
+const fileMock = {
+  buffer: Buffer.from('fakeImageData', 'utf-8'),
+  originalname: 'test.jpg',
+ 
+};
 jest.mock('../../../models/Art');
 
 describe('Art Controller Tests', () => {
@@ -38,28 +42,28 @@ describe('Art Controller Tests', () => {
   });
 
   test('create function should create a new art', async () => {
-    const artData = { title: 'New Art', description: 'Description' };
-    
-    const newArtMock = { id: 3, title: 'New Art', description: 'Description' };
-    
-    Art.create.mockResolvedValue(newArtMock);
+  const artData = { title: 'New Art', description: 'Description' };
 
-    const req = {
-      body: artData,
-    };
+  
+  const newArtMock = { id: 3, title: 'New Art', description: 'Description' };
+  jest.spyOn(Art, 'uploadAndCreate').mockResolvedValue(newArtMock);
 
-    const res = {
-      status: jest.fn().mockReturnThis(),
-      send: jest.fn(),
-    };
+  const req = {
+    body: artData,
+    file: fileMock, 
+  };
 
-    await create(req, res);
+  const res = {
+    status: jest.fn().mockReturnThis(),
+    json: jest.fn(),
+  };
 
-    
-    expect(Art.create).toHaveBeenCalledWith(artData);
-    expect(res.status).toHaveBeenCalledWith(201);
-    expect(res.send).toHaveBeenCalledWith(newArtMock);
-  });
+  await create(req, res);
+
+  expect(Art.uploadAndCreate).toHaveBeenCalledWith(artData, fileMock);
+  expect(res.status).toHaveBeenCalledWith(201);
+  expect(res.json).toHaveBeenCalledWith(newArtMock);
+});
 
   test('comments function should return comments for a specific art', async () => {
     const commentsMock = [
