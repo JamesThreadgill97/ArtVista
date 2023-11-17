@@ -15,7 +15,7 @@ export default function CommentCard({commentData}) {
   },[])
   return (
     <div className='comment-card'>
-      <NavLink to={`/profile/${userInfo.id}`}><h2>{userInfo.username}</h2></NavLink>
+      <NavLink className="nav-link profile-link" to={`/profile/${userInfo.id}`}><h2>{userInfo.username}</h2></NavLink>
       
       <h3>{commentData.content}</h3>
     </div>
