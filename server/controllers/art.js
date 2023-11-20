@@ -63,13 +63,24 @@ async function show(req, res) {
   }
 }
 
-async function showTags(req,res) {
+async function showTags(req, res) {
   try {
     const id = parseInt(req.params.id);
     const tags = await Art.getTagsById(id)
     res.status(200).json(tags);
   } catch (err) {
     res.status(404).json({ error: err.message });
+  }
+}
+
+async function showByTags(req, res) {
+  try {
+    const id = parseInt(req.params.id);
+    const arttags = await Art.getAllByTag(id);
+    res.status(200).json(arttags);
+  } catch (err) {
+    res.status(404).json({ error: err.message });
+
   }
 }
 
@@ -108,8 +119,9 @@ async function destroy(req, res) {
   } catch (err) {
     res.status(404).json({ error: err.message });
   }
+
 }
 
 
 
-module.exports = { index, show, create, comments, likes, postLike, destroyLike, showTags, update, destroy };
+module.exports = { index, show, create, comments, likes, postLike, destroyLike, showTags, update, destroy, showByTags };

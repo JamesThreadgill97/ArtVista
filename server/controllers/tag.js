@@ -30,6 +30,7 @@ async function getByName(req, res) {
   }
 }
 
+
 module.exports = {
   index, show, getByName
 }
