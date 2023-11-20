@@ -8,8 +8,7 @@ export default function CreateArtwork() {
   const [message, setMessage] = useState("")
   const [tags, setTags] = useState([])
   const [selectedTags, setSelectedTags] = useState([])
-  const [image, setImage] = useState("../../../assets/pokeball.png")
-
+  const [image, setImage] = useState("")
 
   useEffect(() => {
     const fetchTags = async () => {
