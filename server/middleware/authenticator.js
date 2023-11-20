@@ -1,4 +1,4 @@
-const Token = require("../models/token");
+const Token = require("../models/Token");
 
 async function authenticator(req, res, next) {
     try {

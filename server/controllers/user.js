@@ -2,7 +2,7 @@ require('dotenv').config();
 const bcrypt = require('bcrypt');
 
 const User = require('../models/User');
-const Token = require('../models/token');
+const Token = require('../models/Token');
 
 async function register(req, res) {
   try {
@@ -33,7 +33,7 @@ async function login(req, res) {
       throw new Error('Incorrect credentials.');
     } else {
       const token = await Token.create(user.id);
-      res.status(200).json({ authenticated: true, token: token.token });
+      res.status(200).json({ authenticated: true, token: token.token, user_id: token.user_id });
     }
   } catch (err) {
     res.status(403).json({ error: err.message });
@@ -46,14 +46,27 @@ async function getUserId(req, res) {
     const response = await Token.getOneByToken(data.token);
     // const userID = await response.json();
     const resp = await User.getOneById(response.user_id);
-    res.status(200).json(resp);
+    res.status(201).json(resp);
   } catch (err) {
     res.status(404).json({ error: err.message });
   }
 }
 
+  async function getUserInfo(req,res) {
+    //uses getOneById
+    const user_id = req.params.id
+    try {
+      const response = await User.getOneById(user_id);
+      delete response.password;
+      res.status(200).json(response);
+    } catch (err) {
+      res.status(404).json({error:err.message})
+    }
+  }
+
 module.exports = {
   register,
   login,
   getUserId,
+  getUserInfo
 };

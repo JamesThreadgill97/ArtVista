@@ -34,6 +34,7 @@ export default function ArtworkPage() {
   };
 
   useEffect(() => {
+    window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
     const fetchArtwork = async () => {
       try {
         const response = await fetch(`https://artvista-api.onrender.com/art/${id}`)
@@ -61,9 +62,7 @@ export default function ArtworkPage() {
       }
     }
     fetchComments()
-    setInterval(() => {
-      fetchComments()
-    }, 30000)
+ 
 
   }, [id])
 
