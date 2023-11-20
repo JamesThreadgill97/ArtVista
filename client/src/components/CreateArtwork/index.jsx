@@ -8,6 +8,8 @@ export default function CreateArtwork() {
   const [message, setMessage] = useState("")
   const [tags, setTags] = useState([])
   const [selectedTags, setSelectedTags] = useState([])
+  const [image, setImage] = useState("../../../assets/pokeball.png")
+
 
   useEffect(() => {
     const fetchTags = async () => {
@@ -40,6 +42,7 @@ export default function CreateArtwork() {
       data: e.target.files[0],
 
     }
+    setImage(img.preview)
     setFile(img)
   }
   const handleTextInput = (e) => {
@@ -87,15 +90,21 @@ export default function CreateArtwork() {
   }
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form className="create-artwork" onSubmit={handleSubmit}>
         <h2>Post your art!</h2>
-        <input type="file" accept="image/*" onChange={handleFileChange} />
-        <input type="text" placeholder="Enter title..." onChange={handleTextInput} value={title} />
-        <textarea placeholder="Enter description..." onChange={handleTextarea} value={description}></textarea>
-      <TagForm tags={tags} setTags={setTags} handleCheckbox={handleCheckbox} />
+        <div className="row">
+          <div className="create-artwork-image">
+            <input type="file" accept="image/*" onChange={handleFileChange} />
+            <img src={image} alt="" />
+          </div>
+          <div className="create-artwork-details">
+            <input type="text" placeholder="Enter title..." onChange={handleTextInput} value={title} />
+            <textarea placeholder="Enter description..." onChange={handleTextarea} value={description}></textarea>
+            <TagForm tags={tags} setTags={setTags} handleCheckbox={handleCheckbox} />
+          </div>
+        </div>
         <input type="submit" value="Publish"/>
       </form>
-
       <h2>{message}</h2>
     </>
   )
