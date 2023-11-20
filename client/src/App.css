@@ -487,3 +487,9 @@ header {
   background-color: #373D20;
   color: #FCFFF8; /* Darker shade for hover effect */
 }
+
+
+.profile-page-pic {
+  width: 100px;
+  height: 100px
+}

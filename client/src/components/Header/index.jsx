@@ -9,6 +9,7 @@ export default function Header() {
   const [userData, setUserData] = useState({});
   const [showLogoDropdown, setShowLogoDropdown] = useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
+  let isLoggedIn = localStorage.getItem("token");
 
   const toggleLogoDropdown = () => {
     setShowLogoDropdown(!showLogoDropdown);
@@ -41,6 +42,7 @@ export default function Header() {
       }
     }
     fetchUserData()
+    isLoggedIn = localStorage.getItem("token")
   },[localStorage.getItem("user_id")])
 
 
@@ -48,7 +50,6 @@ export default function Header() {
     setShowMenu(!showMenu);
   };
 
-  const isLoggedIn = localStorage.getItem("token");
 
   return (
     <>
@@ -82,9 +83,9 @@ export default function Header() {
             {/* Dropdown menu */}
             {showProfileDropdown && (
               <div className="profile-dropdown">
-                <NavLink className="dropdown-item" to={`/profile/${localStorage.getItem("user_id")}`}>Profile</NavLink>
+                <NavLink className="dropdown-item" to={`/profile/${localStorage.getItem("user_id")}`}>{`${userData.username}'s Profile`}</NavLink>
                 <NavLink className="dropdown-item" to="/create">Create Post</NavLink>
-                <button className="dropdown-item" onClick={handleLogout}>Logout</button>
+                <NavLink className="dropdown-item" onClick={handleLogout}>Logout</NavLink>
               </div>
             )}
           </div>
