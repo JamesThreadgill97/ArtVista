@@ -31,7 +31,11 @@ class User {
   static async uploadAndCreate(data, file) {
     const { username, password } = data;
     // Upload the file to Cloud Storage
-    const publicUrl = await this.uploadFileToStorage(file);
+    if (file == null) {
+      const publicUrl = 'https://storage.googleapis.com/artvista-images/default_profile.png'
+    } else { const publicUrl = await this.uploadFileToStorage(file); }
+
+
     // Create a new art entry in the database
     const response = await db.query(
       'INSERT INTO Users (username, password, profile_url) VALUES ($1, $2, $3) RETURNING user_id;',
@@ -71,19 +75,19 @@ class User {
 
   //todo: update method for user
   static async update(id, data, file) {
-    
-      const { username, password } = data;
-      const filetoUpload = file
-      // Upload the file to Cloud Storage
-      const publicUrl = await this.uploadFileToStorage(filetoUpload);
-      // Create a new art entry in the database
-      const response = await db.query(
-        'UPDATE Users SET username = $1, password = $2, profile_url = $3 WHERE user_id = $4 RETURNING *;',
-        [username, password, publicUrl, id]
-      );
-      const updatedId = response.rows[0].user_id;
-      const updatedUser = await User.getOneById(updatedIdId);
-      return updatedUser;    
+
+    const { username, password } = data;
+    const filetoUpload = file
+    // Upload the file to Cloud Storage
+    const publicUrl = await this.uploadFileToStorage(filetoUpload);
+    // Create a new art entry in the database
+    const response = await db.query(
+      'UPDATE Users SET username = $1, password = $2, profile_url = $3 WHERE user_id = $4 RETURNING *;',
+      [username, password, publicUrl, id]
+    );
+    const updatedId = response.rows[0].user_id;
+    const updatedUser = await User.getOneById(updatedIdId);
+    return updatedUser;
   }
 }
 
