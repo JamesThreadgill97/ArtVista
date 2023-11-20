@@ -13,7 +13,7 @@ export default function ArtworkPage() {
   //gets all images
   useEffect(() => {
     const fetchArtworks = async () => {
-      const response = await fetch("https://https://artvista-frontend.onrender.com//art/")
+      const response = await fetch("https://artvista-frontend.onrender.com/art/")
       const data = await response.json()
       if (response.status == 200) {
         let array = data;
@@ -37,7 +37,7 @@ export default function ArtworkPage() {
     window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
     const fetchArtwork = async () => {
       try {
-        const response = await fetch(`https://https://artvista-frontend.onrender.com//art/${id}`)
+        const response = await fetch(`https://artvista-frontend.onrender.com/art/${id}`)
         const data = await response.json()
         if (response.status == 200) {
           setArtwork(data)
@@ -52,7 +52,7 @@ export default function ArtworkPage() {
 
   useEffect(() => {
     const fetchComments = async () => {
-      const response = await fetch(`https://https://artvista-frontend.onrender.com//art/${id}/comments`)
+      const response = await fetch(`https://artvista-frontend.onrender.com/art/${id}/comments`)
       const data = await response.json()
       console.log(data);
       if (data == "no comments") {

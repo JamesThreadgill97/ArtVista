@@ -12,7 +12,7 @@ export default function CreateArtwork() {
   useEffect(() => {
     const fetchTags = async () => {
       try {
-        const response = await fetch("https://https://artvista-frontend.onrender.com//tag")
+        const response = await fetch("https://artvista-frontend.onrender.com/tag")
         const data = await response.json()
         if (response.status == 200) {
           setTags(data.data)
@@ -67,7 +67,7 @@ export default function CreateArtwork() {
           },
           body: formData
         }
-        const response = await fetch("http://localhost:3000/art", options)
+        const response = await fetch("https://artvista-frontend.onrender.com/art", options)
 
         if (response.status == 201) {
           setMessage("Artwork Uploaded!")
