@@ -24,14 +24,16 @@ export default function SearchForm({setArtworks}) {
       }
     }
 
+
     const searchInArtworks = (Arr) => {
       let searchArr = textInput.split(' ');
       let artworksToBeSearched = Arr
       let artworksMatchingSearch = []
-      for (let i = 0; i < searchArr.length; i++) { //checks each word in search
-        //if word found in an artwork, add that artwork to filteredArtworks, and remove it from artworks
+
+
+
+      for (let i = 0; i < searchArr.length; i++) {
         for (let j = artworksToBeSearched.length - 1; j >= 0; j--) {
-          //searches title
           if (
             artworksToBeSearched[j].title.toLowerCase().includes(searchArr[i].toLowerCase()) ||
             artworksToBeSearched[j].description.toLowerCase().includes(searchArr[i].toLowerCase()) ||

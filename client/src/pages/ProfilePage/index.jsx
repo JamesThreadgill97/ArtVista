@@ -22,10 +22,16 @@ export default function ProfilePage() {
   },[])
   useEffect(()=>{
     const fetchUserDataById = async () => {
-      const response = await fetch(`https://artvista-api.onrender.com/users/userInfo/${id}`)
-      const data = await response.json()
-      if (response.status == 200) {
-        setUserInfo(data)
+      try {
+        if (localStorage.getItem("token")) {
+          const response = await fetch(`https://artvista-api.onrender.com/users/userInfo/${id}`)
+          const data = await response.json()
+          if (response.status == 200) {
+            setUserInfo(data)
+          }
+        }
+      } catch (err) {
+        console.error({error:err.message})
       }
     }
     fetchUserDataById()
@@ -33,8 +39,10 @@ export default function ProfilePage() {
   return (
     <>  
       <div>
+        <img className="profile-page-pic" src={userInfo.profile_url} alt="Profile Pic" />
         <h1>{userInfo.username}</h1>
       </div>
+        {artworks.length == 0 && <h2>{userInfo.username}'s gallery is empty.</h2>}
         <Gallery artworks={artworks}/>
     </>
   )

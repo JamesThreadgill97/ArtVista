@@ -8,8 +8,8 @@ export default function CreateArtwork() {
   const [message, setMessage] = useState("")
   const [tags, setTags] = useState([])
   const [selectedTags, setSelectedTags] = useState([])
-  const [newTag, setNewTag] = useState("")
   const [image, setImage] = useState("../../../assets/pokeball.png")
+
 
   useEffect(() => {
     const fetchTags = async () => {
@@ -29,7 +29,6 @@ export default function CreateArtwork() {
   }, [tags])
 
   const handleCheckbox = (e) => {
-    console.log("checked")
     if (e.target.checked) {
       setSelectedTags(prevState => [...prevState, parseInt(e.target.dataset.number)])
     } else {
@@ -53,7 +52,7 @@ export default function CreateArtwork() {
     setDescription(e.target.value)
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     let formData = new FormData()
     formData.append("user_id", localStorage.getItem("user_id"))
@@ -66,18 +65,22 @@ export default function CreateArtwork() {
       try {
         const options = {
           method: "POST",
+          headers: {
+            "Authorization": localStorage.getItem('token')
+          },
           body: formData
         }
-        const response = await fetch("https://artvista-api.onrender.com/art/", options)
+        const response = await fetch("https://artvista-api.onrender.com/art", options)
 
-        setMessage("Artwork Uploaded!")
         if (response.status == 201) {
+          setMessage("Artwork Uploaded!")
           setTimeout(() => {
             setMessage("")
           }, 5000)
         }
       }
       catch (err) {
+        console.log("error")
         console.error({ error: err.message })
       }
     }
@@ -95,12 +98,12 @@ export default function CreateArtwork() {
             <img src={image} alt="" />
           </div>
           <div className="create-artwork-details">
-            <input className="add-title" type="text" placeholder="Enter title..." onChange={handleTextInput} value={title} />
-            <textarea className="add-description" placeholder="Enter description..." onChange={handleTextarea} value={description}></textarea>
+            <input type="text" placeholder="Enter title..." onChange={handleTextInput} value={title} />
+            <textarea placeholder="Enter description..." onChange={handleTextarea} value={description}></textarea>
             <TagForm tags={tags} setTags={setTags} handleCheckbox={handleCheckbox} />
           </div>
         </div>
-        <input className="submit-artwork" type="submit" />
+        <input type="submit" value="Publish"/>
       </form>
       <h2>{message}</h2>
     </>
