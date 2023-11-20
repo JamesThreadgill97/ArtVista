@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, Outlet } from "react-router-dom";
-import logo from "../../../assets/Logo.png";
-import profileImage from "../../../assets/profile-placeholder.png";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import logo from "../../../assets/Logo.png"; // Import your logo image
+import default_profile from "../../../assets/profile-placeholder.png";
 
 export default function Header() {
+  const [profileImage, setProfileImage] = useState(default_profile)
   const [showMenu, setShowMenu] = useState(false);
-  const [username, setUsername] = useState("");
+  const [userData, setUserData] = useState({});
   const [showLogoDropdown, setShowLogoDropdown] = useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
+  let isLoggedIn = localStorage.getItem("token");
+  const navigate = useNavigate()
 
   const toggleLogoDropdown = () => {
     setShowLogoDropdown(!showLogoDropdown);
@@ -24,45 +27,33 @@ export default function Header() {
     localStorage.removeItem("user_id");
     setUsername("");
     setShowMenu(false);
+    // navigate("/login")
   };
 
-  useEffect(() => {
+  useEffect(()=>{ 
     const fetchUserData = async () => {
       try {
-        const token = localStorage.getItem("token");
-        if (token) {
-          const response = await fetch(
-            "https://artvista-frontend.onrender.com/users/showId",
-            {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          const data = await response.json();
-          if (response.status === 201) {
-            if (data.user_id === localStorage.getItem("user_id")) {
-              setUsername(data.username);
-            } else {
-              console.error("user_ids don't match");
-            }
+        if (localStorage.getItem("user_id")) {
+          const response = await fetch(`https://artvista-api.onrender.com/users/userInfo/${localStorage.getItem("user_id")}`)
+          const data = await response.json()
+          if (response.status == 200) {
+            setUserData(data)
+            setProfileImage(data.profile_url)
           }
         }
       } catch (err) {
-        console.error({ error: err.message });
+        console.error({error:err.message})
       }
-    };
+    }
+    fetchUserData()
+    isLoggedIn = localStorage.getItem("token")
+  },[localStorage.getItem("user_id")])
 
-    fetchUserData();
-  }, [localStorage.getItem("token")]);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
 
-  const isLoggedIn = localStorage.getItem("token");
 
   return (
     <>
@@ -96,14 +87,17 @@ export default function Header() {
             {/* Dropdown menu */}
             {showProfileDropdown && (
               <div className="profile-dropdown">
-                <NavLink className="dropdown-item" to="/profile">Profile</NavLink>
+                <NavLink className="dropdown-item" to={`/profile/${localStorage.getItem("user_id")}`}>{`${userData.username}'s Profile`}</NavLink>
                 <NavLink className="dropdown-item" to="/create">Create Post</NavLink>
-                <button className="dropdown-item" onClick={handleLogout}>Logout</button>
+                <NavLink className="dropdown-item" onClick={handleLogout}>Logout</NavLink>
               </div>
             )}
           </div>
         ) : (
-          <NavLink to="/login" className="login-button">Log in</NavLink>
+          <div>
+            <NavLink to="/login" className="login-button">Log in</NavLink>
+            <NavLink to="/register" className="login-button">Create an Account</NavLink>
+          </div>
         )}
       </header>
 

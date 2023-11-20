@@ -10,6 +10,8 @@ artRouter.get('/', artController.index);
 artRouter.get('/:id', artController.show);
 artRouter.get('/:id/comments', artController.comments);
 
+
+
 artRouter.get('/like/:art_id/:user_id', authenticator, artController.likes)
 artRouter.post('/like/:art_id/:user_id', authenticator, artController.postLike)
 artRouter.delete('/like/:art_id/:user_id', authenticator, artController.destroyLike)
