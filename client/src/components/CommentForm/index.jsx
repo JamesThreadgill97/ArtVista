@@ -1,7 +1,7 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-export default function CommentForm({id, setComments}) {
-  const [comment,setComment] = useState("")
+export default function CommentForm({ id, setComments }) {
+  const [comment, setComment] = useState("")
 
   const handleTextarea = (e) => {
     setComment(e.target.value)
@@ -9,7 +9,7 @@ export default function CommentForm({id, setComments}) {
   const handleSubmit = (e) => {
     e.preventDefault()
     const postComment = async () => {
-      try{
+      try {
         if (localStorage.getItem("token")) {
           const options = {
             method: "POST",
@@ -31,12 +31,10 @@ export default function CommentForm({id, setComments}) {
               setComments(data)
             }
             fetchComments()
-          } else {
-            alert("Login before you leave a comment.")
           }
         }
       } catch (err) {
-        console.error({error: err.message})
+        console.error({ error: err.message })
       }
     }
     postComment()
@@ -44,9 +42,9 @@ export default function CommentForm({id, setComments}) {
   }
 
   return (
-      <div className="comment-create" onSubmit={handleSubmit}>
-        <textarea name="" id="" cols="30" rows="3" placeholder='Comment here...' onChange={handleTextarea} value={comment}></textarea>
-        <input value="" type="submit" onClick={handleSubmit}/>
-      </div>
+    <div className="comment-create" onSubmit={handleSubmit}>
+      <textarea name="" id="" cols="30" rows="3" placeholder='Comment here...' onChange={handleTextarea} value={comment}></textarea>
+      <input value="" type="submit" onClick={handleSubmit} />
+    </div>
   )
 }

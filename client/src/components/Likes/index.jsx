@@ -14,7 +14,12 @@ export default function Likes({ id, artwork }) {
     const checkIfLiked = async () => {
       try {
         if (localStorage.getItem("token")) {
-          const response = await fetch(`https://artvista-api.onrender.com/art/like/${id}/${localStorage.getItem("user_id")}`)
+          const options = {
+            headers: {
+              "Authorization": localStorage.getItem('token')
+            }
+          }
+          const response = await fetch(`https://artvista-api.onrender.com/art/like/${id}/${localStorage.getItem("user_id")}`, options)
           const data = await response
           if (response.status == 200) {
             setLiked(await response.json())
@@ -67,8 +72,6 @@ export default function Likes({ id, artwork }) {
           const data = await response.json()
           if (response.status == 200) {
             console.log("posted")
-          } else {
-            alert("Login before you like a post")
           }
         }
         

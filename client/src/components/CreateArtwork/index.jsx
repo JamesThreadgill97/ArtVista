@@ -8,7 +8,6 @@ export default function CreateArtwork() {
   const [message, setMessage] = useState("")
   const [tags, setTags] = useState([])
   const [selectedTags, setSelectedTags] = useState([])
-  const [newTag, setNewTag] = useState("")
 
   useEffect(() => {
     const fetchTags = async () => {
@@ -55,16 +54,12 @@ export default function CreateArtwork() {
     let formData = new FormData()
     formData.append("user_id", localStorage.getItem("user_id"))
     formData.append("file", file.data)
-
-    
-    formData.append("user_id", 1)
     formData.append("title", title)
     formData.append("description", description) //add tags at some point too
     formData.append("likes", 0)
     formData.append("tag_ids", selectedTags)
     const uploadFile = async () => {
       try {
-
         const options = {
           method: "POST",
           headers: {
@@ -72,18 +67,17 @@ export default function CreateArtwork() {
           },
           body: formData
         }
-        const response = await fetch("https://artvista-api.onrender.com/art/", options)
+        const response = await fetch("https://artvista-api.onrender.com/art", options)
 
         if (response.status == 201) {
           setMessage("Artwork Uploaded!")
           setTimeout(() => {
             setMessage("")
           }, 5000)
-        } else {
-          alert("Login before you post an artwork")
         }
       }
       catch (err) {
+        console.log("error")
         console.error({ error: err.message })
       }
     }
@@ -98,9 +92,9 @@ export default function CreateArtwork() {
         <input type="file" accept="image/*" onChange={handleFileChange} />
         <input type="text" placeholder="Enter title..." onChange={handleTextInput} value={title} />
         <textarea placeholder="Enter description..." onChange={handleTextarea} value={description}></textarea>
-        <input type="submit" />
-      </form>
       <TagForm tags={tags} setTags={setTags} handleCheckbox={handleCheckbox} />
+        <input type="submit" value="Publish"/>
+      </form>
 
       <h2>{message}</h2>
     </>
