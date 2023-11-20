@@ -10,6 +10,7 @@ const app = express();
 
 // Middleware
 app.use(express.json());
+
 app.use(cors());
 
 app.get('/', (req, res) => {
@@ -18,6 +19,7 @@ app.get('/', (req, res) => {
 
 // Routes
 app.use('/art', artRouter);
+app.use('/artwork', artRouter)
 app.use('/users', userRouter);
 app.use('/comment', commentRouter);
 app.use('/tag', tagRouter);

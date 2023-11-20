@@ -1,7 +1,7 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-export default function CommentForm({id, setComments}) {
-  const [comment,setComment] = useState("")
+export default function CommentForm({ id, setComments }) {
+  const [comment, setComment] = useState("")
 
   const handleTextarea = (e) => {
     setComment(e.target.value)
@@ -9,30 +9,32 @@ export default function CommentForm({id, setComments}) {
   const handleSubmit = (e) => {
     e.preventDefault()
     const postComment = async () => {
-      try{
-        const options = {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json",
-            "Authorization": localStorage.getItem('token')
-          },
-          body: JSON.stringify({
-            user_id: 2,//need to get this
-            art_id: id,
-            content: comment
-          })
-        }
-        const response = await fetch("https://artvista-api.onrender.com/comment", options)
-        if (response.status == 201) {
-          const fetchComments = async () => {
-            const response = await fetch(`https://artvista-api.onrender.com/art/${id}/comments`)
-            const data = await response.json()
-            setComments(data)
+      try {
+        if (localStorage.getItem("token")) {
+          const options = {
+            method: "POST",
+            headers: {
+              "Content-type": "application/json",
+              "Authorization": localStorage.getItem('token')
+            },
+            body: JSON.stringify({
+              user_id: localStorage.getItem('user_id'),
+              art_id: id,
+              content: comment
+            })
           }
-          fetchComments()
+          const response = await fetch("https://artvista-frontend.onrender.com/comment", options)
+          if (response.status == 201) {
+            const fetchComments = async () => {
+              const response = await fetch(`https://artvista-frontend.onrender.com/art/${id}/comments`)
+              const data = await response.json()
+              setComments(data)
+            }
+            fetchComments()
+          }
         }
       } catch (err) {
-        console.error({error: err.message})
+        console.error({ error: err.message })
       }
     }
     postComment()
@@ -40,11 +42,9 @@ export default function CommentForm({id, setComments}) {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <textarea name="" id="" cols="30" rows="3" placeholder='Comment here...' onChange={handleTextarea} value={comment}></textarea>
-        <input type="submit" />
-      </form>
+    <div className="comment-create" onSubmit={handleSubmit}>
+      <textarea name="" id="" cols="30" rows="3" placeholder='Comment here...' onChange={handleTextarea} value={comment}></textarea>
+      <input value="" type="submit" onClick={handleSubmit} />
     </div>
   )
 }

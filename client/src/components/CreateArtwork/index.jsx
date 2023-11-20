@@ -1,11 +1,40 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
+import { TagForm } from "../../components"
 
 export default function CreateArtwork() {
-  const [url, setUrl] = useState("")
   const [file, setFile] = useState(null)
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
   const [message, setMessage] = useState("")
+  const [tags, setTags] = useState([])
+  const [selectedTags, setSelectedTags] = useState([])
+  const [image, setImage] = useState("../../../assets/pokeball.png")
+
+
+  useEffect(() => {
+    const fetchTags = async () => {
+      try {
+        const response = await fetch("https://artvista-frontend.onrender.com/tag")
+        const data = await response.json()
+        if (response.status == 200) {
+          setTags(data.data)
+        } else {
+          setTags([])
+        }
+      } catch (err) {
+        console.error({ error: err.message })
+      }
+    }
+    fetchTags()
+  }, [tags])
+
+  const handleCheckbox = (e) => {
+    if (e.target.checked) {
+      setSelectedTags(prevState => [...prevState, parseInt(e.target.dataset.number)])
+    } else {
+      setSelectedTags(prevState => prevState.filter((el) => el !== parseInt(e.target.dataset.number)))
+    }
+  }
 
   const handleFileChange = (e) => {
     const img = {
@@ -13,6 +42,7 @@ export default function CreateArtwork() {
       data: e.target.files[0],
 
     }
+    setImage(img.preview)
     setFile(img)
   }
   const handleTextInput = (e) => {
@@ -27,24 +57,21 @@ export default function CreateArtwork() {
     let formData = new FormData()
     formData.append("user_id", localStorage.getItem("user_id"))
     formData.append("file", file.data)
-
-    
-    formData.append("user_id", 1)
     formData.append("title", title)
     formData.append("description", description) //add tags at some point too
     formData.append("likes", 0)
-    formData.append("tag_id", 1)
+    formData.append("tag_ids", selectedTags)
     const uploadFile = async () => {
       try {
         const options = {
           method: "POST",
+          headers: {
+            "Authorization": localStorage.getItem('token')
+          },
           body: formData
         }
-        const response = await fetch("https://artvista-api.onrender.com/art/", options)
+        const response = await fetch("https://artvista-frontend.onrender.com/art", options)
 
-        const responseWithBody = await response.json()
-        // setUrl(responseWithBody.publicUrl)
-        // console.log(url)
         if (response.status == 201) {
           setMessage("Artwork Uploaded!")
           setTimeout(() => {
@@ -53,6 +80,7 @@ export default function CreateArtwork() {
         }
       }
       catch (err) {
+        console.log("error")
         console.error({ error: err.message })
       }
     }
@@ -62,13 +90,20 @@ export default function CreateArtwork() {
   }
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form className="create-artwork" onSubmit={handleSubmit}>
         <h2>Post your art!</h2>
-        <input type="file" accept="image/*" onChange={handleFileChange} />
-        <input type="text" placeholder="Enter title..." onChange={handleTextInput} value={title} />
-        <textarea placeholder="Enter description..." onChange={handleTextarea} value={description}></textarea>
-        <h3>(tags here too)</h3>
-        <input type="submit" />
+        <div className="row">
+          <div className="create-artwork-image">
+            <input type="file" accept="image/*" onChange={handleFileChange} />
+            <img src={image} alt="" />
+          </div>
+          <div className="create-artwork-details">
+            <input type="text" placeholder="Enter title..." onChange={handleTextInput} value={title} />
+            <textarea placeholder="Enter description..." onChange={handleTextarea} value={description}></textarea>
+            <TagForm tags={tags} setTags={setTags} handleCheckbox={handleCheckbox} />
+          </div>
+        </div>
+        <input type="submit" value="Publish"/>
       </form>
       <h2>{message}</h2>
     </>

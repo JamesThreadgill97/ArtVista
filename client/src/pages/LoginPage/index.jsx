@@ -31,15 +31,18 @@ export default function LoginPage() {
           })
         }
 
-        const response = await fetch('https://artvista-api.onrender.com/users/login', options)
+        const response = await fetch('https://artvista-frontend.onrender.com/users/login', options)
         const data = await response.json()
         localStorage.setItem("token", data.token)
-<<<<<<< HEAD
         localStorage.setItem("user_id",data.user_id)
-=======
->>>>>>> 8dc2142ccfe5cb95d951f151808f948a1a85ad8a
         if (response.status == 200) {
           setMessage("Login successful!")
+          setTimeout(()=>{
+            navigate("/")
+            setMessage("")
+          },1000)
+        } else {
+          setMessage("Login unsuccessful!")
           setTimeout(()=>{
             navigate("/")
             setMessage("")
