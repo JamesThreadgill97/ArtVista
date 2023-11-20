@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 
 export default function ProfileLink({id}) {
   return (
-    <NavLink to={`/profile/${id}`}>
+    <NavLink className="nav-link profile-link" to={`/profile/${id}`}>
       Artist's profile
     </NavLink>
   )

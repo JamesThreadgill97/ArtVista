@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react"
 import { NavLink, Outlet } from "react-router-dom"
 
+
 export default function Header() {
   const [username,setUsername] = useState("")
   const handleLogout = () => {
@@ -20,7 +21,6 @@ export default function Header() {
             token: localStorage.getItem("token")
           })
         }
-        console.log(options)
         const response = await fetch("https://artvista-api.onrender.com/users/showId", options)
         const data = await response.json()
         if (response.status == 201) {
@@ -43,8 +43,8 @@ export default function Header() {
     <>
       <header>
         <nav>
-          <NavLink className="nav-link" to="/create">Add</NavLink>
           <NavLink className="nav-link" to="/">Home</NavLink>
+          <NavLink className="nav-link" to="/create">Add</NavLink>
           {/* changes header based on login status, doesn't automatically update though */}
           {localStorage.getItem("token") &&
             <div>
@@ -64,10 +64,10 @@ export default function Header() {
       </header>
       <Outlet />
       <footer>
-        <NavLink>About</NavLink>
-        <NavLink>DMCA</NavLink>
-        <NavLink>Etiquette</NavLink>
-        <NavLink>Contact Us</NavLink>
+        <NavLink className="nav-link" to="/about">About</NavLink>
+        <NavLink className="nav-link" to="/dmca">DMCA</NavLink>
+        <NavLink className="nav-link" to="/etiquette">Etiquette</NavLink>
+        <NavLink className="nav-link" to="/contactUs">Contact Us</NavLink>
       </footer>
     </>
   )

@@ -1,7 +1,31 @@
 :root {
-  --primary-colour: black;
-  --secondary-colour: red;
-  --tertiary-colour: white;
+  --background-colour: #EFF1ED;
+  --light-dialogue: #FCFFF8;
+  --text-colour: #373D20;
+  --logo-colour: #88C093;
+
+  --font-family: 'Montserrat', sans-serif;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--logo-colour); 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-colour); 
 }
 
 /* Reset some default styles */
@@ -12,15 +36,15 @@ body, h1, h2, h3, p, ul, ol, li {
 }
 
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: var(--font-family);
   line-height: 1.6;
-  background-color: #F2E8CF;
+  background-color: var(--background-colour);
 }
 
 /* Header Styles */
 header {
-  background-color: #333;
-  color: var(--tertiary-colour);
+  background-color: var(--background-colour);
+  color: var(--text-colour);
   padding: 20px;
   text-align: center;
 }
@@ -36,15 +60,18 @@ nav {
 
 .nav-link{
   text-decoration: none;
-  color: #fff;
+  color: var(--text-colour);
   font-size: 20px;
+}
+.profile-link{
+  font-size: 15px;
 }
 
 
 /* Footer Styles */
 footer {
-  background-color: #D9D9D9;
-  color: #fff;
+  background-color: var(--background-colour);
+  color: var(--text-colour);
   padding: 10px;
   text-align: center;
   position: fixed;
@@ -88,7 +115,7 @@ textarea {
   box-sizing: border-box;
   border: 1px solid #ccc;
   border-radius: 4px;
-  font-family: 'Arial', sans-serif;
+  font-family: var(--font-family);
   line-height: 1.6;
   resize: vertical; /* Allow vertical resizing */
 }
@@ -137,14 +164,31 @@ textarea {
 /* artwork page */
 .artwork-and-info {
   display: flex;
-  padding: 30px
+  height: 80vh;
+  padding: 30px;
+  justify-content: center;
 }
+
+.artwork-and-info > .displayed-artwork {
+  height: inherit;
+  width: auto;
+  margin-right: calc((30% + 5vw));
+  
+
+}
+
 .artwork-info {
-  background-color: white;
-  width: 40%;
-  height: auto;
-  margin-left: 20px;
+  background-color: var(--light-dialogue);
+  width: 30%;
+  height: inherit;
+  
   border-radius: 15px;
+
+  /* display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap; */
+  right: 7.5vw;
+  position: absolute;
 }
 
 /* MODAL */
@@ -204,13 +248,90 @@ textarea {
   cursor: pointer;
 }
 
+/* COMMENT */
 .comment-card {
   text-align: left;
-  background-color: gainsboro;
+  background-color: var(--logo-colour);
   margin: 10px;
+  border-radius: 15px;
+  word-wrap: break-word;
+}
+
+.comment-section {
+  overflow-y: scroll;
+  height: 35%;
+  margin-bottom: calc((85px + 2vw));
+  position: relative;
+}
+
+.comment-create {
+  display: flex;
+  /* flex-direction: row;  */
+  flex-direction: column;
+  position: absolute;
+  bottom: 0;
+  width: 90%;
+  padding: 5%;
+}
+
+.comment-create > textarea {
+  width: 100%;
+  resize: none;
+  height: 85px;
+  margin-bottom: 0%;
+}
+
+.comment-create > input {
+  /* background-image: url("../assets/send-comment.png");
+  background-size: cover; */
+  width: 2vw;
+  /* z-index: 1; */
+  height: 2vw;
+  /* float:right; */
+  font-size: 2vh;
+  font-weight: bold;
+  transition: 0.3s;
+  align-self: flex-end;
+  /*position: relative; */
+  /* margin-left: -10%; */
+  /* margin-top: -2.5vh;
+  margin-right: 1vh; */
+  border-width: 0;
+  /* background-color: transparent; */
+  -webkit-mask-image: url("../assets/send-comment.png");
+  mask-image: url("../assets/send-comment.png");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 2vw 2vw;
+  mask-size: 2vw 2vw;
+  -webkit-mask-position: right;
+  mask-position:right;
+  background-color: var(--logo-colour);
+}
+
+.comment-create > input:hover {
+  background-color: var(--text-colour);
 }
 
 /* like button */
 .like-image { 
   width:25px;
 }
+
+/* tag checkbox */
+
+.tag-checkbox {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #e0e0e0;
+  border: 1px solid #999;
+  border-radius: 5px;
+  cursor: pointer;
+}
+/* .tag-checkbox > input {
+  display: none
+} */
+/* .tag-checkbox > input[type="checkbox"]:checked + span {
+  background-color: #4CAF50;
+  color: white;
+} */
