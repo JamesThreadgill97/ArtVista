@@ -394,10 +394,6 @@ textarea {
   accent-color: var(--logo-colour);
 }
 
-.create-artwork-details > div > div > .tag-checkbox > input :checked {
-  background-color: var(--logo-colour);
-}
-
 .create-artwork-details > div > div > .tag-checkbox > span {
   height: calc((5px + 0.5vw) * 3);
   width: 70%;
