@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import logo from "../../../assets/Logo.png"; // Import your logo image
 import default_profile from "../../../assets/profile-placeholder.png";
 
@@ -10,6 +10,7 @@ export default function Header() {
   const [showLogoDropdown, setShowLogoDropdown] = useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   let isLoggedIn = localStorage.getItem("token");
+  const navigate = useNavigate()
 
   const toggleLogoDropdown = () => {
     setShowLogoDropdown(!showLogoDropdown);
@@ -26,16 +27,19 @@ export default function Header() {
     localStorage.removeItem("user_id");
     setUsername("");
     setShowMenu(false);
+    // navigate("/login")
   };
 
   useEffect(()=>{ 
     const fetchUserData = async () => {
       try {
-        const response = await fetch(`https://artvista-api.onrender.com/users/userInfo/${localStorage.getItem("user_id")}`)
-        const data = await response.json()
-        if (response.status == 200) {
-          setUserData(data)
-          setProfileImage(data.profile_url)
+        if (localStorage.getItem("user_id")) {
+          const response = await fetch(`https://artvista-api.onrender.com/users/userInfo/${localStorage.getItem("user_id")}`)
+          const data = await response.json()
+          if (response.status == 200) {
+            setUserData(data)
+            setProfileImage(data.profile_url)
+          }
         }
       } catch (err) {
         console.error({error:err.message})
