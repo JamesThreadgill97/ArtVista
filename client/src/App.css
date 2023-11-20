@@ -472,3 +472,18 @@ header {
 .header-title-link:hover {
   text-decoration: none; /* Optional: Style for hover state */
 }
+.login-button {
+  /* Style your login button here */
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #373D20;
+  background-color: #88C093; /* Example color */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background-color: #373D20;
+  color: #FCFFF8; /* Darker shade for hover effect */
+}
