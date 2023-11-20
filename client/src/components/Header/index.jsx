@@ -61,6 +61,8 @@ export default function Header() {
     setShowMenu(!showMenu);
   };
 
+  const isLoggedIn = localStorage.getItem("token");
+
   return (
     <>
       <header>
@@ -87,22 +89,21 @@ export default function Header() {
           <h1 className="header-title">ArtVista</h1>
         </NavLink>
 
-        <div className="header-profile" onClick={toggleProfileDropdown}>
-          <img src={profileImage} alt="Profile" />
-          {showProfileDropdown && (
-            <div className="profile-dropdown">
-              <NavLink className="dropdown-item" to="/profile">
-                Profile
-              </NavLink>
-              <NavLink className="dropdown-item" to="/create">
-                Create Post
-              </NavLink>
-              <button className="dropdown-item" onClick={handleLogout}>
-                Logout
-              </button>
-            </div>
-          )}
-        </div>
+        {isLoggedIn ? (
+          <div className="header-profile" onClick={toggleDropdown}>
+            <img src={profileImage} alt="Profile" />
+            {/* Dropdown menu */}
+            {showDropdown && (
+              <div className="profile-dropdown">
+                <NavLink className="dropdown-item" to="/profile">Profile</NavLink>
+                <NavLink className="dropdown-item" to="/create">Create Post</NavLink>
+                <button className="dropdown-item" onClick={handleLogout}>Logout</button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <NavLink to="/login" className="login-button">Log in</NavLink>
+        )}
       </header>
 
       <Outlet />
