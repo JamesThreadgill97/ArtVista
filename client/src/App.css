@@ -562,6 +562,28 @@ header {
   color: #FCFFF8; /* Darker shade for hover effect */
 }
 
+.plus-and-profile {
+  display: flex;
+  align-items: center;
+}
+
+.menu-and-home {
+  display: flex;
+  align-items: center;
+}
+
+.add-btn {
+  width: 50px;
+  height: 50px;
+  margin-right: 40px;
+}
+
+.home-btn {
+  width: 50px;
+  height: 50px;
+  margin-left: 40px;
+}
+
 .profile-page-pic {
   width: 100px;
   height: 100px

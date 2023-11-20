@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import logo from "../../../assets/Logo.png"; // Import your logo image
 import default_profile from "../../../assets/profile-placeholder.png";
+import plus_button from "../../../assets/plus.png"
+import home_button from "../../../assets/home.png"
 
 export default function Header() {
   const [profileImage, setProfileImage] = useState(default_profile)
@@ -58,6 +60,7 @@ export default function Header() {
   return (
     <>
       <header>
+        <div className="menu-and-home">
         <div className="header-logo" onClick={toggleLogoDropdown}>
           <img src={logo} alt="Logo" />
           {showLogoDropdown && (
@@ -77,21 +80,25 @@ export default function Header() {
             </div>
           )}
         </div>
+          <NavLink to="/"><img className="home-btn"src={home_button} alt="Home" /></NavLink>
+        </div>
         <NavLink to="/" className="header-title-link">
           <h1 className="header-title">ArtVista</h1>
         </NavLink>
 
         {isLoggedIn ? (
+          <div className="plus-and-profile">
+            <NavLink  to="/create"><img className="add-btn" src={plus_button} alt="add a post" /></NavLink>
           <div className="header-profile" onClick={toggleProfileDropdown}>
             <img src={profileImage} alt="Profile" />
             {/* Dropdown menu */}
             {showProfileDropdown && (
               <div className="profile-dropdown">
                 <NavLink className="dropdown-item" to={`/profile/${localStorage.getItem("user_id")}`}>{`${userData.username}'s Profile`}</NavLink>
-                <NavLink className="dropdown-item" to="/create">Create Post</NavLink>
                 <NavLink className="dropdown-item" onClick={handleLogout}>Logout</NavLink>
               </div>
             )}
+          </div>
           </div>
         ) : (
           <div>
