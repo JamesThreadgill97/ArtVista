@@ -13,7 +13,7 @@ export default function CreateArtwork() {
   useEffect(() => {
     const fetchTags = async () => {
       try {
-        const response = await fetch("https://artvista-api.onrender.com/tag")
+        const response = await fetch("https://https://artvista-frontend.onrender.com//tag")
         const data = await response.json()
         if (response.status == 200) {
           setTags(data.data)
@@ -55,9 +55,6 @@ export default function CreateArtwork() {
     let formData = new FormData()
     formData.append("user_id", localStorage.getItem("user_id"))
     formData.append("file", file.data)
-
-    
-    formData.append("user_id", 1)
     formData.append("title", title)
     formData.append("description", description) //add tags at some point too
     formData.append("likes", 0)
@@ -72,7 +69,7 @@ export default function CreateArtwork() {
           },
           body: formData
         }
-        const response = await fetch("https://artvista-api.onrender.com/art/", options)
+        const response = await fetch("https://https://artvista-frontend.onrender.com//art/", options)
 
         if (response.status == 201) {
           setMessage("Artwork Uploaded!")
@@ -80,6 +77,7 @@ export default function CreateArtwork() {
             setMessage("")
           }, 5000)
         } else {
+          
           alert("Login before you post an artwork")
         }
       }

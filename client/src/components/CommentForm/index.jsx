@@ -23,10 +23,10 @@ export default function CommentForm({id, setComments}) {
               content: comment
             })
           }
-          const response = await fetch("https://artvista-api.onrender.com/comment", options)
+          const response = await fetch("https://https://artvista-frontend.onrender.com//comment", options)
           if (response.status == 201) {
             const fetchComments = async () => {
-              const response = await fetch(`https://artvista-api.onrender.com/art/${id}/comments`)
+              const response = await fetch(`https://https://artvista-frontend.onrender.com//art/${id}/comments`)
               const data = await response.json()
               setComments(data)
             }

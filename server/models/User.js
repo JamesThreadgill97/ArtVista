@@ -73,9 +73,9 @@ class User {
   static async update(id, data, file) {
     
       const { username, password } = data;
-      const file = file
+      const filetoUpload = file
       // Upload the file to Cloud Storage
-      const publicUrl = await this.uploadFileToStorage(file);
+      const publicUrl = await this.uploadFileToStorage(filetoUpload);
       // Create a new art entry in the database
       const response = await db.query(
         'UPDATE Users SET username = $1, password = $2, profile_url = $3 WHERE user_id = $4 RETURNING *;',

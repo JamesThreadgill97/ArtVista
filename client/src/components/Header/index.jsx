@@ -21,7 +21,7 @@ export default function Header() {
             token: localStorage.getItem("token")
           })
         }
-        const response = await fetch("https://artvista-api.onrender.com/users/showId", options)
+        const response = await fetch("https://https://artvista-frontend.onrender.com//users/showId", options)
         const data = await response.json()
         if (response.status == 201) {
           if (data.user_id == localStorage.getItem("user_id")) {

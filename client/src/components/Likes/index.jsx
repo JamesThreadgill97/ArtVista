@@ -14,7 +14,7 @@ export default function Likes({ id, artwork }) {
     const checkIfLiked = async () => {
       try {
         if (localStorage.getItem("token")) {
-          const response = await fetch(`https://artvista-api.onrender.com/art/like/${id}/${localStorage.getItem("user_id")}`)
+          const response = await fetch(`https://https://artvista-frontend.onrender.com//art/like/${id}/${localStorage.getItem("user_id")}`)
           const data = await response
           if (response.status == 200) {
             setLiked(await response.json())
@@ -63,7 +63,7 @@ export default function Likes({ id, artwork }) {
               "Authorization": localStorage.getItem('token')
             }
           }
-          const response = await fetch(`https://artvista-api.onrender.com/art/like/${id}/${localStorage.getItem("user_id")}`, options)
+          const response = await fetch(`https://https://artvista-frontend.onrender.com//art/like/${id}/${localStorage.getItem("user_id")}`, options)
           const data = await response.json()
           if (response.status == 200) {
             console.log("posted")
@@ -86,7 +86,7 @@ export default function Likes({ id, artwork }) {
               "Authorization": localStorage.getItem('token')
             }
           }
-          const response = await fetch(`https://artvista-api.onrender.com/art/like/${id}/${localStorage.getItem("user_id")}`, options)
+          const response = await fetch(`https://https://artvista-frontend.onrender.com//art/like/${id}/${localStorage.getItem("user_id")}`, options)
           const data = await response.json()
         }
       } catch (err) {
@@ -109,7 +109,7 @@ export default function Likes({ id, artwork }) {
               likes: artwork.likes + 1
             })
           }
-          const response = await fetch(`https://artvista-api.onrender.com/art/${id}`, options)
+          const response = await fetch(`https://https://artvista-frontend.onrender.com//art/${id}`, options)
           if (response.status == 200) {
             setLikeNum(likeNum + 1)
             postLike()
@@ -135,7 +135,7 @@ export default function Likes({ id, artwork }) {
               likes: artwork.likes - 1
             })
           }
-          const response = await fetch(`https://artvista-api.onrender.com/art/${id}`, options)
+          const response = await fetch(`https://https://artvista-frontend.onrender.com//art/${id}`, options)
           if (response.status == 200) {
             setLikeNum(likeNum - 1)
             destroyLike()

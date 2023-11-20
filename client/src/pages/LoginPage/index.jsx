@@ -31,7 +31,7 @@ export default function LoginPage() {
           })
         }
 
-        const response = await fetch('https://artvista-api.onrender.com/users/login', options)
+        const response = await fetch('https://https://artvista-frontend.onrender.com//users/login', options)
         const data = await response.json()
         localStorage.setItem("token", data.token)
         localStorage.setItem("user_id",data.user_id)

@@ -14,7 +14,7 @@ export default function SearchForm({setArtworks}) {
     e.preventDefault()
     const fetchArtworks = async () => {
       try {
-        const response = await fetch("https://artvista-api.onrender.com/art/")
+        const response = await fetch("https://https://artvista-frontend.onrender.com//art/")
         const data = await response.json()
         if (response.status == 200) {
           searchInArtworks(data)
