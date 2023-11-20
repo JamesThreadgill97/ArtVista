@@ -14,7 +14,7 @@ async function register(req, res) {
     // Hash the password
     data['password'] = await bcrypt.hash(data['password'], salt);
 
-    const result = await User.uploadAndCreate(data);
+    const result = await User.uploadAndCreate(data, file);
 
     res.status(201).send(result);
   } catch (err) {
