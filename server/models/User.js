@@ -5,7 +5,7 @@ class User {
     this.id = user_id;
     this.username = username;
     this.password = password;
-
+    
   }
 
   static async getOneById(id) {
