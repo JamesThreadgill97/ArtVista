@@ -575,3 +575,37 @@ header {
   width: 50px;
   height: 50px;
 }
+
+/* Style for the search form */
+.search-form {
+  display: flex;
+  align-items: center;
+  max-width: 300px;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  border-radius: 20px; /* Round the corners */
+  overflow: hidden; /* Hides the submit button overflow */
+}
+
+/* Style for the text input */
+.search-form input[type="text"] {
+  flex: 1; /* Takes up remaining space */
+  padding: 10px;
+  border: none;
+  outline: none; /* Remove default input focus outline */
+}
+
+/* Style for the submit button */
+.search-form input[type="submit"] {
+  background-color: white;
+  /* padding: 10px 20px; */
+  border: none;
+  border-radius: 0 20px 20px 0; /* Matches the form's border-radius */
+  cursor: pointer;
+  width:35px
+}
+
+/* Style for the submit button on hover */
+.search-form input[type="submit"]:hover {
+  background-color: lightgray;
+}
