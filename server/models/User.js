@@ -31,10 +31,15 @@ class User {
   static async uploadAndCreate(data, file) {
     const { username, password } = data;
     // Upload the file to Cloud Storage
-    if (file == null || file == undefined) {
-      const publicUrl = 'https://storage.googleapis.com/artvista-images/default_profile.png'
-    } else { const publicUrl = await this.uploadFileToStorage(file); }
-
+    let publicUrl
+    if (file == null || file == undefined) 
+    {
+      publicUrl = 'https://storage.googleapis.com/artvista-images/default_profile.png'
+    } else 
+    { 
+      publicUrl = await this.uploadFileToStorage(file); 
+    }
+ 
 
     // Create a new art entry in the database
     const response = await db.query(
