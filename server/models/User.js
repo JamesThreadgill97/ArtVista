@@ -1,3 +1,4 @@
+const { log } = require('console');
 const db = require('../database/connect');
 
 class User {
@@ -39,7 +40,6 @@ class User {
     { 
       publicUrl = await this.uploadFileToStorage(file); 
     }
- 
 
     // Create a new art entry in the database
     const response = await db.query(
