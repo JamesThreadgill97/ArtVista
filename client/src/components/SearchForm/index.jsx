@@ -51,9 +51,9 @@ export default function SearchForm({setArtworks}) {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form className="search-form" onSubmit={handleSubmit}>
         <input type="text" placeholder='Search...' onChange={handleTextInput} value={textInput} />
-        <input type="submit" />
+        <input type="submit" value="&#128270;" />
       </form>
     </div>
   )
