@@ -631,3 +631,14 @@ header {
 .search-form input[type="submit"]:hover {
   background-color: lightgray;
 }
+
+.show-more-btn {
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #373D20;
+  background-color: #88C093; /* Example color */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 10px
+}

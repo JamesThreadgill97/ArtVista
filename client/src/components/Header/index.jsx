@@ -59,7 +59,7 @@ export default function Header() {
 
   return (
     <>
-      <header>
+      <header id="header">
         <div className="menu-and-home">
         <div className="header-logo" onClick={toggleLogoDropdown}>
           <img src={logo} alt="Logo" />
