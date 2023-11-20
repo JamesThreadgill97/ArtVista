@@ -54,7 +54,6 @@ export default function ArtworkPage() {
     const fetchComments = async () => {
       const response = await fetch(`https://artvista-frontend.onrender.com/art/${id}/comments`)
       const data = await response.json()
-      console.log(data);
       if (data == "no comments") {
         setComments([])
         setCommentMessage("No comments")

@@ -9,7 +9,6 @@ export default function Likes({ id, artwork }) {
 
   useEffect(() => {
     setLikeNum(artwork.likes)
-    setLikeImg("https://storage.googleapis.com/artvista-images/blackheart.png")
 
     const checkIfLiked = async () => {
       try {
@@ -23,7 +22,6 @@ export default function Likes({ id, artwork }) {
           const data = await response
           if (response.status == 200) {
             setLiked(await response.json())
-
             if (liked) { //issue here?
               setLikeImg("https://storage.googleapis.com/artvista-images/heart.png")
             } else {
