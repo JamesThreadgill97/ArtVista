@@ -13,9 +13,7 @@ class Art {
   }
 
   static async getAll() {
-    log("before query")
     const response = await db.query('SELECT art.*, users.username FROM art INNER JOIN users ON art.user_id = users.user_id;');
-    log("after query")
     if (response.rows.length === 0) {
       throw new Error('No art available.');
     }
@@ -46,7 +44,6 @@ class Art {
     const response = await db.query('SELECT * FROM comments WHERE art_id = $1;', [
       id
     ]);
-    log(response)
     if (response.rows.length === 0) {
       return "no comments"
     }

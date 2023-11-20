@@ -56,7 +56,6 @@ async function destroyLike(req, res) {
 async function show(req, res) {
   try {
     const id = parseInt(req.params.id);
-    console.log(id);
     const art = await Art.getOneById(id);
     res.status(200).json(art);
   } catch (err) {
@@ -78,8 +77,6 @@ async function create(req, res) {
   try {
     const data = req.body;
     const file = req.file;
-    console.log(data);
-    console.log(file);
     const tagIds = req.body.tag_ids; // Assuming the frontend sends tag_ids as an array
 
     const newArt = await Art.uploadAndCreate(data, file, tagIds);
