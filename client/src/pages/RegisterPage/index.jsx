@@ -40,7 +40,7 @@ export default function Register() {
             password: password1
           })
         }
-        const response = await fetch('https://artvista-api.onrender.com/users/login', options)
+        const response = await fetch('http://localhost:3000/users/login', options)
         const data = await response.json()
         localStorage.setItem("token", data.token)
         localStorage.setItem("user_id", data.user_id)
@@ -76,7 +76,7 @@ export default function Register() {
           body: formData
         }
 
-        const response = await fetch('https://artvista-api.onrender.com/users/register', options)
+        const response = await fetch('http://localhost:3000/users/register', options)
         const data = await response.json()
         if (response.status == 201) {
           loginAccount()
