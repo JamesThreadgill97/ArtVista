@@ -31,7 +31,7 @@ class User {
   static async uploadAndCreate(data, file) {
     const { username, password } = data;
     // Upload the file to Cloud Storage
-    if (file == null) {
+    if (file == null || file == undefined) {
       const publicUrl = 'https://storage.googleapis.com/artvista-images/default_profile.png'
     } else { const publicUrl = await this.uploadFileToStorage(file); }
 
