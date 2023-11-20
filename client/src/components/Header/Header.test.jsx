@@ -1,11 +1,11 @@
 import React from "react";
-import { describe, it, expect, beforeEach, afterEach, test } from "vitest";
-import { screen, render, cleanup } from "@testing-library/react";
+import { screen, render, cleanup, fireEvent } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import createFetchMock from 'vitest-fetch-mock';
-import { vi } from 'vitest';
+
 import * as matchers from '@testing-library/jest-dom/matchers';
 expect.extend(matchers);
+
 import Header from "."
 
 describe("Header", () => {
@@ -17,11 +17,14 @@ describe("Header", () => {
         cleanup();
     })
 
-  it("Displays a navigation with the correct amount of Links ", () => {
-    const navigation = screen.getByRole("navigation");
+ it("Displays a navigation with the correct amount of Links ", () => {
+  const navigations = screen.getAllByRole("navigation");
+
+  navigations.forEach((navigation) => {
     expect(navigation).toBeInTheDocument();
     expect(navigation.children.length).toBe(4);
   });
+});
 
   it("Renders Footer with the correct number of Links", () => {
     const footer = screen.getByRole("contentinfo");
@@ -29,6 +32,40 @@ describe("Header", () => {
     const links = screen.getAllByRole("link");
     expect(links).toHaveLength(8);
   });
+  it('renders the Home link', () => {
+        const homeLink = screen.getByRole('link', { name: /home/i });
+        expect(homeLink).toBeInTheDocument();
+    fireEvent.click(homeLink);
+            expect(window.location.href).toEqual('http://localhost:3000/');
+
+        // expect(window.location.href).toEqual('https://artvista-api.onrender.com/');
+    });
+
+    it('renders the create link', () => {
+        const addLink = screen.getByRole('link', { name: /add/i });
+        expect(addLink).toBeInTheDocument();
+      fireEvent.click(addLink);
+              expect(window.location.href).toEqual('http://localhost:3000/create');
+
+        // expect(window.location.href).toEqual('https://artvista-api.onrender.com/create');
+    });
+
+    it('renders the login link', () => {
+        const loginLink = screen.getByRole('link', { name: /login/i });
+        expect(loginLink).toBeInTheDocument();
+      fireEvent.click(loginLink);
+              expect(window.location.href).toEqual('http://localhost:3000/login');
+
+       // expect(window.location.href).toEqual('https://artvista-api.onrender.com/login');
+    });
+   it('renders the register link', () => {
+        const registerLink = screen.getByRole('link', { name: /register/i });
+        expect(registerLink).toBeInTheDocument();
+     fireEvent.click(registerLink);
+             expect(window.location.href).toEqual('http://localhost:3000/register');
+
+        // expect(window.location.href).toEqual('https://artvista-api.onrender.com/register');
+    });
 });
 
 const fetchMocker = createFetchMock(vi);
@@ -40,21 +77,21 @@ beforeEach(() => {
 
 afterEach(() => {
     localStorage.clear();
-  });
-
+});
   
+
 
 test('Logs out user and removes items from localStorage', async () => {
   fetchMocker.mockResponseOnce(JSON.stringify({ username: 'testUser' }));
 
-  render(
+   render(
     <BrowserRouter>
       <Header />
     </BrowserRouter>
   );
+ 
 it('renders username when user is logged in', () => {
-    // Check if the username element is present
-    const usernameElement = screen.getByText('testUser'); // Replace with the expected username
+    const usernameElement = screen.getByText('testUser'); 
     expect(usernameElement).toBeInTheDocument();
 });
     
@@ -77,7 +114,7 @@ test('Header component tests', () => {
       status: 201,
     });
 
-    globalThis.localStorage.getItem = jest.fn().mockReturnValue('mockedToken');
+    globalThis.localStorage.getItem = spyOn.fn().mockReturnValue('mockedToken');
 
     test('sets the username', async () => {
       render(Header);
@@ -97,8 +134,79 @@ test('Header component tests', () => {
         expect(registerButton).toBeNull();
          const usernameDiv = screen.getByTestId('username-div');
       expect(usernameDiv).toBeInTheDocument();
-      // Check if the NavLink is a child of the <div>
       expect(usernameDiv).toContainElement(usernameNavLink);
+    });
+  });
+
+  describe("Header", () => {
+    const fetchSpy = vi.spyOn(global, "fetch");
+    afterEach(() => {
+      fetchSpy.mockRestore();
+    });
+    it('should fetch user data and update state', async () => {
+      const mockUserData = {
+        user_id: '123',
+        username: 'testUser',
+      };
+
+      const mockResponse = {
+        status: 201,
+        json: async () => mockUserData,
+      };
+
+      fetchSpy.mockResolvedValue(mockResponse);
+
+      render(
+    <BrowserRouter>
+      <Header />
+    </BrowserRouter>
+  );
+
+     
+      await waitFor(() => {
+        
+        expect(fetchSpy).toHaveBeenCalledWith(
+          'https://artvista-api.onrender.com/users/showId',
+          expect.objectContaining({
+            method: 'GET',
+            headers: {
+              'content-type': 'application/json',
+            },
+            body: JSON.stringify({
+              token: localStorage.getItem('token'),
+            }),
+          })
+        );
+
+        
+        const usernameElement = screen.getByText('testUser');
+        expect(usernameElement).toBeInTheDocument();
+      });
+    });
+  });
+  describe('Header', () => {
+    it('should handle logout by removing items from localStorage', () => {
+     
+      localStorage.setItem('token', 'testToken');
+      localStorage.setItem('user_id', '123');
+
+      
+      render(
+    <BrowserRouter>
+      <Header />
+    </BrowserRouter>
+  );
+
+     
+      const logoutButton = screen.getByText('Logout');
+      expect(logoutButton).toBeInTheDocument();
+
+  
+      fireEvent.click(logoutButton);
+
+      
+      expect(localStorage.getItem('token')).toBeNull();
+      expect(localStorage.getItem('user_id')).toBeNull();
     });
   });
 });
