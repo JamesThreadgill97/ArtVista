@@ -10,26 +10,30 @@ export default function CommentForm({id, setComments}) {
     e.preventDefault()
     const postComment = async () => {
       try{
-        const options = {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json",
-            "Authorization": localStorage.getItem('token')
-          },
-          body: JSON.stringify({
-            user_id: 2,//need to get this
-            art_id: id,
-            content: comment
-          })
-        }
-        const response = await fetch("https://artvista-api.onrender.com/comment", options)
-        if (response.status == 201) {
-          const fetchComments = async () => {
-            const response = await fetch(`https://artvista-api.onrender.com/art/${id}/comments`)
-            const data = await response.json()
-            setComments(data)
+        if (localStorage.getItem("token")) {
+          const options = {
+            method: "POST",
+            headers: {
+              "Content-type": "application/json",
+              "Authorization": localStorage.getItem('token')
+            },
+            body: JSON.stringify({
+              user_id: localStorage.getItem('user_id'),
+              art_id: id,
+              content: comment
+            })
           }
-          fetchComments()
+          const response = await fetch("https://https://artvista-frontend.onrender.com//comment", options)
+          if (response.status == 201) {
+            const fetchComments = async () => {
+              const response = await fetch(`https://https://artvista-frontend.onrender.com//art/${id}/comments`)
+              const data = await response.json()
+              setComments(data)
+            }
+            fetchComments()
+          } else {
+            alert("Login before you leave a comment.")
+          }
         }
       } catch (err) {
         console.error({error: err.message})
@@ -40,11 +44,9 @@ export default function CommentForm({id, setComments}) {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+      <div className="comment-create" onSubmit={handleSubmit}>
         <textarea name="" id="" cols="30" rows="3" placeholder='Comment here...' onChange={handleTextarea} value={comment}></textarea>
-        <input type="submit" />
-      </form>
-    </div>
+        <input value="" type="submit" onClick={handleSubmit}/>
+      </div>
   )
 }

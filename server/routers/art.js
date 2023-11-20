@@ -13,7 +13,7 @@ artRouter.get('/:id/comments', artController.comments);
 artRouter.get('/like/:art_id/:user_id', authenticator, artController.likes)
 artRouter.post('/like/:art_id/:user_id', authenticator, artController.postLike)
 artRouter.delete('/like/:art_id/:user_id', authenticator, artController.destroyLike)
-artRouter.post('/',[ upload.single('file'), authenticator], artController.create); // Use Multer middleware for file upload
+artRouter.post('/',[authenticator , upload.single('file')], artController.create); // Use Multer middleware for file upload
 
 artRouter.patch('/:id', authenticator, artController.update);
 artRouter.delete('/:id', authenticator, artController.destroy);

@@ -83,6 +83,7 @@ async function getUserId(req, res) {
 module.exports = {
   register,
   login,
+  update,
   getUserId,
   getUserInfo
 };
