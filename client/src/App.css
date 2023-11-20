@@ -562,8 +562,16 @@ header {
   color: #FCFFF8; /* Darker shade for hover effect */
 }
 
-
 .profile-page-pic {
   width: 100px;
   height: 100px
+}
+
+.profile-link-pic {
+  width: 25px;
+  height: 25px;
+}
+.comment-profile-pic {
+  width: 50px;
+  height: 50px;
 }
