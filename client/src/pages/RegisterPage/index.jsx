@@ -6,7 +6,8 @@ export default function Register() {
   const [username, setUsername] = useState("")
   const [password1, setPassword1] = useState("")
   const [password2, setPassword2] = useState("")
-  const [message,setMessage] = useState("")
+  const [message, setMessage] = useState("")
+  const [file, setFile] = useState(null)
 
   const handleTextInput = (e) => {
     setUsername(e.target.value)
@@ -16,6 +17,14 @@ export default function Register() {
   }
   const handlePassword2Input = (e) => {
     setPassword2(e.target.value)
+  }
+  const handleFileChange = (e) => {
+    const img = {
+      preview: URL.createObjectURL(e.target.files[0]),
+      data: e.target.files[0],
+
+    }
+    setFile(img)
   }
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -31,52 +40,57 @@ export default function Register() {
             password: password1
           })
         }
-        const response = await fetch('https://https://artvista-frontend.onrender.com//users/login',options)
+        const response = await fetch('http://localhost:3000/users/login', options)
         const data = await response.json()
         localStorage.setItem("token", data.token)
-        localStorage.setItem("user_id",data.user_id)
+        localStorage.setItem("user_id", data.user_id)
         if (response.status == 200) {
           setMessage("Register and Login successful!")
 
-          setTimeout(()=>{
+          setTimeout(() => {
             navigate("/")
             setMessage("")
-          },1000)
+          }, 1000)
         }
       }
-      catch(err) {
+      catch (err) {
         console.error(err.message)
       }
     }
 
     const registerAccount = async () => {
       try {
+        let formData = new FormData()
+        formData.append("username", username)
+        formData.append("password", password1)
+        if (file) {
+          formData.append("file", file.data)
+        }
+
+
         const options = {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify({
-            username: username,
-            password: password1
-          })
+          body: formData
         }
-        
-        const response = await fetch('https://https://artvista-frontend.onrender.com//users/register', options)
+
+        const response = await fetch('http://localhost:3000/users/register', options)
         const data = await response.json()
         if (response.status == 201) {
           loginAccount()
         } else {
           setMessage("Failed to register.")
-          setTimeout(()=>{
+          setTimeout(() => {
             setMessage("")
           }, 5000)
         }
-      } 
+      }
       catch (err) {
         console.error(err.message)
         setMessage("Register unsuccessful. Try again.")
-        setTimeout(()=>{
+        setTimeout(() => {
           setMessage("")
         }, 5000)
       }
@@ -85,7 +99,7 @@ export default function Register() {
       registerAccount()
     } else {
       setMessage("Passwords do not match. Try again.")
-      setTimeout(()=>{
+      setTimeout(() => {
         setMessage("")
       }, 5000)
     }
@@ -97,10 +111,11 @@ export default function Register() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <input type="text" placeholder="Enter username" onChange={handleTextInput} value={username}/>
-        <input type="password" placeholder="Enter password" onChange={handlePassword1Input} value={password1}/>
-        <input type="password" placeholder="Enter password again" onChange={handlePassword2Input} value={password2}/>
-        <input type="submit" value="Enter"/>
+        <input type="text" placeholder="Enter username" onChange={handleTextInput} value={username} />
+        <input type="password" placeholder="Enter password" onChange={handlePassword1Input} value={password1} />
+        <input type="password" placeholder="Enter password again" onChange={handlePassword2Input} value={password2} />
+        <input type="file" accept="image/*" onChange={handleFileChange} />
+        <input type="submit" value="Enter" />
       </form>
       <h2>{message}</h2>
     </>
