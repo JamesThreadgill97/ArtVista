@@ -93,7 +93,7 @@ export default function Header() {
           <div className="header-profile" onClick={toggleDropdown}>
             <img src={profileImage} alt="Profile" />
             {/* Dropdown menu */}
-            {showDropdown && (
+            {showProfileDropdown && (
               <div className="profile-dropdown">
                 <NavLink className="dropdown-item" to="/profile">Profile</NavLink>
                 <NavLink className="dropdown-item" to="/create">Create Post</NavLink>
