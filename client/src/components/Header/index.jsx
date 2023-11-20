@@ -32,7 +32,7 @@ export default function Header() {
         const token = localStorage.getItem("token");
         if (token) {
           const response = await fetch(
-            "http://localhost:3000/users/showId",
+            "https://artvista-frontend.onrender.com/users/showId",
             {
               method: "GET",
               headers: {
