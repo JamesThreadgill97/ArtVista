@@ -34,6 +34,7 @@ export default function ArtworkPage() {
   };
 
   useEffect(() => {
+    window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
     const fetchArtwork = async () => {
       try {
         const response = await fetch(`https://artvista-api.onrender.com/art/${id}`)
