@@ -30,8 +30,6 @@ export default function SearchForm({setArtworks}) {
       let artworksToBeSearched = Arr
       let artworksMatchingSearch = []
 
-
-
       for (let i = 0; i < searchArr.length; i++) {
         for (let j = artworksToBeSearched.length - 1; j >= 0; j--) {
           if (

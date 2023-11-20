@@ -73,12 +73,34 @@ export default function ArtworkPage() {
       const data = await response.json()
       if (response.status == 200) {
         let array = data;
-        array.sort((a, b) => b.id - a.id) //
-        setArtworks(array)
+        // array.sort((a, b) => b.id - a.id) //want to reorder this
+        // setArtworks(array)
+        searchInArtworks(array,[])
       }
     }
     fetchArtworks()
   }, [])
+
+  const searchInArtworks = (artworkArr,searchArr) => {
+    
+    let artworksToBeSearched = artworkArr
+    let artworksMatchingSearch = []
+
+    for (let i = 0; i < searchArr.length; i++) {
+      for (let j = artworksToBeSearched.length - 1; j >= 0; j--) {
+        if (
+          artworksToBeSearched[j].title.toLowerCase().includes(searchArr[i].toLowerCase()) ||
+          artworksToBeSearched[j].description.toLowerCase().includes(searchArr[i].toLowerCase()) ||
+          artworksToBeSearched[j].username.toLowerCase().includes(searchArr[i].toLowerCase())
+        ) {
+          artworksMatchingSearch.push(artworksToBeSearched[j])
+          artworksToBeSearched.splice(j, 1)
+         }
+      }
+    }
+    setArtworks(artworksMatchingSearch)
+  }
+
 
   const toggleShowMoreArtworks = () => {
     if(!showMoreArtworks) {
