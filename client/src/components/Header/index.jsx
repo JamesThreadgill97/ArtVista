@@ -44,28 +44,6 @@ export default function Header() {
   },[localStorage.getItem("user_id")])
 
 
-  // useEffect(() => {
-  //   const fetchUserData = async () => {
-  //     const token = localStorage.getItem("token");
-  //     if (token) {
-  //       try {
-  //         const response = await fetch("https://artvista-api.onrender.com/users/showId");
-  //         const data = await response.json();
-  //         if (response.status === 201) {
-  //           if (data.user_id === localStorage.getItem("user_id")) {
-  //             setUsername(data.username);
-  //           } else {
-  //             console.error("user_ids don't match");
-  //           }
-  //         }
-  //       } catch (err) {
-  //         console.error({ error: err.message });
-  //       }
-  //     }
-  //   };
-  //   fetchUserData();
-  // }, [localStorage.getItem("token")]);
-
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
