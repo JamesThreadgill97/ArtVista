@@ -142,7 +142,7 @@ textarea {
   display: flex;
   flex-wrap: wrap;
   gap:10px;
-  
+  justify-content: space-between;
 }
 
 .displayed-artwork {
@@ -335,6 +335,80 @@ textarea {
   color: white;
 } */
 
+
+/* CREATE ARTWORK */
+.create-artwork {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  height: 75vh;
+  width: 80%;
+  max-width: none;
+  background-color: var(--logo-colour);
+  margin-bottom: 50px;
+}
+
+.create-artwork-image, .create-artwork-details {
+  width: 100%;
+  height: 65vh;
+}
+
+.create-artwork-image > img {
+  /* height: 30vh;
+  width: auto; */
+  max-height: 80%;
+  max-width:100%;
+  object-fit: cover;
+}
+
+.create-artwork-details > div {
+  max-height: 80%;
+}
+
+.create-artwork-details > div > div {
+  max-height: 40vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* background-color: var(--light-dialogue); */
+  padding: 5px;
+  gap: 5px;
+}
+
+.create-artwork-details > div > div > .tag-checkbox {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: calc((5px + 5vw) / 1.5);
+  width: calc((10px + 5vw) * 1.5);
+  font-size: calc(5px + 0.5vw);
+  padding: 0;
+  /* background-color: var(--logo-colour); */
+  background-color: var(--light-dialogue);
+}
+
+.create-artwork-details > div > div > .tag-checkbox > input {
+  width: calc(5px + 0.5vw);
+  padding: 5px;
+  accent-color: var(--logo-colour);
+}
+
+.create-artwork-details > div > div > .tag-checkbox > input :checked {
+  background-color: var(--logo-colour);
+}
+
+.create-artwork-details > div > div > .tag-checkbox > span {
+  height: calc((5px + 0.5vw) * 3);
+  width: 70%;
+  max-width: 70%;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
 /* HEADER STYLING */
 /* Header styles */
 header {
@@ -486,4 +560,18 @@ header {
 .login-button:hover {
   background-color: #373D20;
   color: #FCFFF8; /* Darker shade for hover effect */
+}
+
+.profile-page-pic {
+  width: 100px;
+  height: 100px
+}
+
+.profile-link-pic {
+  width: 25px;
+  height: 25px;
+}
+.comment-profile-pic {
+  width: 50px;
+  height: 50px;
 }
