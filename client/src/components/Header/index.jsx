@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import logo from "../../../assets/Logo.png"; // Import your logo image
-import profileImage from "../../../assets/profile-placeholder.png"; // Import profile image
+import default_profile from "../../../assets/profile-placeholder.png";
 
 export default function Header() {
+  const [profileImage, setProfileImage] = useState(default_profile)
   const [showMenu, setShowMenu] = useState(false);
-  const [username, setUsername] = useState("");
+  const [userData, setUserData] = useState({});
   const [showLogoDropdown, setShowLogoDropdown] = useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
 
@@ -26,36 +27,44 @@ export default function Header() {
     setShowMenu(false);
   };
 
-  useEffect(() => {
+  useEffect(()=>{ 
     const fetchUserData = async () => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        try {
-          const response = await fetch(
-            "https://artvista-api.onrender.com/users/showId",
-            {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`, // Assumed format, adjust as per your API
-              },
-            }
-          );
-          const data = await response.json();
-          if (response.status === 201) {
-            if (data.user_id === localStorage.getItem("user_id")) {
-              setUsername(data.username);
-            } else {
-              console.error("user_ids don't match");
-            }
-          }
-        } catch (err) {
-          console.error({ error: err.message });
+      try {
+        const response = await fetch(`https://artvista-api.onrender.com/users/userInfo/${localStorage.getItem("user_id")}`)
+        const data = await response.json()
+        if (response.status == 200) {
+          setUserData(data)
+          setProfileImage(data.profile_url)
         }
+      } catch (err) {
+        console.error({error:err.message})
       }
-    };
-    fetchUserData();
-  }, [localStorage.getItem("token")]);
+    }
+    fetchUserData()
+  },[localStorage.getItem("user_id")])
+
+
+  // useEffect(() => {
+  //   const fetchUserData = async () => {
+  //     const token = localStorage.getItem("token");
+  //     if (token) {
+  //       try {
+  //         const response = await fetch("https://artvista-api.onrender.com/users/showId");
+  //         const data = await response.json();
+  //         if (response.status === 201) {
+  //           if (data.user_id === localStorage.getItem("user_id")) {
+  //             setUsername(data.username);
+  //           } else {
+  //             console.error("user_ids don't match");
+  //           }
+  //         }
+  //       } catch (err) {
+  //         console.error({ error: err.message });
+  //       }
+  //     }
+  //   };
+  //   fetchUserData();
+  // }, [localStorage.getItem("token")]);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -90,19 +99,22 @@ export default function Header() {
         </NavLink>
 
         {isLoggedIn ? (
-          <div className="header-profile" onClick={toggleDropdown}>
+          <div className="header-profile" onClick={toggleProfileDropdown}>
             <img src={profileImage} alt="Profile" />
             {/* Dropdown menu */}
-            {showDropdown && (
+            {showProfileDropdown && (
               <div className="profile-dropdown">
-                <NavLink className="dropdown-item" to="/profile">Profile</NavLink>
+                <NavLink className="dropdown-item" to={`/profile/${localStorage.getItem("user_id")}`}>Profile</NavLink>
                 <NavLink className="dropdown-item" to="/create">Create Post</NavLink>
                 <button className="dropdown-item" onClick={handleLogout}>Logout</button>
               </div>
             )}
           </div>
         ) : (
-          <NavLink to="/login" className="login-button">Log in</NavLink>
+          <div>
+            <NavLink to="/login" className="login-button">Log in</NavLink>
+            <NavLink to="/register" className="login-button">Create an Account</NavLink>
+          </div>
         )}
       </header>
 
