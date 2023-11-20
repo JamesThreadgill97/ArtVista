@@ -9,6 +9,7 @@ export default function Header() {
   const [userData, setUserData] = useState({});
   const [showLogoDropdown, setShowLogoDropdown] = useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
+  let isLoggedIn = localStorage.getItem("token");
 
   const toggleLogoDropdown = () => {
     setShowLogoDropdown(!showLogoDropdown);
@@ -41,36 +42,14 @@ export default function Header() {
       }
     }
     fetchUserData()
+    isLoggedIn = localStorage.getItem("token")
   },[localStorage.getItem("user_id")])
 
-
-  // useEffect(() => {
-  //   const fetchUserData = async () => {
-  //     const token = localStorage.getItem("token");
-  //     if (token) {
-  //       try {
-  //         const response = await fetch("https://artvista-api.onrender.com/users/showId");
-  //         const data = await response.json();
-  //         if (response.status === 201) {
-  //           if (data.user_id === localStorage.getItem("user_id")) {
-  //             setUsername(data.username);
-  //           } else {
-  //             console.error("user_ids don't match");
-  //           }
-  //         }
-  //       } catch (err) {
-  //         console.error({ error: err.message });
-  //       }
-  //     }
-  //   };
-  //   fetchUserData();
-  // }, [localStorage.getItem("token")]);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
 
-  const isLoggedIn = localStorage.getItem("token");
 
   return (
     <>
@@ -104,9 +83,9 @@ export default function Header() {
             {/* Dropdown menu */}
             {showProfileDropdown && (
               <div className="profile-dropdown">
-                <NavLink className="dropdown-item" to={`/profile/${localStorage.getItem("user_id")}`}>Profile</NavLink>
+                <NavLink className="dropdown-item" to={`/profile/${localStorage.getItem("user_id")}`}>{`${userData.username}'s Profile`}</NavLink>
                 <NavLink className="dropdown-item" to="/create">Create Post</NavLink>
-                <button className="dropdown-item" onClick={handleLogout}>Logout</button>
+                <NavLink className="dropdown-item" onClick={handleLogout}>Logout</NavLink>
               </div>
             )}
           </div>

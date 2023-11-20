@@ -70,9 +70,6 @@ export default function Register() {
 
         const options = {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
           body: formData
         }
 
