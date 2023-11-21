@@ -8,22 +8,8 @@ export default function ArtworkPage() {
   const [artwork, setArtwork] = useState({})
   const [artworks, setArtworks] = useState([])
   const [comments, setComments] = useState([])
-  const [commentMessage, setCommentMessage] = useState([])
-
-  //gets all images
-  useEffect(() => {
-    const fetchArtworks = async () => {
-      const response = await fetch("https://artvista-api.onrender.com/art/")
-      const data = await response.json()
-      if (response.status == 200) {
-        let array = data;
-        array.sort((a, b) => b.id - a.id)
-        setArtworks(array)
-      }
-    }
-    fetchArtworks()
-  }, [])
-
+  const [commentMessage, setCommentMessage] = useState("")
+  const [showMoreArtworks, setShowMoreArtworks] = useState(false)
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -34,6 +20,11 @@ export default function ArtworkPage() {
   };
 
   useEffect(() => {
+    document.getElementById("header").scrollIntoView({behavior:"smooth"});
+    setShowMoreArtworks(false)
+    setComments([])
+    setCommentMessage("")
+
     const fetchArtwork = async () => {
       try {
         const response = await fetch(`https://artvista-api.onrender.com/art/${id}`)
@@ -61,7 +52,7 @@ export default function ArtworkPage() {
       }
     }
     fetchComments()
- 
+
 
   }, [id])
 
@@ -74,6 +65,31 @@ export default function ArtworkPage() {
       setCommentMessage(`${comments.length} comments`)
     }
   }, [comments])
+
+  //gets all images
+  useEffect(() => {
+    const fetchArtworks = async () => {
+      const response = await fetch("https://artvista-api.onrender.com/art/")
+      const data = await response.json()
+      if (response.status == 200) {
+        let array = data;
+        array.sort((a, b) => b.id - a.id) //
+        setArtworks(array)
+      }
+    }
+    fetchArtworks()
+  }, [])
+
+  const toggleShowMoreArtworks = () => {
+    if(!showMoreArtworks) {
+      setTimeout(()=>{
+        document.getElementById("hide-btn").scrollIntoView({behavior:"smooth"});
+      },0)
+      setShowMoreArtworks(!showMoreArtworks)
+    } else {
+        setShowMoreArtworks(!showMoreArtworks)
+    }
+  }
 
   return (
     <>
@@ -101,7 +117,18 @@ export default function ArtworkPage() {
           <CommentForm id={id} setComments={setComments} />
         </div>
       </div>
-      <Gallery artworks={artworks} />
+      {
+        !showMoreArtworks && <button className="show-more-btn" onClick={toggleShowMoreArtworks}>See More</button>
+      }
+
+      {
+        showMoreArtworks && 
+        <div>
+          <button id="hide-btn" className="show-more-btn" onClick={toggleShowMoreArtworks}>Hide Artworks</button>
+          <Gallery artworks={artworks} />
+        </div>
+
+      }
     </>
   )
 }
