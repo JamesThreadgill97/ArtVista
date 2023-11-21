@@ -15,14 +15,15 @@ export default function Likes({ id, artwork }) {
       try {
         if (localStorage.getItem("token")) {
           const options = {
+            method: "GET",
             headers: {
               "Authorization": localStorage.getItem('token')
             }
           }
           const response = await fetch(`https://artvista-api.onrender.com/art/like/${id}/${localStorage.getItem("user_id")}`, options)
-          const data = await response
+          const data = await response.json()
           if (response.status == 200) {
-            setLiked(await response.json())
+            setLiked(data)
 
             if (liked) { //issue here?
               setLikeImg("https://storage.googleapis.com/artvista-images/heart.png")
