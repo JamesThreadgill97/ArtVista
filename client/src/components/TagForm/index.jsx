@@ -6,7 +6,7 @@ export default function TagForm({ tags, setTags, handleCheckbox }) {
 
   return (
     <div>
-      <h3>Tags</h3>
+      <h3 className='tags-title'>Tags</h3>
       <div>
         {tags.map((el) => <label key={el.id} className='tag-checkbox'>
           <span>{el.tag}</span>
