@@ -84,6 +84,16 @@ async function showByTags(req, res) {
   }
 }
 
+async function showAllWithCommonTags(req,res) {
+  try {
+    const id = parseInt(req.params.id);
+    const arts = await Art.getAllWithCommonTag(id)
+    res.status(200).json(arts)
+  } catch (err) {
+    res.status(404).json({ error: err.message });
+  }
+}
+
 async function create(req, res) {
   try {
     const data = req.body;
@@ -124,4 +134,4 @@ async function destroy(req, res) {
 
 
 
-module.exports = { index, show, create, comments, likes, postLike, destroyLike, showTags, update, destroy, showByTags };
+module.exports = { index, show, create, comments, likes, postLike, destroyLike, showTags, update, destroy, showByTags , showAllWithCommonTags};

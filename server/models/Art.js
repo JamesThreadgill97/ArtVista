@@ -97,6 +97,15 @@ class Art {
     return response.rows;
   }
 
+  static async getAllWithCommonTag(art_id) {
+    const response = await db.query('SELECT DISTINCT a.* FROM Art a JOIN arttags at1 ON a.art_id = at1.art_id JOIN arttags at2 ON at1.tag_id = at2.tag_id WHERE at2.art_id = $1 AND a.art_id <> $1;', [art_id])
+    if (response.rows.length === 0) {
+      throw new Error('Unable to locate artworks.');
+    }
+
+    return response.rows;
+  }
+
 
 
   static async uploadAndCreate(data, file, tag_ids) {

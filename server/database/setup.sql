@@ -159,13 +159,13 @@ VALUES
 INSERT INTO artTags (art_id, tag_id)
     VALUES
         (1, 1),
-        (1, 6),
         (1, 2),
-        (4, 3),
-        (4, 4),
-        (7, 12),
+        (1, 6),
         (1, 8),
-        (3, 5);
+        (3, 5),
+        (4, 2),
+        (4, 3),
+        (7, 6);
 
 INSERT INTO userLikes (user_id, art_id)
     VALUES
