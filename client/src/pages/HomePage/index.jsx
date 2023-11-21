@@ -37,7 +37,7 @@ export default function HomePage() {
     <>
       <div className="home-page-top">
       <h1>Welcome to ArtVista</h1>
-      <img class="search-icon" src={searchIcon} alt="search icon" onClick={toggleShowSearch} />
+      <img className="search-icon" src={searchIcon} alt="search icon" onClick={toggleShowSearch} />
       </div>
       {
         showSearch && <SearchForm setArtworks={setArtworks} />

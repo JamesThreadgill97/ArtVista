@@ -80,8 +80,8 @@ export default function CreateArtwork() {
           setMessage("Artwork Uploaded!")
           setTimeout(() => {
             setMessage("")
-            navigate(`/${data.id}`)
-          }, 1000)
+            navigate(`/artwork/${data.id}`)
+          }, 0)
         }
       }
       catch (err) {
