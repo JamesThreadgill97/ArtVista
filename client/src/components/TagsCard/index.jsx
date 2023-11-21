@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
+import {useParams} from "react-router-dom"
 
-export default function TagsCard({ id }) {
+export default function TagsCard() {
+  const { id } = useParams()
   const [tags, setTags] = useState([])
 
   useEffect(() => {
@@ -18,7 +20,7 @@ export default function TagsCard({ id }) {
       }
     }
     fetchTags()
-  }, [])
+  }, [id])
 
 
   return (
