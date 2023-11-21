@@ -21,5 +21,6 @@ artRouter.patch('/:id', authenticator, artController.update);
 artRouter.delete('/:id', authenticator, artController.destroy);
 artRouter.get('/tags/:id', artController.showTags) //gets tags for specific artwork
 artRouter.get('/arttags/:id', artController.showByTags) //gets info from arttags for a tag_id
+artRouter.get('/similar/:id', artController.showAllWithCommonTags)
 
 module.exports = artRouter;
