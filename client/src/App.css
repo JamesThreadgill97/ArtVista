@@ -1,11 +1,12 @@
 :root {
-  --background-colour: #EFF1ED;
-  --light-dialogue: #FCFFF8;
-  --text-colour: #373D20;
-  --logo-colour: #88C093;
+  --background-colour: #eff1ed;
+  --light-dialogue: #fcfff8;
+  --text-colour: #373d20;
+  --logo-colour: #88c093;
 
-  --font-family: 'Montserrat', sans-serif;
+  --font-family: "Montserrat", sans-serif;
 }
+
 
 /* width */
 ::-webkit-scrollbar {
@@ -16,20 +17,31 @@
 ::-webkit-scrollbar-track {
   border-radius: 10px;
 }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: var(--logo-colour); 
+  background: var(--logo-colour);
   border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-colour); 
+  background: var(--text-colour);
+}
+
+* {
+  box-sizing: border-box;
 }
 
 /* Reset some default styles */
-body, h1, h2, h3, p, ul, ol, li {
+body,
+h1,
+h2,
+h3,
+p,
+ul,
+ol,
+li {
   margin: 0;
   padding: 0;
   text-align: center;
@@ -58,25 +70,28 @@ nav {
   justify-content: space-around;
 }
 
-.nav-link{
+.nav-link {
   text-decoration: none;
   color: var(--text-colour);
   font-size: 20px;
 }
-.profile-link{
+.profile-link {
   font-size: 15px;
 }
-
 
 /* Footer Styles */
 footer {
   background-color: var(--background-colour);
   color: var(--text-colour);
-  padding: 10px;
+  padding: 5px;
   text-align: center;
-  position: fixed;
   bottom: 0;
   width: 100%;
+  margin: 0;
+  display: flex; /* Use Flexbox */
+  justify-content: space-between; /* Space out items */
+  align-items: center; /* Align items vertically */
+  position: fixed;
 }
 
 /* Optional: Style the content between header and footer */
@@ -124,7 +139,7 @@ textarea {
 .artwork-card {
   background-color: rgb(0, 0, 0);
   width: 300px;
-  height:300px;
+  height: 300px;
   overflow: hidden;
 }
 .artwork-card-img {
@@ -141,13 +156,14 @@ textarea {
 .gallery {
   display: flex;
   flex-wrap: wrap;
-  gap:10px;
-  justify-content: space-between;
+  gap: 10px;
+  justify-content: space-evenly;
+  padding: 20px;
 }
 
 .displayed-artwork {
-  width:auto;
-  height:auto;
+  width: auto;
+  height: auto;
   min-width: 35%;
   min-height: 35%;
   max-width: 55%;
@@ -155,7 +171,7 @@ textarea {
 }
 .displayed-artwork > img {
   width: 100%;
-  height:100%;
+  height: 100%;
   object-fit: cover;
 }
 
@@ -171,15 +187,13 @@ textarea {
   height: inherit;
   width: auto;
   margin-right: calc((30% + 5vw));
-  
-
 }
 
 .artwork-info {
   background-color: var(--light-dialogue);
   width: 30%;
   height: inherit;
-  
+
   border-radius: 5px;
   box-shadow: 0px 1px 1px 0px var(--text-colour);
   /* display: flex;
@@ -190,9 +204,9 @@ textarea {
 }
 
 /* MODAL */
-.modal-image{
-  width:auto;
-  height:auto;
+.modal-image {
+  width: auto;
+  height: auto;
   max-width: 95vw;
   max-height: 95vh;
 }
@@ -210,7 +224,7 @@ textarea {
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 .modal.is-open {
   display: block;
@@ -219,10 +233,9 @@ textarea {
   display: flex;
   flex-direction: row-reverse;
   justify-content: center;
-  width:100%;
-  height:100%;
+  width: 100%;
+  height: 100%;
   margin: auto;
-
 }
 
 .close {
@@ -230,7 +243,7 @@ textarea {
   position: fixed;
   top: 0.5vh;
   right: 3.5vh;
-  color: #ff0000;
+  color: #88c093;
   font-size: 10vh;
   font-weight: bold;
   transition: 0.3s;
@@ -304,7 +317,7 @@ textarea {
   -webkit-mask-size: 2vw 2vw;
   mask-size: 2vw 2vw;
   -webkit-mask-position: right;
-  mask-position:right;
+  mask-position: right;
   background-color: var(--logo-colour);
 }
 
@@ -313,8 +326,8 @@ textarea {
 }
 
 /* like button */
-.like-image { 
-  width:25px;
+.like-image {
+  width: 25px;
 }
 
 /* tag checkbox */
@@ -335,7 +348,6 @@ textarea {
   color: white;
 } */
 
-
 /* CREATE ARTWORK */
 .create-artwork {
   display: flex;
@@ -348,7 +360,8 @@ textarea {
   margin-bottom: 50px;
 }
 
-.create-artwork-image, .create-artwork-details {
+.create-artwork-image,
+.create-artwork-details {
   width: 100%;
   height: 65vh;
 }
@@ -357,7 +370,7 @@ textarea {
   /* height: 30vh;
   width: auto; */
   max-height: 80%;
-  max-width:100%;
+  max-width: 100%;
   object-fit: cover;
 }
 
@@ -421,7 +434,8 @@ header {
   margin-top: 10px;
 }
 
-.header-logo img, .header-profile img {
+.header-logo img,
+.header-profile img {
   width: 50px; /* Adjust size as needed */
   cursor: pointer;
 }
@@ -465,7 +479,7 @@ header {
   border: 1px solid #ddd;
   border-radius: 5px;
   width: 200px; /* Adjust as necessary */
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .dropdown-item {
@@ -479,18 +493,21 @@ header {
   background-color: #f0f0f0;
 }
 
-.header-logo, .header-profile {
+.header-logo,
+.header-profile {
   position: relative; /* Needed for positioning dropdowns */
   cursor: pointer;
 }
 
-.logo-dropdown, .profile-dropdown {
+.logo-dropdown,
+.profile-dropdown {
   position: absolute;
   top: 100%; /* Position below the logo/profile image */
   background-color: white;
   border: 1px solid #ddd;
   border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1050;
 }
 
 .logo-dropdown {
@@ -501,17 +518,20 @@ header {
   right: 0; /* Align with profile image */
 }
 
-.dropdown-item, .dropdown-item button {
+.dropdown-item,
+.dropdown-item button {
   display: block;
   padding: 10px;
   text-decoration: none;
   color: black;
 }
 
-.dropdown-item:hover, .dropdown-item button:hover {
+.dropdown-item:hover,
+.dropdown-item button:hover {
   background-color: #f0f0f0;
 }
-.dropdown-item, .dropdown-item button {
+.dropdown-item,
+.dropdown-item button {
   display: block;
   padding: 10px;
   text-decoration: none;
@@ -537,7 +557,6 @@ header {
   background-color: #f0f0f0;
 }
 
-
 .header-title-link {
   text-decoration: none; /* Removes underline from links */
   color: inherit; /* Inherits the color from parent element */
@@ -550,16 +569,16 @@ header {
   /* Style your login button here */
   padding: 10px 15px;
   text-decoration: none;
-  color: #373D20;
-  background-color: #88C093; /* Example color */
+  color: #373d20;
+  background-color: #88c093; /* Example color */
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
 
 .login-button:hover {
-  background-color: #373D20;
-  color: #FCFFF8; /* Darker shade for hover effect */
+  background-color: #373d20;
+  color: #fcfff8; /* Darker shade for hover effect */
 }
 
 .plus-and-profile {
@@ -586,7 +605,7 @@ header {
 
 .profile-page-pic {
   width: 100px;
-  height: 100px
+  height: 100px;
 }
 
 .profile-link-pic {
@@ -602,7 +621,7 @@ header {
 .search-form {
   display: flex;
   align-items: center;
-  max-width: 300px;
+  width: 100%;
   margin: 0 auto;
   border: 1px solid #ccc;
   border-radius: 20px; /* Round the corners */
@@ -615,6 +634,7 @@ header {
   padding: 10px;
   border: none;
   outline: none; /* Remove default input focus outline */
+  width: 100%;
 }
 
 /* Style for the submit button */
@@ -624,7 +644,7 @@ header {
   border: none;
   border-radius: 0 20px 20px 0; /* Matches the form's border-radius */
   cursor: pointer;
-  width:35px
+  width: 35px;
 }
 
 /* Style for the submit button on hover */
@@ -635,8 +655,8 @@ header {
 .show-more-btn {
   padding: 10px 15px;
   text-decoration: none;
-  color: #373D20;
-  background-color: #88C093; /* Example color */
+  color: #373d20;
+  background-color: #88c093; /* Example color */
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -651,3 +671,4 @@ header {
   max-width: 100%;
   max-height: 100%;
 }
+

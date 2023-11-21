@@ -1,7 +1,7 @@
 import React from "react"
 import { Routes, Route } from 'react-router-dom';
 import { HomePage, ArtworkPage, LoginPage, RegisterPage, ProfilePage, CreatePage, NotFoundPage, AboutPage, DMCAPage, EtiquettePage, ContactUsPage } from './pages';
-import { Header } from "./components"
+import { Header, SignInSignUp } from "./components"
 import './App.css';
 
 export default function App() {
@@ -20,6 +20,7 @@ export default function App() {
           <Route path="etiquette" element={<EtiquettePage />} />
           <Route path="contactUs" element={<ContactUsPage />} />
           <Route path="*" element={<NotFoundPage />} />
+          <Route path="SignInSignUp" element={<SignInSignUp/>} />
         </Route>
       </Routes>
     </>
