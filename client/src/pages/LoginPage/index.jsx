@@ -42,11 +42,12 @@ export default function LoginPage() {
             setMessage("")
           },1000)
         } else {
-          setMessage("Login unsuccessful!")
+          setMessage("Login unsuccessful! Try again")
+          setUsername("")
+          setPassword("")
           setTimeout(()=>{
-            navigate("/")
             setMessage("")
-          },1000)
+          },5000)
         }
         
       }
@@ -65,8 +66,8 @@ export default function LoginPage() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <input type="text" placeholder="Enter username" onChange={handleTextInput}/>
-        <input type="password" placeholder="Enter password" onChange={handlePassword}/>
+        <input type="text" placeholder="Enter username" onChange={handleTextInput} value={username}/>
+        <input type="password" placeholder="Enter password" onChange={handlePassword} value={password}/>
         <input type="submit" value="Enter"/>
       </form>
       <h2>{message}</h2>

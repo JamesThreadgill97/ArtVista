@@ -30,8 +30,6 @@ export default function SearchForm({setArtworks}) {
       let artworksToBeSearched = Arr
       let artworksMatchingSearch = []
 
-
-
       for (let i = 0; i < searchArr.length; i++) {
         for (let j = artworksToBeSearched.length - 1; j >= 0; j--) {
           if (
@@ -52,7 +50,7 @@ export default function SearchForm({setArtworks}) {
   return (
     <div>
       <form className="search-form" onSubmit={handleSubmit}>
-        <input type="text" placeholder='Search...' onChange={handleTextInput} value={textInput} />
+        <input type="text" placeholder='Search for artworks or creators...' onChange={handleTextInput} value={textInput} />
         <input type="submit" value="&#128270;" />
       </form>
     </div>

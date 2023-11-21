@@ -8,6 +8,7 @@ export default function Register() {
   const [password2, setPassword2] = useState("")
   const [message, setMessage] = useState("")
   const [file, setFile] = useState(null)
+  const [image, setImage] = useState("")
 
   const handleTextInput = (e) => {
     setUsername(e.target.value)
@@ -24,6 +25,7 @@ export default function Register() {
       data: e.target.files[0],
 
     }
+    setImage(img.preview)
     setFile(img)
   }
   const handleSubmit = (e) => {
@@ -111,7 +113,13 @@ export default function Register() {
         <input type="text" placeholder="Enter username" onChange={handleTextInput} value={username} />
         <input type="password" placeholder="Enter password" onChange={handlePassword1Input} value={password1} />
         <input type="password" placeholder="Enter password again" onChange={handlePassword2Input} value={password2} />
+        <div className="profile-image-input">
         <input type="file" accept="image/*" onChange={handleFileChange} />
+        {
+          image && <img src={image} alt="profile picture preview" />
+        }
+        
+        </div>
         <input type="submit" value="Enter" />
       </form>
       <h2>{message}</h2>
