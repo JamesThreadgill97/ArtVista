@@ -102,8 +102,8 @@ export default function CreateArtwork() {
             <img src={image} alt="" />
           </div>
           <div className="create-artwork-details">
-            <input type="text" placeholder="Enter title..." onChange={handleTextInput} value={title} />
-            <textarea placeholder="Enter description..." onChange={handleTextarea} value={description}></textarea>
+            <input type="text" placeholder="Enter title..." onChange={handleTextInput} value={title} maxlength="40"/>
+            <textarea placeholder="Enter description..." onChange={handleTextarea} value={description} maxlength="500" rows="8"></textarea>
             <TagForm tags={tags} setTags={setTags} handleCheckbox={handleCheckbox} />
           </div>
         </div>

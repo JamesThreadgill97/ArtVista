@@ -110,9 +110,9 @@ export default function Register() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <input type="text" placeholder="Enter username" onChange={handleTextInput} value={username} />
-        <input type="password" placeholder="Enter password" onChange={handlePassword1Input} value={password1} />
-        <input type="password" placeholder="Enter password again" onChange={handlePassword2Input} value={password2} />
+        <input type="text" placeholder="Enter username" onChange={handleTextInput} value={username} maxlength="15"/>
+        <input type="password" placeholder="Enter password" onChange={handlePassword1Input} value={password1} maxlength="15"/>
+        <input type="password" placeholder="Enter password again" onChange={handlePassword2Input} value={password2} maxlength="15" />
         <div className="profile-image-input">
         <input type="file" accept="image/*" onChange={handleFileChange} />
         {
