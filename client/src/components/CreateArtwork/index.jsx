@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { TagForm } from "../../components"
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
+
 
 export default function CreateArtwork() {
   const navigate = useNavigate()
@@ -95,19 +96,27 @@ export default function CreateArtwork() {
   return (
     <>
       <form className="create-artwork" onSubmit={handleSubmit}>
-        <h2>Post your art!</h2>
+        {/* <h2>Post your art!</h2> */}
         <div className="row">
           <div className="create-artwork-image">
-            <input type="file" accept="image/*" onChange={handleFileChange} />
+
+            <input id="file-upload" type="file" accept="image/*" onChange={handleFileChange} />
+
+            {
+              !image && <h2>Choose an image to upload!</h2>
+            }
             <img src={image} alt="" />
+
           </div>
           <div className="create-artwork-details">
-            <input type="text" placeholder="Enter title..." onChange={handleTextInput} value={title} maxlength="40"/>
-            <textarea placeholder="Enter description..." onChange={handleTextarea} value={description} maxlength="500" rows="8"></textarea>
+            <input type="text" placeholder="Title..." onChange={handleTextInput} value={title} maxlength="40" />
+            <textarea placeholder="Description..." onChange={handleTextarea} value={description} maxlength="500" rows="8"></textarea>
             <TagForm tags={tags} setTags={setTags} handleCheckbox={handleCheckbox} />
           </div>
         </div>
-        <input type="submit" value="Publish"/>
+        <div className="create-artwork-submit-div">
+          <input type="submit" value="Publish" className="create-artwork-submit" />
+        </div>
       </form>
       <h2>{message}</h2>
     </>
