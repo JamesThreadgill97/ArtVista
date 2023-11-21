@@ -5,7 +5,7 @@ export default function Gallery({artworks}) {
 
   return (
     <div className='gallery'>
-      {artworks.map((el)=><ArtworkCard id={el.id} title={el.title} url={el.url} key={el.id}/>)}
+      {artworks.map((el,i)=><ArtworkCard id={el.art_id} title={el.title} url={el.url} key={i}/>)}
     </div>
   )
 }
