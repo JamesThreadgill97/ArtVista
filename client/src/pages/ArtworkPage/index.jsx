@@ -27,12 +27,30 @@ export default function ArtworkPage() {
     setComments([])
     setCommentMessage("")
 
+    const fetchArtworks = async () => {
+      const response = await fetch("https://artvista-api.onrender.com/art/")
+      const data = await response.json()
+      if (response.status == 200) {
+        let array = data;
+        array.sort((a, b) => b.id - a.id) //want to reorder this
+        // setArtworks(array)
+        const thisArtwork = array.filter((el)=>{
+          return el.id==id
+        })[0]
+        let searchString = thisArtwork.title.concat(" ",thisArtwork.description," ", thisArtwork.username).split(/\s+/).filter(word=>word.length>2 && !["the","for","from"].includes(word.toLowerCase())).join(" ")
+        console.log(searchString)
+        const ArtworksBySearch = searchInArtworks(searchString,array)
+        setArtworks(ArtworksBySearch)
+      }
+    }
+
     const fetchArtwork = async () => {
       try {
         const response = await fetch(`https://artvista-api.onrender.com/art/${id}`)
         const data = await response.json()
         if (response.status == 200) {
           setArtwork(data)
+          fetchArtworks()
         }
       }
       catch (err) {
@@ -68,23 +86,27 @@ export default function ArtworkPage() {
     }
   }, [comments])
 
-  //gets all images
-  useEffect(() => {
-    const fetchArtworks = async () => {
-      const response = await fetch("https://artvista-api.onrender.com/art/")
-      const data = await response.json()
-      if (response.status == 200) {
-        let array = data;
-        array.sort((a, b) => b.id - a.id) //want to reorder this
-        setArtworks(array)
-        findSimilarArtworksByTags(id)
-      }
-    }
-    fetchArtworks()
-  }, [])
+  // //gets all images
+  // useEffect(() => {
+  //   const fetchArtworks = async () => {
+  //     const response = await fetch("https://artvista-api.onrender.com/art/")
+  //     const data = await response.json()
+  //     if (response.status == 200) {
+  //       let array = data;
+  //       array.sort((a, b) => b.id - a.id) //want to reorder this
+  //       setArtworks(array)
+  //       console.log(artwork)
+  //       console.log(searchInArtworks("abstract",array))
 
-  const searchInArtworks = (artworkArr, searchArr) => {
-    let artworksToBeSearched = artworkArr
+  //     }
+  //   }
+    
+  // }, [id])
+
+
+  const searchInArtworks = (string,Arr) => {
+    let searchArr = string.split(' ');
+    let artworksToBeSearched = Arr
     let artworksMatchingSearch = []
 
     for (let i = 0; i < searchArr.length; i++) {
@@ -96,10 +118,11 @@ export default function ArtworkPage() {
         ) {
           artworksMatchingSearch.push(artworksToBeSearched[j])
           artworksToBeSearched.splice(j, 1)
-        }
+         }
       }
     }
-    setArtworks(artworksMatchingSearch)
+    // setArtworks(artworksMatchingSearch)
+    return artworksMatchingSearch
   }
 
   const findSimilarArtworksByTags = (art_id) => {
@@ -111,7 +134,9 @@ export default function ArtworkPage() {
         const data = await response.json() // gives the posts containing a specified tag
         if (response.status == 200) {
           for (let j = 0; j < data.length; j++) {
-            similarArtworksByIdArr.push(data[j].art_id)
+            if (data[j].art_id != art_id) {
+              similarArtworksByIdArr.push(data[j].art_id)
+            }
           }
 
 
@@ -129,8 +154,6 @@ export default function ArtworkPage() {
             getPostsByTag(await data[i].tag_id)
           }
           //sort similarArtworksByIdArr/ remove repeats here
-          console.log(similarArtworksByIdArr)
-          
 
         }
       } catch (err) {
@@ -138,6 +161,7 @@ export default function ArtworkPage() {
       }
     }
     getTags() //adds art_ids to similarArtworksByArr
+    return similarArtworksByIdArr
 
   }
 
