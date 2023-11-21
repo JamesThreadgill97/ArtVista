@@ -25,7 +25,5 @@ describe("CommentForm", () => {
     const submitButton = screen.getByRole('button');
     fireEvent.click(submitButton);
 
-    await fetchMocker.resetMocks();
-
   });
 });
