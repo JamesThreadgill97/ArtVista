@@ -1,0 +1,180 @@
+DROP TABLE IF EXISTS art CASCADE;
+DROP TABLE IF EXISTS token CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS tags CASCADE;
+DROP TABLE IF EXISTS comments CASCADE;
+DROP TABLE IF EXISTS artTags CASCADE;
+DROP TABLE IF EXISTS userLikes CASCADE;
+
+CREATE TABLE tags (
+    tag_id INT GENERATED ALWAYS AS IDENTITY,
+    tag VARCHAR (100) NOT NULL,
+    PRIMARY KEY (tag_id)
+);
+
+
+
+CREATE TABLE Users (
+    user_id INT GENERATED ALWAYS AS IDENTITY,
+    username VARCHAR(50) UNIQUE NOT NULL ,
+    password VARCHAR(255) NOT NULL,
+    profile_url VARCHAR(1000) NOT NULL,
+    PRIMARY KEY(user_id)
+);
+
+CREATE TABLE art (
+    art_id INT GENERATED ALWAYS AS IDENTITY,
+    user_id INT NOT NULL,
+    title VARCHAR(50) NOT NULL,
+    description VARCHAR(10000),
+    likes INT NOT NULL,
+    url VARCHAR(1000) NOT NULL,
+    PRIMARY KEY(art_id),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+);
+
+CREATE TABLE artTags (
+    art_id INT,
+    tag_id INT,
+    PRIMARY KEY (art_id, tag_id),
+    FOREIGN KEY (art_id) REFERENCES art(art_id),
+    FOREIGN KEY (tag_id) REFERENCES tags(tag_id)
+);
+
+CREATE TABLE userLikes (
+    user_id INT,
+    art_id INT,
+    PRIMARY KEY (art_id, user_id),
+    FOREIGN KEY (art_id) REFERENCES art(art_id),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+);
+
+CREATE TABLE comments (
+    comment_id INT GENERATED ALWAYS AS IDENTITY,
+    art_id INT NOT NULL,
+    user_id INT NOT NULL,
+    content VARCHAR(4000),
+    PRIMARY KEY(comment_id),
+    FOREIGN KEY (art_id) REFERENCES art(art_id)
+);
+
+CREATE TABLE token (
+    token_id INT GENERATED ALWAYS AS IDENTITY,
+    user_id INT NOT NULL,
+    token CHAR(36) UNIQUE NOT NULL,
+    PRIMARY KEY (token_id),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+);
+
+INSERT INTO tags (tag)
+VALUES 
+    ('Painting'),
+    ('Drawing'),
+    ('Sculpture'),
+    ('Photography'),
+    ('Printmaking'),
+    ('Ceramics'),
+    ('Digital Art'),
+    ('Installation Art'),
+    ('Performance Art'),
+    ('Textile Art'),
+    ('Graffiti Art'),
+    ('Mosaic Art'),
+    ('Collage'),
+    ('Street Art'),
+    ('Abstract Art');
+
+INSERT INTO Users (username, password, profile_url)
+VALUES
+    ('user1', '$2b$10$.HLNUQ9PqjWw/21a8TRj4uDXhxGDLx0j/zpzcTpzLbo1BvZNah6Dq', 'https://storage.googleapis.com/artvista-images/default_profile.png'),
+    ('user2', '$2b$10$.HLNUQ9PqjWw/21a8TRj4uDXhxGDLx0j/zpzcTpzLbo1BvZNah6Dq', 'https://storage.googleapis.com/artvista-images/default_profile.png'),
+    ('user3', '$2b$10$.HLNUQ9PqjWw/21a8TRj4uDXhxGDLx0j/zpzcTpzLbo1BvZNah6Dq', 'https://storage.googleapis.com/artvista-images/default_profile.png'),
+    ('user4', '$2b$10$.HLNUQ9PqjWw/21a8TRj4uDXhxGDLx0j/zpzcTpzLbo1BvZNah6Dq', 'https://storage.googleapis.com/artvista-images/default_profile.png'),
+    ('user5', '$2b$10$.HLNUQ9PqjWw/21a8TRj4uDXhxGDLx0j/zpzcTpzLbo1BvZNah6Dq', 'https://storage.googleapis.com/artvista-images/default_profile.png'),
+    ('user6', '$2b$10$.HLNUQ9PqjWw/21a8TRj4uDXhxGDLx0j/zpzcTpzLbo1BvZNah6Dq', 'https://storage.googleapis.com/artvista-images/default_profile.png'),
+    ('user7', '$2b$10$.HLNUQ9PqjWw/21a8TRj4uDXhxGDLx0j/zpzcTpzLbo1BvZNah6Dq', 'https://storage.googleapis.com/artvista-images/default_profile.png'),
+    ('user8', '$2b$10$.HLNUQ9PqjWw/21a8TRj4uDXhxGDLx0j/zpzcTpzLbo1BvZNah6Dq', 'https://storage.googleapis.com/artvista-images/default_profile.png'),
+    ('user9', '$2b$10$.HLNUQ9PqjWw/21a8TRj4uDXhxGDLx0j/zpzcTpzLbo1BvZNah6Dq', 'https://storage.googleapis.com/artvista-images/default_profile.png'),
+    ('user10', '$2b$10$.HLNUQ9PqjWw/21a8TRj4uDXhxGDLx0j/zpzcTpzLbo1BvZNah6Dq', 'https://storage.googleapis.com/artvista-images/default_profile.png'),
+    ('user11', '$2b$10$.HLNUQ9PqjWw/21a8TRj4uDXhxGDLx0j/zpzcTpzLbo1BvZNah6Dq', 'https://storage.googleapis.com/artvista-images/default_profile.png'),
+    ('user12', '$2b$10$.HLNUQ9PqjWw/21a8TRj4uDXhxGDLx0j/zpzcTpzLbo1BvZNah6Dq', 'https://storage.googleapis.com/artvista-images/default_profile.png'),
+    ('user13', '$2b$10$.HLNUQ9PqjWw/21a8TRj4uDXhxGDLx0j/zpzcTpzLbo1BvZNah6Dq', 'https://storage.googleapis.com/artvista-images/default_profile.png'),
+    ('user14', '$2b$10$.HLNUQ9PqjWw/21a8TRj4uDXhxGDLx0j/zpzcTpzLbo1BvZNah6Dq', 'https://storage.googleapis.com/artvista-images/default_profile.png'),
+    ('user15', '$2b$10$.HLNUQ9PqjWw/21a8TRj4uDXhxGDLx0j/zpzcTpzLbo1BvZNah6Dq', 'https://storage.googleapis.com/artvista-images/default_profile.png'),
+    ('user16', '$2b$10$.HLNUQ9PqjWw/21a8TRj4uDXhxGDLx0j/zpzcTpzLbo1BvZNah6Dq', 'https://storage.googleapis.com/artvista-images/default_profile.png'),
+    ('user17', '$2b$10$.HLNUQ9PqjWw/21a8TRj4uDXhxGDLx0j/zpzcTpzLbo1BvZNah6Dq', 'https://storage.googleapis.com/artvista-images/default_profile.png'),
+    ('user18', '$2b$10$.HLNUQ9PqjWw/21a8TRj4uDXhxGDLx0j/zpzcTpzLbo1BvZNah6Dq', 'https://storage.googleapis.com/artvista-images/default_profile.png'),
+    ('user19', '$2b$10$.HLNUQ9PqjWw/21a8TRj4uDXhxGDLx0j/zpzcTpzLbo1BvZNah6Dq', 'https://storage.googleapis.com/artvista-images/default_profile.png'),
+    ('user20', '$2b$10$.HLNUQ9PqjWw/21a8TRj4uDXhxGDLx0j/zpzcTpzLbo1BvZNah6Dq', 'https://storage.googleapis.com/artvista-images/default_profile.png'),
+    ('user21', '$2b$10$.HLNUQ9PqjWw/21a8TRj4uDXhxGDLx0j/zpzcTpzLbo1BvZNah6Dq', 'https://storage.googleapis.com/artvista-images/default_profile.png'),
+    ('user22', '$2b$10$.HLNUQ9PqjWw/21a8TRj4uDXhxGDLx0j/zpzcTpzLbo1BvZNah6Dq', 'https://storage.googleapis.com/artvista-images/default_profile.png'),
+    ('user23', '$2b$10$.HLNUQ9PqjWw/21a8TRj4uDXhxGDLx0j/zpzcTpzLbo1BvZNah6Dq', 'https://storage.googleapis.com/artvista-images/default_profile.png'),
+    ('user24', '$2b$10$.HLNUQ9PqjWw/21a8TRj4uDXhxGDLx0j/zpzcTpzLbo1BvZNah6Dq', 'https://storage.googleapis.com/artvista-images/default_profile.png'),
+    ('user25', '$2b$10$.HLNUQ9PqjWw/21a8TRj4uDXhxGDLx0j/zpzcTpzLbo1BvZNah6Dq', 'https://storage.googleapis.com/artvista-images/default_profile.png'),
+    ('user26', '$2b$10$.HLNUQ9PqjWw/21a8TRj4uDXhxGDLx0j/zpzcTpzLbo1BvZNah6Dq', 'https://storage.googleapis.com/artvista-images/default_profile.png'),
+    ('user27', '$2b$10$.HLNUQ9PqjWw/21a8TRj4uDXhxGDLx0j/zpzcTpzLbo1BvZNah6Dq', 'https://storage.googleapis.com/artvista-images/default_profile.png'),
+    ('user28', '$2b$10$.HLNUQ9PqjWw/21a8TRj4uDXhxGDLx0j/zpzcTpzLbo1BvZNah6Dq', 'https://storage.googleapis.com/artvista-images/default_profile.png'),
+    ('user29', '$2b$10$.HLNUQ9PqjWw/21a8TRj4uDXhxGDLx0j/zpzcTpzLbo1BvZNah6Dq', 'https://storage.googleapis.com/artvista-images/default_profile.png'),
+    ('user30', '$2b$10$.HLNUQ9PqjWw/21a8TRj4uDXhxGDLx0j/zpzcTpzLbo1BvZNah6Dq', 'https://storage.googleapis.com/artvista-images/default_profile.png'),
+    ('user', '$2b$10$gFWE8CNP/t2mlonOC34aA.f7Gr5bi.ZG4tB6hlnRmuCCkyr9k7wIC', 'https://storage.googleapis.com/artvista-images/default_profile.png');
+
+
+-- Insert dummy data into the art table
+INSERT INTO art (user_id, title, description, likes, url)
+VALUES
+    (1, 'Sunset Landscape', 'A beautiful landscape with a colorful sunset.', 15, 'https://storage.cloud.google.com/artvista-images/moa.png'),
+    (2, 'Abstract Sculpture', 'A unique abstract sculpture made from recycled materials.', 8, 'https://storage.cloud.google.com/artvista-images/moa.png'),
+    (1, 'Portrait of a Woman','A detailed portrait capturing the essence of a woman.', 22, 'https://storage.cloud.google.com/artvista-images/moa.png'),
+    (3, 'City Skyline at Night','A city skyline illuminated against the night sky.', 10, 'https://storage.cloud.google.com/artvista-images/moa.png'),
+    (2, 'Still Life with Flowers', 'A classic still life composition featuring vibrant flowers.', 18, 'https://storage.cloud.google.com/artvista-images/moa.png'),
+    (3, 'Digital Art Exploration', 'Experimenting with digital tools to create abstract art.', 5, 'https://storage.cloud.google.com/artvista-images/moa.png'),
+    (1, 'Wildlife Photography', 'Capturing the beauty of wildlife in their natural habitat.', 12, 'https://storage.cloud.google.com/artvista-images/moa.png'),
+    (2, 'Surreal Fantasy World', 'Creating a surreal fantasy world with imaginative elements.', 25, 'https://storage.cloud.google.com/artvista-images/moa.png'),
+    (3, 'Black and White Architecture', 'Exploring architectural details in black and white photography.', 14, 'https://storage.cloud.google.com/artvista-images/moa.png'),
+    (1, 'Impressionist Seascape', 'An impressionistic portrayal of the sea and sky.', 20, 'https://storage.cloud.google.com/artvista-images/moa.png');
+
+-- Insert dummy data into the comments table
+INSERT INTO comments (art_id, user_id, content)
+VALUES
+    (1, 4, 'This sunset painting is amazing!'),
+    (1, 2, 'I love the colors you used.'),
+    (2, 3, 'The abstract sculpture is so intriguing.'),
+    (3, 1, 'Great job capturing the woman''s expression.'),
+    (3, 5, 'The details in the portrait are stunning.'),
+    (4, 2, 'The city skyline looks breathtaking.'),
+    (5, 3, 'The still life composition is very well done.'),
+    (6, 4, 'I like the experimental digital art.'),
+    (7, 1, 'The wildlife photography is incredible.'),
+    (8, 5, 'The surreal fantasy world is mind-blowing.'),
+    (9, 3, 'The black and white architecture is captivating.'),
+    (10, 4, 'The seascape has a dreamy quality to it.'),
+    (1, 2, 'I can''t get enough of this sunset painting!'),
+    (2, 5, 'The abstract sculpture is a masterpiece.'),
+    (3, 3, 'The portrait captures so much emotion.'),
+    (4, 1, 'I feel like I''m in the city with this skyline.'),
+    (5, 4, 'The still life is a work of art.'),
+    (6, 2, 'Digital art allows for such creativity.'),
+    (7, 5, 'Wildlife photography at its best.');
+
+INSERT INTO artTags (art_id, tag_id)
+    VALUES
+        (1, 1),
+        (1, 6),
+        (1, 2),
+        (4, 3),
+        (4, 4),
+        (7, 12),
+        (1, 8),
+        (3, 5);
+
+INSERT INTO userLikes (user_id, art_id)
+    VALUES
+        (1, 1),
+        (2, 1),
+        (6, 1),
+        (4, 3),
+        (4, 4),
+        (7, 4),
+        (1, 8),
+        (3, 5);
+
