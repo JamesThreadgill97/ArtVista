@@ -84,7 +84,7 @@ export default function Header() {
           <h1 className="header-title">ArtVista</h1>
         </NavLink>
 
-        {localStorage.getItem("token") ? (
+        {localStorage.getItem("token") && localStorage.getItem("token") != "undefined" ? (
           <div className="plus-and-profile">
             <NavLink  to="/create"><img className="add-btn" src={plus_button} alt="add a post" /></NavLink>
           <div className="header-profile" onClick={toggleProfileDropdown}>
