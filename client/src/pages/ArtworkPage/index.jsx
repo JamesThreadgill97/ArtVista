@@ -11,6 +11,8 @@ export default function ArtworkPage() {
   const [commentMessage, setCommentMessage] = useState("")
   const [showMoreArtworks, setShowMoreArtworks] = useState(false)
 
+
+
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -20,10 +22,27 @@ export default function ArtworkPage() {
   };
 
   useEffect(() => {
-    document.getElementById("header").scrollIntoView({behavior:"smooth"});
+    document.getElementById("header").scrollIntoView({ behavior: "smooth" });
     setShowMoreArtworks(false)
     setComments([])
     setCommentMessage("")
+
+    const fetchArtworks = async () => {
+      const response = await fetch("https://artvista-api.onrender.com/art/")
+      const data = await response.json()
+      if (response.status == 200) {
+        let array = data;
+        array.sort((a, b) => b.id - a.id) //want to reorder this
+        // setArtworks(array)
+        const thisArtwork = array.filter((el)=>{
+          return el.id==id
+        })[0]
+        let searchString = thisArtwork.title.concat(" ",thisArtwork.description," ", thisArtwork.username).split(/\s+/).filter(word=>word.length>2 && !["the","for","from"].includes(word.toLowerCase())).join(" ")
+        console.log(searchString)
+        const ArtworksBySearch = searchInArtworks(searchString,array)
+        setArtworks(ArtworksBySearch)
+      }
+    }
 
     const fetchArtwork = async () => {
       try {
@@ -31,6 +50,7 @@ export default function ArtworkPage() {
         const data = await response.json()
         if (response.status == 200) {
           setArtwork(data)
+          fetchArtworks()
         }
       }
       catch (err) {
@@ -66,28 +86,94 @@ export default function ArtworkPage() {
     }
   }, [comments])
 
-  //gets all images
-  useEffect(() => {
-    const fetchArtworks = async () => {
-      const response = await fetch("https://artvista-api.onrender.com/art/")
-      const data = await response.json()
-      if (response.status == 200) {
-        let array = data;
-        array.sort((a, b) => b.id - a.id) //
-        setArtworks(array)
+  // //gets all images
+  // useEffect(() => {
+  //   const fetchArtworks = async () => {
+  //     const response = await fetch("https://artvista-api.onrender.com/art/")
+  //     const data = await response.json()
+  //     if (response.status == 200) {
+  //       let array = data;
+  //       array.sort((a, b) => b.id - a.id) //want to reorder this
+  //       setArtworks(array)
+  //       console.log(artwork)
+  //       console.log(searchInArtworks("abstract",array))
+
+  //     }
+  //   }
+    
+  // }, [id])
+
+
+  const searchInArtworks = (string,Arr) => {
+    let searchArr = string.split(' ');
+    let artworksToBeSearched = Arr
+    let artworksMatchingSearch = []
+
+    for (let i = 0; i < searchArr.length; i++) {
+      for (let j = artworksToBeSearched.length - 1; j >= 0; j--) {
+        if (
+          artworksToBeSearched[j].title.toLowerCase().includes(searchArr[i].toLowerCase()) ||
+          artworksToBeSearched[j].description.toLowerCase().includes(searchArr[i].toLowerCase()) ||
+          artworksToBeSearched[j].username.toLowerCase().includes(searchArr[i].toLowerCase())
+        ) {
+          artworksMatchingSearch.push(artworksToBeSearched[j])
+          artworksToBeSearched.splice(j, 1)
+         }
       }
     }
-    fetchArtworks()
-  }, [])
+    // setArtworks(artworksMatchingSearch)
+    return artworksMatchingSearch
+  }
+
+  const findSimilarArtworksByTags = (art_id) => {
+    let similarArtworksByIdArr = []
+
+    const getPostsByTag = async (tag_id) => {
+      try {
+        const response = await fetch(`https://artvista-api.onrender.com/art/arttags/${tag_id}`)
+        const data = await response.json() // gives the posts containing a specified tag
+        if (response.status == 200) {
+          for (let j = 0; j < data.length; j++) {
+            if (data[j].art_id != art_id) {
+              similarArtworksByIdArr.push(data[j].art_id)
+            }
+          }
+
+
+        }
+      } catch (err) {
+        console.error({ error: err.message })
+      }
+    }
+    const getTags = async () => {
+      try {
+        const response = await fetch(`https://artvista-api.onrender.com/art/tags/${art_id}`)
+        const data = await response.json() // gives the tags of a specified post
+        if (response.status == 200) {
+          for (let i = 0; i < data.length; i++) {
+            getPostsByTag(await data[i].tag_id)
+          }
+          //sort similarArtworksByIdArr/ remove repeats here
+
+        }
+      } catch (err) {
+        console.error({ error: err.message })
+      }
+    }
+    getTags() //adds art_ids to similarArtworksByArr
+    return similarArtworksByIdArr
+
+  }
+
 
   const toggleShowMoreArtworks = () => {
-    if(!showMoreArtworks) {
-      setTimeout(()=>{
-        document.getElementById("hide-btn").scrollIntoView({behavior:"smooth"});
-      },0)
+    if (!showMoreArtworks) {
+      setTimeout(() => {
+        document.getElementById("hide-btn").scrollIntoView({ behavior: "smooth" });
+      }, 0)
       setShowMoreArtworks(!showMoreArtworks)
     } else {
-        setShowMoreArtworks(!showMoreArtworks)
+      setShowMoreArtworks(!showMoreArtworks)
     }
   }
 
@@ -122,7 +208,7 @@ export default function ArtworkPage() {
       }
 
       {
-        showMoreArtworks && 
+        showMoreArtworks &&
         <div>
           <button id="hide-btn" className="show-more-btn" onClick={toggleShowMoreArtworks}>Hide Artworks</button>
           <Gallery artworks={artworks} />
