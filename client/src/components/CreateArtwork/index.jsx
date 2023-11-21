@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react"
 import { TagForm } from "../../components"
+import {useNavigate} from "react-router-dom"
 
 export default function CreateArtwork() {
+  const navigate = useNavigate()
   const [file, setFile] = useState(null)
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
@@ -70,12 +72,15 @@ export default function CreateArtwork() {
           body: formData
         }
         const response = await fetch("https://artvista-api.onrender.com/art", options)
+        const data = await response.json()
+        console.log(data)
 
         if (response.status == 201) {
           setMessage("Artwork Uploaded!")
           setTimeout(() => {
             setMessage("")
-          }, 5000)
+            navigate(`/${data.id}`)
+          }, 1000)
         }
       }
       catch (err) {
