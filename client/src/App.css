@@ -209,6 +209,7 @@ textarea {
   display: flex;
   justify-content: center;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 5px;
   height: 5%;
   
@@ -218,6 +219,7 @@ textarea {
   padding: 5px;
   padding-top: 0;
   border-radius: 5px;
+  font-size: calc(5px + 0.75vh);
 }
 
 .statistics-bar {
@@ -225,7 +227,13 @@ textarea {
   justify-content: center;
   flex-direction: row;
   justify-content: space-around;
-  height: 10%;
+  height: 5%;
+  font-size: calc(5px + 0.75vh);
+}
+.statistics-bar > div {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
 }
 
 /* MODAL */
@@ -342,7 +350,7 @@ textarea {
   flex-direction: column;
   position: absolute;
   bottom: 0;
-  width: 90%;
+  width: 100%;
   padding: 5%;
   padding-bottom: 0;
 }
