@@ -81,7 +81,7 @@ nav {
 
 /* Footer Styles */
 footer {
-  background-color: var(--background-colour);
+  background-color: #dddfdc;
   color: var(--text-colour);
   padding: 5px;
   text-align: center;
@@ -89,7 +89,7 @@ footer {
   width: 100%;
   margin: 0;
   display: flex; /* Use Flexbox */
-  justify-content: space-between; /* Space out items */
+  justify-content: space-around; /* Space out items */
   align-items: center; /* Align items vertically */
   position: fixed;
 }
@@ -141,6 +141,8 @@ textarea {
   width: 300px;
   height: 300px;
   overflow: hidden;
+  border-radius: 6px;
+  margin: 20px;
 }
 .artwork-card-img {
   width: 100%;
@@ -156,9 +158,7 @@ textarea {
 .gallery {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
   justify-content: space-evenly;
-  padding: 20px;
 }
 
 .displayed-artwork {
@@ -500,11 +500,19 @@ header {
   margin-top: 10px;
 }
 
-.header-logo img,
+
 .header-profile img {
-  width: 50px; /* Adjust size as needed */
+  width: 67px; /* Adjust size as needed */
+  height: 67px;
   cursor: pointer;
+  transition: transform 0.3s ease;
 }
+
+.header-profile img:hover {
+  transform: scale(1.2);
+}
+
+
 .header-profile img {
   border-radius: 50%;
 }
@@ -563,6 +571,15 @@ header {
 .header-profile {
   position: relative; /* Needed for positioning dropdowns */
   cursor: pointer;
+}
+.header-logo img {
+  height: auto;
+  width: 67px;
+  transition: transform 0.3s ease;
+}
+
+.header-logo img:hover {
+  transform: scale(1.2);
 }
 
 .logo-dropdown,
@@ -624,9 +641,13 @@ header {
 }
 
 .header-title-link {
+  position: absolute;
+  left: 50%; 
+  transform: translateX(-50%);
   text-decoration: none; /* Removes underline from links */
   color: inherit; /* Inherits the color from parent element */
 }
+
 
 .header-title-link:hover {
   text-decoration: none; /* Optional: Style for hover state */
@@ -640,6 +661,7 @@ header {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  margin: 5px;
 }
 
 .login-button:hover {
@@ -661,12 +683,20 @@ header {
   width: 50px;
   height: 50px;
   margin-right: 40px;
+  transition: transform 0.3s ease;
+}
+.add-btn:hover {
+  transform: scale(1.2);
 }
 
 .home-btn {
   width: 50px;
   height: 50px;
   margin-left: 40px;
+  transition: transform 0.3s ease;
+}
+.home-btn:hover {
+  transform: scale(1.2);
 }
 
 .profile-page-pic {
@@ -685,11 +715,13 @@ header {
 
 /* Style for the search form */
 .search-form {
+  background-color: var(--background-colour);
   display: flex;
   align-items: center;
-  width: 100%;
-  margin: 0 auto;
-  border: 1px solid #ccc;
+  height: fit-content;
+  padding: 5px;
+  border: 0px;
+  box-shadow: none;
   border-radius: 20px; /* Round the corners */
   overflow: hidden; /* Hides the submit button overflow */
 }
@@ -697,20 +729,25 @@ header {
 /* Style for the text input */
 .search-form input[type="text"] {
   flex: 1; /* Takes up remaining space */
-  padding: 10px;
   border: none;
+  padding: 10px;
+  border-radius: 20px 20px 20px 20px; /* Matches the form's border-radius */
   outline: none; /* Remove default input focus outline */
   width: 100%;
+  height: 35px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-size: 17px;
 }
 
 /* Style for the submit button */
 .search-form input[type="submit"] {
   background-color: white;
-  /* padding: 10px 20px; */
+  padding: 10px;
   border: none;
-  border-radius: 0 20px 20px 0; /* Matches the form's border-radius */
+  border-radius: 20px 20px 20px 20px; /* Matches the form's border-radius */
   cursor: pointer;
   width: 35px;
+  height: 35px;
 }
 
 /* Style for the submit button on hover */
@@ -736,5 +773,20 @@ header {
 .profile-image-input > img {
   max-width: 100%;
   max-height: 100%;
+}
+
+.search-icon {
+  width: 45px;
+  height: 45px;
+  transition: transform 0.3s ease;
+  margin-left: 10px;
+}
+.search-icon:hover {
+  transform: scale(1.2);
+}
+.home-page-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
