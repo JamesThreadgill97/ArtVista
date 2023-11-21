@@ -150,8 +150,6 @@ textarea {
   height:auto;
   min-width: 35%;
   min-height: 35%;
-  max-width: 55%;
-  max-height: 800px;
 }
 .displayed-artwork > img {
   width: 100%;
@@ -187,6 +185,32 @@ textarea {
   flex-wrap: nowrap; */
   right: 7.5vw;
   position: absolute;
+}
+
+.profile-link-div {
+  height: 5%;
+}
+
+.tags {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  justify-content: space-evenly;
+  height: 5%;
+}
+.tags > h3 {
+  background-color: var(--logo-colour);
+  padding: 5px;
+  padding-top: 0;
+  border-radius: 5px;
+}
+
+.statistics-bar {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  justify-content: space-around;
+  height: 10%;
 }
 
 /* MODAL */

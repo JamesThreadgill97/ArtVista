@@ -22,8 +22,8 @@ export default function TagsCard({ id }) {
 
 
   return (
-    <div>
-      {tags.map((el)=> <h3 key={el.tag_id}>{el.tag}</h3>)}
+    <div className='tags'>
+      {tags.map((el)=> <h3 key={el.tag_id}>#{el.tag}</h3>)}
     </div>
   )
 }
