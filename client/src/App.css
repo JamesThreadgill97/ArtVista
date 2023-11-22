@@ -716,10 +716,7 @@ header {
   transform: scale(1.2);
 }
 
-.profile-page-pic {
-  width: 100px;
-  height: 100px;
-}
+
 
 .profile-link-pic {
   width: 25px;
@@ -858,3 +855,46 @@ header {
   font-size: 25px;
 }
 
+.profile-page-info {
+  /* max-height: 100%;*/
+  /* position: absolute;  */
+  width:30%;
+  height: 70vh;
+  background-color: var(--light-dialogue);
+  box-shadow: 0px 1px 1px 0px var(--text-colour);
+  border-radius: 5px;
+  margin:20px;
+  padding:5px;
+}
+.profile-page-pic {
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+}
+
+.profile-page-artwork {
+  width:65%
+}
+.profile-page {
+  display: flex;
+  justify-content: space-around;
+}
+
+.profile-page-info h4 {
+  font-size: 15px;
+  text-align: left;
+}
+
+.profile-page-info > .edit-button {
+  display: flex;
+  flex-direction: row-reverse;
+}
+.profile-page-info > .edit-button > img {
+  width:20px;
+  height: auto;
+  margin: 5px;
+  transition: transform 0.3s ease;
+}
+.profile-page-info > .edit-button > img:hover {
+  transform: scale(1.2);
+}
