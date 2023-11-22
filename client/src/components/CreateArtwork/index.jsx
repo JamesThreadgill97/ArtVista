@@ -81,9 +81,7 @@ export default function CreateArtwork() {
           console.log(data)
 
           if (response.status == 201) {
-            setMessage("Artwork Uploaded!")
             setTimeout(() => {
-              setMessage("")
               navigate(`/artwork/${data.id}`)
             }, 0)
           } else {
@@ -98,11 +96,10 @@ export default function CreateArtwork() {
       formData.append("user_id", localStorage.getItem("user_id"))
       formData.append("file", file.data)
       formData.append("title", title)
-      formData.append("description", description) //add tags at some point too
+      formData.append("description", description)
       formData.append("likes", 0)
       formData.append("tag_ids", selectedTags)
       uploadFile()
-
     }
     setDescription("")
     setTitle("")
