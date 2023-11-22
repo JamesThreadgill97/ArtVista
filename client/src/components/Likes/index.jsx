@@ -10,39 +10,30 @@ export default function Likes({ id, artwork }) {
 
 
   useEffect(() => {
-    setLikeNum(artwork.likes)
-    setLikeImg("https://storage.googleapis.com/artvista-images/blackheart.png")
-
+    setLikeNum(artwork.likes);
     const checkIfLiked = async () => {
       try {
         if (localStorage.getItem("token")) {
           const options = {
-            method: "GET",
             headers: {
               "Authorization": localStorage.getItem('token')
             }
-          }
-          const response = await fetch(`https://artvista-api.onrender.com/art/like/${id}/${localStorage.getItem("user_id")}`, options)
-          const data = await response.json()
-          if (response.status == 200) {
-            setLiked(data)
-
-            if (liked) { //issue here?
-              setLikeImg("https://storage.googleapis.com/artvista-images/heart.png")
-            } else {
-              setLikeImg("https://storage.googleapis.com/artvista-images/blackheart.png")
-            }
+          };
+          const response = await fetch(`https://artvista-api.onrender.com/art/like/${id}/${localStorage.getItem("user_id")}`, options);
+          if (response.status === 200) {
+            const likedData = await response.json();
+            setLiked(likedData);
+            // Update likeImg here based on the updated 'liked' state
+            setLikeImg(likedData ? "https://storage.googleapis.com/artvista-images/heart.png" : "https://storage.googleapis.com/artvista-images/blackheart.png");
           }
         }
       } catch (err) {
-        console.error({ error: err.message })
+        console.error({ error: err.message });
       }
-    }
-
-
-    checkIfLiked()
-
-  }, [artwork])
+    };
+  
+    checkIfLiked();
+  }, [artwork, id]);
 
 
   useEffect(() => {
@@ -94,6 +85,9 @@ export default function Likes({ id, artwork }) {
           }
           const response = await fetch(`https://artvista-api.onrender.com/art/like/${id}/${localStorage.getItem("user_id")}`, options)
           const data = await response.json()
+          if (response.status == 200) {
+            console.log("posted")
+          }
         }
       } catch (err) {
         console.error({ error: err.message })
@@ -118,6 +112,7 @@ export default function Likes({ id, artwork }) {
           const response = await fetch(`https://artvista-api.onrender.com/art/${id}`, options)
           if (response.status == 200) {
             setLikeNum(likeNum + 1)
+            artwork.likes++
             postLike()
           }
         }
@@ -144,6 +139,7 @@ export default function Likes({ id, artwork }) {
           const response = await fetch(`https://artvista-api.onrender.com/art/${id}`, options)
           if (response.status == 200) {
             setLikeNum(likeNum - 1)
+            artwork.likes--
             destroyLike()
           }
         }
