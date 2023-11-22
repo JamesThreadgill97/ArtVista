@@ -1,11 +1,13 @@
 const db = require('../database/connect');
 
 class User {
-  constructor({ user_id, username, password }) {
+  constructor({ user_id, username, password, profile_url, bio, contact_url }) {
     this.id = user_id;
     this.username = username;
     this.password = password;
-
+    this.profile_url = profile_url;
+    this.bio = bio;
+    this.contact_url = contact_url;
   }
 
   static async getOneById(id) {
@@ -29,10 +31,10 @@ class User {
   }
 
   static async create(data) {
-    const { username, password } = data;
+    const { username, password, profile_url } = data;
     let response = await db.query(
-      'INSERT INTO Users (username, password) VALUES ($1, $2) RETURNING user_id;',
-      [username, password]
+      'INSERT INTO Users (username, password, profile_url) VALUES ($1, $2, $3) RETURNING user_id;',
+      [username, password, profile_url]
     );
     const newId = response.rows[0].user_id;
     const newUser = await User.getOneById(newId);
@@ -40,10 +42,10 @@ class User {
   }
 
   async update(data) {
-    const { bio, profile_url } = data;
+    const { bio, contact_url } = data;
     const response = await db.query(
-      'UPDATE Users SET bio = $1, profile_url = $2 WHERE user_id = $3 RETURNING *;',
-      [bio, profile_url, this.id]
+      'UPDATE Users SET bio = $1, contact_url = $2 WHERE user_id = $3 RETURNING *;',
+      [bio, contact_url, this.id]
     );
     if (response.rows.length !== 1) {
       throw new Error('Unable to update user.');
