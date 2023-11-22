@@ -2,7 +2,8 @@ import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { render, screen, cleanup } from '@testing-library/react';
 import Gallery from '.';
 import { BrowserRouter } from 'react-router-dom';
-
+import * as matchers from '@testing-library/jest-dom/matchers';
+expect.extend(matchers);
 describe('Gallery', () => {
   const mockArtworks = [
     { id: '1', title: 'Artwork 1', url: 'url1.jpg' },

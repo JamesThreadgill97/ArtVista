@@ -2,7 +2,8 @@ import { render, screen, cleanup, fireEvent } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import createFetchMock from 'vitest-fetch-mock';
 import CommentForm from ".";
-
+import * as matchers from '@testing-library/jest-dom/matchers';
+expect.extend(matchers);
 const fetchMocker = createFetchMock(vi);
 fetchMocker.enableMocks();
 

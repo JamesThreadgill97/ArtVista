@@ -2,6 +2,8 @@ import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { render, screen, cleanup } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import ArtworkCard from '.';
+import * as matchers from '@testing-library/jest-dom/matchers';
+expect.extend(matchers);
 
 describe('ArtworkCard', () => {
     beforeEach(() => {

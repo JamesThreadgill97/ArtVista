@@ -9,7 +9,6 @@ export default function Likes({id, artwork}) {
   },[artwork])
 
   const handleClick = () => {
-    //later on, add something to check if user's already liked the post
     const likeArtwork = async () => {
       try {
         const options = {
