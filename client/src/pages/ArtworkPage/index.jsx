@@ -28,7 +28,9 @@ export default function ArtworkPage() {
         const response = await fetch("https://artvista-api.onrender.com/art/")
         const data = await response.json()
         if (response.status == 200) {
-          setArtworks(data)
+          let array = data;
+        array.sort((a, b) => b.id - a.id)
+          setArtworks(array.slice(0,20))
         }
       } catch (err) {
         console.error({ error: err.message })
@@ -48,7 +50,7 @@ export default function ArtworkPage() {
         const response = await fetch(`https://artvista-api.onrender.com/art/similar/${id}`)
         const data = await response.json()
         if (response.status == 200) {
-
+          
           setArtworks(data.slice(0, 20))
         }
       } catch (err) {
