@@ -8,5 +8,5 @@ userRouter.post('/register', userController.register);
 userRouter.post('/login', userController.login);
 userRouter.get('/showId', userController.getUserId);
 userRouter.get("/userInfo/:id", userController.getUserInfo); //gets user's username (and profile pic?) with id. Allows user's to see other users' username in comment section, profile section, etc.
-userRouter.patch('/update', userController.update)
+userRouter.patch('/update', authenticator, userController.update)
 module.exports = userRouter;
