@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import Swal from 'sweetalert2'
+
 
 export default function Likes({ id, artwork }) {
   const [likeNum, setLikeNum] = useState(0)
@@ -145,12 +147,20 @@ export default function Likes({ id, artwork }) {
         console.error({ error: err.message })
       }
     }
-    if (!liked) {
-      likeArtwork()
-      setLiked(true)
+    if (localStorage.getItem("token")) {
+      if (!liked) {
+        likeArtwork()
+        setLiked(true)
+      } else {
+        unlikeArtwork()
+        setLiked(false)
+      }
     } else {
-      unlikeArtwork()
-      setLiked(false)
+      Swal.fire({
+        title: "Oops...",
+        text: "Unable to like this artwork. Make sure to login before liking a post.",
+        icon: "error"
+      });
     }
   }
   return (
