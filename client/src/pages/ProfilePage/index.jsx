@@ -67,7 +67,10 @@ export default function ProfilePage() {
           {
             !showEditForm ?
               <div>
-                <h3>Contact: <a className="contact-email" href="mailto:www.google.com">{userInfo.contact_url}</a></h3>
+                {
+                  userInfo.bio && <h3>Contact: <a className="contact-email" href="mailto:www.google.com">{userInfo.contact_url}</a></h3>
+                }
+                
                 <p>{userInfo.bio}</p>
               </div> : <UpdateForm bio={bio} setBio={setBio} email={email} setEmail={setEmail} setShowEditForm={setShowEditForm} setUserInfo={setUserInfo}/>
           }
