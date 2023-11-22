@@ -9,7 +9,6 @@ export default function Likes({ id, artwork }) {
 
   useEffect(() => {
     setLikeNum(artwork.likes);
-  
     const checkIfLiked = async () => {
       try {
         if (localStorage.getItem("token")) {
@@ -84,6 +83,9 @@ export default function Likes({ id, artwork }) {
           }
           const response = await fetch(`https://artvista-api.onrender.com/art/like/${id}/${localStorage.getItem("user_id")}`, options)
           const data = await response.json()
+          if (response.status == 200) {
+            console.log("posted")
+          }
         }
       } catch (err) {
         console.error({ error: err.message })
@@ -108,6 +110,7 @@ export default function Likes({ id, artwork }) {
           const response = await fetch(`https://artvista-api.onrender.com/art/${id}`, options)
           if (response.status == 200) {
             setLikeNum(likeNum + 1)
+            artwork.likes++
             postLike()
           }
         }
@@ -134,6 +137,7 @@ export default function Likes({ id, artwork }) {
           const response = await fetch(`https://artvista-api.onrender.com/art/${id}`, options)
           if (response.status == 200) {
             setLikeNum(likeNum - 1)
+            artwork.likes--
             destroyLike()
           }
         }
