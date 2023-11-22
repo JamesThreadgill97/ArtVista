@@ -18,7 +18,7 @@ CREATE TABLE Users (
     user_id INT GENERATED ALWAYS AS IDENTITY,
     username VARCHAR(50) UNIQUE NOT NULL ,
     password VARCHAR(255) NOT NULL,
-    profile_url(1000) NOT NULL,
+    profile_url VARCHAR(1000) NOT NULL,
     bio VARCHAR(500),
     contact_url VARCHAR(1000),
     PRIMARY KEY(user_id)
