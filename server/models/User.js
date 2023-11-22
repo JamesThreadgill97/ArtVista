@@ -1,11 +1,12 @@
 const db = require('../database/connect');
 
 class User {
-  constructor({ user_id, username, password }) {
+  constructor({ user_id, username, password, bio, contact_url }) {
     this.id = user_id;
     this.username = username;
     this.password = password;
-
+    this.bio = bio;
+    this.contact_url = contact_url;
   }
 
   static async getOneById(id) {
@@ -42,7 +43,7 @@ class User {
   async update(data) {
     const { bio, profile_url } = data;
     const response = await db.query(
-      'UPDATE Users SET bio = $1, profile_url = $2 WHERE user_id = $3 RETURNING *;',
+      'UPDATE Users SET bio = $1, contact_url = $2 WHERE user_id = $3 RETURNING *;',
       [bio, profile_url, this.id]
     );
     if (response.rows.length !== 1) {
