@@ -41,6 +41,7 @@ class Tag {
 
     return new Tag(response.rows[0]);
   }
+
 }
 
 module.exports = Tag;
