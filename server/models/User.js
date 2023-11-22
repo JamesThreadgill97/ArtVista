@@ -77,17 +77,10 @@ class User {
   }
   async update(data, file) {
     const { bio, contact_url } = data;
-    let publicUrl
-
-    if (file == null || file == undefined) {
-      publicUrl = 'https://storage.googleapis.com/artvista-images/default_profile.png'
-    } else {
-      publicUrl = await this.uploadFileToStorage(file);
-    }
 
     const response = await db.query(
-      'UPDATE Users SET bio = $1, contact_url = $2, profile_url = $3 WHERE user_id = $4 RETURNING *;',
-      [bio, contact_url, publicUrl, this.id]
+      'UPDATE Users SET bio = $1, contact_url = $2 WHERE user_id = $3 RETURNING *;',
+      [bio, contact_url, this.id]
     );
     if (response.rows.length !== 1) {
       throw new Error('Unable to update user.');
@@ -98,11 +91,5 @@ class User {
     return updatedUser;
   }
 }
-
-
-
-
-
-
 
 module.exports = User;
