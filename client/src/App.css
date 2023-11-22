@@ -203,6 +203,15 @@ textarea {
 
 .profile-link-div {
   height: 5%;
+  font-family: var(--font-family);
+}
+
+.artwork-description {
+  height: 25%;
+  word-wrap: break-word;
+  padding: 5px;
+  font-size: calc(2.5px + 0.5vh + 0.25vw);
+  font-family: var(--font-family);
 }
 
 .tags {
@@ -211,7 +220,7 @@ textarea {
   flex-direction: row;
   flex-wrap: wrap;
   gap: 5px;
-  height: 5%;
+  height: 10%;
   
 }
 .tags > h3 {
@@ -219,12 +228,12 @@ textarea {
   padding: 5px;
   padding-top: 0;
   border-radius: 5px;
-  font-size: calc(5px + 0.75vh);
+  height: 40%;
+  font-size: calc(2.5px + 0.5vh + 0.25vw);
 }
 
 .statistics-bar {
   display: flex;
-  justify-content: center;
   flex-direction: row;
   justify-content: space-around;
   height: 5%;
@@ -299,7 +308,9 @@ textarea {
   margin: 10px;
   border-radius: 15px;
   word-wrap: break-word;
-  padding: 10px;
+  padding: 5px;
+  font-size: calc(5px + 0.75vh);
+  font-family: var(--font-family);
   /* display: flex;
   flex-direction: row; */
 }
@@ -318,6 +329,7 @@ textarea {
   padding: 5px;
 } */
 .comment-card > div > .profile-link > h2 {
+  font-size: calc(10px + 1vh);
   text-align:left;
   padding-left: 70px;
 }
@@ -337,7 +349,7 @@ textarea {
 .comment-section {
   overflow-y: scroll;
   overflow-x: hidden;
-  height: 35%;
+  height: 25%;
   width: 100%;
   margin-bottom: calc((65px + 2vw + 5%));
   position: absolute;
@@ -453,6 +465,10 @@ textarea {
   max-height: 80%;
   max-width: 100%;
   object-fit: cover;
+}
+
+.create-artwork-details > textarea {
+  resize: none;
 }
 
 .create-artwork-details > div {
@@ -865,7 +881,8 @@ header {
   position: absolute;
   left: 50%; 
   transform: translateX(-50%);
-  font-size: 20px;
+  font-size: calc(5px + 0.75vh + 0.5vw);
+  font-family: var(--font-family);
 }
 .artwork-info-title img {
   height: 20px;
