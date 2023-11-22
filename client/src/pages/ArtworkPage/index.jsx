@@ -120,7 +120,9 @@ export default function ArtworkPage() {
         </div>
 
         <div className="artwork-info">
+          <div className="artwork-info-title">
             <h1>{artwork.title}</h1>
+          </div>
           <ProfileLink id={artwork.user_id} />
           <p className="artwork-description">{artwork.description}</p>
           <TagsCard id={id} />
