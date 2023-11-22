@@ -1,12 +1,11 @@
-const { log } = require('console');
 const db = require('../database/connect');
 
 class User {
-  constructor({ user_id, username, password, profile_url }) {
+  constructor({ user_id, username, password }) {
     this.id = user_id;
     this.username = username;
     this.password = password;
-    this.profile_url = profile_url;
+
   }
 
   static async getOneById(id) {
@@ -29,77 +28,32 @@ class User {
     return new User(response.rows[0]);
   }
 
-  static async uploadAndCreate(data, file) {
+  static async create(data) {
     const { username, password } = data;
-    // Upload the file to Cloud Storage
-    let publicUrl
-    if (file == null || file == undefined) 
-    {
-      publicUrl = 'https://storage.googleapis.com/artvista-images/default_profile.png'
-    } else 
-    { 
-      publicUrl = await this.uploadFileToStorage(file); 
-    }
-
-    // Create a new art entry in the database
-    const response = await db.query(
-      'INSERT INTO Users (username, password, profile_url) VALUES ($1, $2, $3) RETURNING user_id;',
-      [username, password, publicUrl]
+    let response = await db.query(
+      'INSERT INTO Users (username, password) VALUES ($1, $2) RETURNING user_id;',
+      [username, password]
     );
     const newId = response.rows[0].user_id;
     const newUser = await User.getOneById(newId);
     return newUser;
-    // Associate the art piece with multiple tags
-
-    return newUser;
-  }
-  // Add a new method for uploading files to Cloud Storage
-  static async uploadFileToStorage(file) {
-    const { Storage } = require('@google-cloud/storage');
-    const { format } = require('util');
-    const cloudStorage = new Storage({
-      keyFilename: `./service_account_key.json`,
-      projectId: 'artvista-405109',
-    });
-    const bucketName = 'artvista-images';
-    const bucket = cloudStorage.bucket(bucketName);
-
-    const blob = bucket.file(file.originalname);
-    const blobStream = blob.createWriteStream();
-    return new Promise((resolve, reject) => {
-      blobStream.on('error', (err) => {
-        reject(err);
-      });
-      blobStream.on('finish', () => {
-        const publicUrl = format(`https://storage.googleapis.com/${bucket.name}/${blob.name}`);
-        resolve(publicUrl);
-      });
-      blobStream.end(file.buffer);
-    });
   }
 
-  //todo: update method for user
-  static async update(id, data, file) {
-
-    const { username, password } = data;
-    const filetoUpload = file
-    // Upload the file to Cloud Storage
-    const publicUrl = await this.uploadFileToStorage(filetoUpload);
-    // Create a new art entry in the database
+  async update(data) {
+    const { bio, profile_url } = data;
     const response = await db.query(
-      'UPDATE Users SET username = $1, password = $2, profile_url = $3 WHERE user_id = $4 RETURNING *;',
-      [username, password, publicUrl, id]
+      'UPDATE Users SET bio = $1, profile_url = $2 WHERE user_id = $3 RETURNING *;',
+      [bio, profile_url, this.id]
     );
-    const updatedId = response.rows[0].user_id;
-    const updatedUser = await User.getOneById(updatedIdId);
-    return updatedUser;
+    if (response.rows.length !== 1) {
+      throw new Error('Unable to update user.');
+    }
+    return new User(response.rows[0]);
   }
+
+
+
+
 }
-
-
-
-
-
-
 
 module.exports = User;
