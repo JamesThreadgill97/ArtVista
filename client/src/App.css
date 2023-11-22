@@ -913,7 +913,7 @@ header {
   transition: transform 0.3s ease;
 }
 .profile-page-info > .edit-button > img:hover {
-
+}
 
 .artwork-info-title {
   display: flex;
