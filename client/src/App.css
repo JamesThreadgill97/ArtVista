@@ -954,6 +954,46 @@ header {
   transform: scale(1.2);
 }
 
+.etiquette-page, .about-page {
+  background-color: #f8f8f8; /* Light background for the content */
+  width: 80%; /* Adjust width as per requirement */
+  max-width: 800px; /* Maximum width */
+  margin: 20px auto; /* Top and bottom margin with auto horizontal */
+  padding: 20px; /* Padding inside the div */
+  overflow-y: auto; /* Makes div scrollable if content overflows */
+  text-align: center; /* Center aligns the text */
+  border-radius: 10px; /* Optional: rounded corners for the div */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Optional: subtle shadow for depth */
+  height: 70vh;
+}
+
+.etiquette-page h1, 
+.etiquette-page h2,
+.about-page h1,
+.about-page h2 {
+  color: #373D20; /* Dark color for headers */
+  margin-bottom: 10px; /* Spacing below headers */
+}
+
+.etiquette-page p, 
+.etiquette-page ul,
+.about-page p,
+.about-page ul {
+  color: #333; /* Dark color for text */
+  margin-bottom: 15px; /* Spacing below paragraphs and lists */
+  line-height: 1.6; /* Line height for better readability */
+}
+
+.etiquette-page a,
+.about-page a {
+  color: #88C093; /* Color for links */
+  text-decoration: none; /* Removes underline from links */
+}
+
+.etiquette-page a:hover 
+.about-page a:hover{
+  text-decoration: underline; /* Underline on hover for links */
+}
 .profile-page-pic {
   border-radius: 50%;
 }
