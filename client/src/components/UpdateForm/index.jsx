@@ -56,7 +56,7 @@ const UpdateForm = ({bio,setBio,email,setEmail, setShowEditForm,setUserInfo}) =>
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className='edit-form'>
       <div>
         <label htmlFor="email">Contact Email:</label>
         <input type="email" id="email" value={email} onChange={handleEmailChange} />
