@@ -8,6 +8,9 @@ export default function ProfilePage() {
   const [artworks, setArtworks] = useState([])
   const [userInfo, setUserInfo] = useState({})
   const [showEditForm, setShowEditForm] = useState(false)
+  //set these as previous
+  const [bio, setBio] = useState("");
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     setArtworks([])
@@ -31,15 +34,20 @@ export default function ProfilePage() {
         const data = await response.json()
         if (response.status == 200) {
           setUserInfo(data)
+          if (data.bio) {
+            setBio(data.bio)
+          }
+          if (data.contact_url) {
+            setEmail(data.contact_url)
+          }
         }
       } catch (err) {
         console.error({ error: err.message })
       }
     }
     fetchUserDataById()
-    console.log(localStorage.getItem("user_id"),userInfo.user_id)
   }, [id])
-
+  
   const toggleShowEditForm = () => {
     setShowEditForm(!showEditForm)
   }
@@ -59,9 +67,9 @@ export default function ProfilePage() {
           {
             !showEditForm ?
               <div>
-                <h3>Contact: <a href="mailto:www.google.com">ollie235@gmail.com</a></h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec nulla risus. Aliquam mattis, lectus at molestie consequat, diam metus pulvinar mauris.</p>
-              </div> : <UpdateForm />
+                <h3>Contact: <a href="mailto:www.google.com">{userInfo.contact_url}</a></h3>
+                <p>{userInfo.bio}</p>
+              </div> : <UpdateForm bio={bio} setBio={setBio} email={email} setEmail={setEmail} setShowEditForm={setShowEditForm} setUserInfo={setUserInfo}/>
           }
 
         </div>
