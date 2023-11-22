@@ -176,7 +176,7 @@ textarea {
 /* artwork page */
 .artwork-and-info {
   display: flex;
-  height: 75vh;
+  height: 65vh;
   padding: 30px;
   justify-content: center;
 }
@@ -191,7 +191,7 @@ textarea {
   background-color: var(--light-dialogue);
   width: 30%;
   height: inherit;
-
+  max-height: 100%;
   border-radius: 5px;
   box-shadow: 0px 1px 1px 0px var(--text-colour);
   /* display: flex;
@@ -773,14 +773,14 @@ header {
 }
 
 .show-more-btn {
-  padding: 10px 15px;
+  padding: 10px;
   text-decoration: none;
   color: #373d20;
   background-color: #88c093; /* Example color */
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin: 10px
+  margin: 20px
 }
 
 .profile-image-input {
