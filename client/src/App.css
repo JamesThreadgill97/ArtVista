@@ -877,11 +877,12 @@ header {
 
 .artwork-info-title {
   display: flex;
+  justify-content: center;
 }
 .artwork-info-title h1 {
-  position: absolute;
-  left: 50%; 
-  transform: translateX(-50%);
+  /* position: absolute; */
+  /* left: 50%;  */
+  /* transform: translateX(-50%); */
   font-size: calc(5px + 0.75vh + 0.5vw);
   font-family: var(--font-family);
 }
