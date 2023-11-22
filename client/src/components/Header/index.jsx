@@ -78,7 +78,6 @@ export default function Header() {
             </div>
           )}
         </div>
-          <NavLink to="/"><img className="home-btn"src={home_button} alt="Home" /></NavLink>
         </div>
         <NavLink to="/" className="header-title-link">
           <h1 className="header-title">ArtVista</h1>

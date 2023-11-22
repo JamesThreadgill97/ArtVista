@@ -882,6 +882,7 @@ header {
   border-radius: 5px;
   margin:20px;
   padding:5px;
+  overflow: hidden;
 }
 .profile-page-pic {
   width: 100px;
@@ -940,3 +941,42 @@ header {
   transform: scale(1.2);
 }
 
+.profile-page-pic {
+  border-radius: 50%;
+}
+.contact-email {
+
+  text-decoration: none;
+  color: var(--text-colour);
+}
+.contact-email:hover {
+  text-decoration:underline;
+}
+
+.edit-form {
+  max-width: 100%;
+  max-height: 100%;
+  padding: 0px;
+  background-color: var(--light-dialogue);
+  box-shadow: none;
+}
+
+.edit-form > div >label{
+  padding:0px;
+  margin: 0px;
+}
+.edit-form > div {
+  margin: 5px
+}
+.edit-form button {
+  width:auto;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 5px;
+  font-size: 15px;
+  font-family: var(--font-family);
+  transition: transform 0.3s ease;
+}
+.edit-form button:hover {
+  transform: scale(1.2);
+}
