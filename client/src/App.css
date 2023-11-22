@@ -536,8 +536,8 @@ header {
 
 
 .header-profile img {
-  width: 67px; /* Adjust size as needed */
-  height: 67px;
+  width: 60px; /* Adjust size as needed */
+  height: 60px;
   cursor: pointer;
   transition: transform 0.3s ease;
 }
@@ -608,7 +608,7 @@ header {
 }
 .header-logo img {
   height: auto;
-  width: 67px;
+  width: 60px;
   transition: transform 0.3s ease;
 }
 
@@ -750,6 +750,7 @@ header {
   display: flex;
   align-items: center;
   height: fit-content;
+  width: 500px;
   padding: 5px;
   border: 0px;
   box-shadow: none;
