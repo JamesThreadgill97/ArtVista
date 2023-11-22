@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { Gallery, ProfileLink, Comments, CommentForm, Modal, Likes, TagsCard } from "../../components"
-import dots from "../../../assets/icons8-dots-50.png"
+import bin from "../../../assets/trash-bin.png"
+import Swal from "sweetalert2"
 
 export default function ArtworkPage() {
+  const navigate = useNavigate()
   const { id } = useParams()
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [artwork, setArtwork] = useState({})
@@ -12,6 +14,10 @@ export default function ArtworkPage() {
   const [commentMessage, setCommentMessage] = useState("")
   const [showMoreArtworks, setShowMoreArtworks] = useState(false)
 
+  const handleDelete = () => {
+    //sweetalert to confirm delete
+    //delete request
+  }
 
 
   const openModal = () => {
@@ -28,7 +34,9 @@ export default function ArtworkPage() {
         const response = await fetch("https://artvista-api.onrender.com/art/")
         const data = await response.json()
         if (response.status == 200) {
-          setArtworks(data)
+          let array = data;
+        array.sort((a, b) => b.id - a.id)
+          setArtworks(array.slice(0,20))
         }
       } catch (err) {
         console.error({ error: err.message })
@@ -48,7 +56,7 @@ export default function ArtworkPage() {
         const response = await fetch(`https://artvista-api.onrender.com/art/similar/${id}`)
         const data = await response.json()
         if (response.status == 200) {
-
+          
           setArtworks(data.slice(0, 20))
         }
       } catch (err) {
@@ -119,15 +127,15 @@ export default function ArtworkPage() {
 
         <div className="artwork-info">
           <div className="artwork-info-title">
-          <h1>{artwork.title}</h1>
-          {
-            artwork.user_id == localStorage.getItem("user_id") && <img src={dots} alt="delete dots" />
-          }
-          
+            {
+              localStorage.getItem("user_id") == artwork.user_id && <img src={bin} alt="" onClick={handleDelete}/>
+            }
+            
+            <h1>{artwork.title}</h1>
           </div>
           <ProfileLink id={artwork.user_id} />
+          <p className="artwork-description">{artwork.description}</p>
           <TagsCard id={id} />
-          <p>{artwork.description}</p>
           <div className="statistics-bar">
             <h3>{commentMessage}</h3>
             <Likes id={id} artwork={artwork} />

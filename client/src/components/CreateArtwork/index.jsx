@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { TagForm } from "../../components"
 import { useNavigate } from "react-router-dom"
+import Swal from 'sweetalert2'
 
 
 export default function CreateArtwork() {
@@ -56,40 +57,50 @@ export default function CreateArtwork() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    let formData = new FormData()
-    formData.append("user_id", localStorage.getItem("user_id"))
-    formData.append("file", file.data)
-    formData.append("title", title)
-    formData.append("description", description) //add tags at some point too
-    formData.append("likes", 0)
-    formData.append("tag_ids", selectedTags)
-    const uploadFile = async () => {
-      try {
-        const options = {
-          method: "POST",
-          headers: {
-            "Authorization": localStorage.getItem('token')
-          },
-          body: formData
-        }
-        const response = await fetch("https://artvista-api.onrender.com/art", options)
-        const data = await response.json()
-        console.log(data)
 
-        if (response.status == 201) {
-          setMessage("Artwork Uploaded!")
-          setTimeout(() => {
-            setMessage("")
-            navigate(`/artwork/${data.id}`)
-          }, 0)
+
+
+    if (!description || !title || !file) {
+      Swal.fire({
+        title: "Oops...",
+        text: "Unable to post artwork. Make sure to upload an image and enter a title and description.",
+        icon: "error"
+      });
+    } else {
+      const uploadFile = async () => {
+        try {
+          const options = {
+            method: "POST",
+            headers: {
+              "Authorization": localStorage.getItem('token')
+            },
+            body: formData
+          }
+          const response = await fetch("https://artvista-api.onrender.com/art", options)
+          const data = await response.json()
+          console.log(data)
+
+          if (response.status == 201) {
+            setTimeout(() => {
+              navigate(`/artwork/${data.id}`)
+            }, 0)
+          } else {
+            console.log("unsuccessful")
+          }
+        }
+        catch (err) {
+          console.error({ error: err.message })
         }
       }
-      catch (err) {
-        console.log("error")
-        console.error({ error: err.message })
-      }
+      let formData = new FormData()
+      formData.append("user_id", localStorage.getItem("user_id"))
+      formData.append("file", file.data)
+      formData.append("title", title)
+      formData.append("description", description)
+      formData.append("likes", 0)
+      formData.append("tag_ids", selectedTags)
+      uploadFile()
     }
-    uploadFile()
     setDescription("")
     setTitle("")
   }
@@ -109,8 +120,8 @@ export default function CreateArtwork() {
 
           </div>
           <div className="create-artwork-details">
-            <input type="text" placeholder="Title..." onChange={handleTextInput} value={title} maxlength="40" />
-            <textarea placeholder="Description..." onChange={handleTextarea} value={description} maxlength="500" rows="8"></textarea>
+            <input type="text" placeholder="Title..." onChange={handleTextInput} value={title} maxLength="40" />
+            <textarea placeholder="Description..." onChange={handleTextarea} value={description} maxLength="500" rows="8"></textarea>
             <TagForm tags={tags} setTags={setTags} handleCheckbox={handleCheckbox} />
           </div>
         </div>

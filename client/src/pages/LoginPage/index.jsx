@@ -1,5 +1,6 @@
 import React, {useState} from "react"
 import { useNavigate } from "react-router-dom"
+import Swal from 'sweetalert2'
 
 export default function LoginPage() {
   const navigate = useNavigate()
@@ -36,13 +37,21 @@ export default function LoginPage() {
         localStorage.setItem("token", data.token)
         localStorage.setItem("user_id",data.user_id)
         if (response.status == 200) {
-          setMessage("Login successful!")
+          Swal.fire({
+            title: "Login successful",
+            text: "Welcome to ArtVista!",
+            icon: "success"
+          })
           setTimeout(()=>{
             navigate("/")
             setMessage("")
           },1000)
         } else {
-          setMessage("Login unsuccessful! Try again")
+          Swal.fire({
+            title: "Oops...",
+            text: "Login unsuccessful. Try again",
+            icon: "error"
+          })
           setUsername("")
           setPassword("")
           setTimeout(()=>{
