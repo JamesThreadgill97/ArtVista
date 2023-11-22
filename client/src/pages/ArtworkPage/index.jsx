@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { Gallery, ProfileLink, Comments, CommentForm, Modal, Likes, TagsCard } from "../../components"
 import dots from "../../../assets/icons8-dots-50.png"
 
 export default function ArtworkPage() {
+  const navigate = useNavigate()
   const { id } = useParams()
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [artwork, setArtwork] = useState({})
@@ -11,7 +12,6 @@ export default function ArtworkPage() {
   const [comments, setComments] = useState([])
   const [commentMessage, setCommentMessage] = useState("")
   const [showMoreArtworks, setShowMoreArtworks] = useState(false)
-
 
 
   const openModal = () => {
@@ -118,13 +118,7 @@ export default function ArtworkPage() {
         </div>
 
         <div className="artwork-info">
-          <div className="artwork-info-title">
-          <h1>{artwork.title}</h1>
-          {
-            artwork.user_id == localStorage.getItem("user_id") && <img src={dots} alt="delete dots" />
-          }
-          
-          </div>
+            <h1>{artwork.title}</h1>
           <ProfileLink id={artwork.user_id} />
           <TagsCard id={id} />
           <p>{artwork.description}</p>
