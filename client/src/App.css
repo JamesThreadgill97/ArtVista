@@ -912,7 +912,9 @@ header {
   transition: transform 0.3s ease;
 }
 .profile-page-info > .edit-button > img:hover {
+  transform: scale(1.2);
 
+}
 
 .artwork-info-title {
   display: flex;
@@ -936,3 +938,4 @@ header {
 .artwork-info-title img:hover {
   transform: scale(1.2);
 }
+
