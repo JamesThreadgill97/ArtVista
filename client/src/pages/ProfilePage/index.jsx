@@ -10,8 +10,8 @@ export default function ProfilePage() {
   const [showEditForm, setShowEditForm] = useState(false)
 
   useEffect(() => {
+    setArtworks([])
     const fetchArtworks = async () => {
-      setArtworks([])
       try {
         const response = await fetch("https://artvista-api.onrender.com/art/")
         const data = await response.json()
@@ -37,6 +37,7 @@ export default function ProfilePage() {
       }
     }
     fetchUserDataById()
+    console.log(localStorage.getItem("user_id"),userInfo.user_id)
   }, [id])
 
   const toggleShowEditForm = () => {
@@ -48,15 +49,15 @@ export default function ProfilePage() {
       <div className="profile-page">
         <div className="profile-page-info">
           {
-            localStorage.getItem("user_id") == userInfo.user_id &&
+            localStorage.getItem("user_id") == userInfo.id &&
             <div className="edit-button">
-              <img src={pen} alt="edit pen" onClick={toggleShowEditForm} />
+              <img src={pen} alt="edit pen"  onClick={toggleShowEditForm}/>
             </div>
           }
           <img className="profile-page-pic" src={userInfo.profile_url} alt="Profile Pic" />
           <h1>{userInfo.username}</h1>
           {
-            showEditForm ?
+            !showEditForm ?
               <div>
                 <h3>Contact: <a href="mailto:www.google.com">ollie235@gmail.com</a></h3>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec nulla risus. Aliquam mattis, lectus at molestie consequat, diam metus pulvinar mauris.</p>
