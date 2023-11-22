@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react"
 import { Gallery, SearchForm } from "../../components"
+import searchIcon from "../../../assets/icons8-search-90.png"
 
 export default function HomePage() {
   const [artworks, setArtworks] = useState([])
+  const [showSearch,setShowSearch] = useState(false)
+
+
 
   //gets all images
   useEffect(() => {
@@ -25,10 +29,19 @@ export default function HomePage() {
     fetchArtworks()
   }, [])
 
+  const toggleShowSearch = () => {
+    setShowSearch(!showSearch)
+  }
+
   return (
     <>
-      <SearchForm setArtworks={setArtworks} />
+      <div className="home-page-top">
       <h1>Welcome to ArtVista</h1>
+      <img className="search-icon" src={searchIcon} alt="search icon" onClick={toggleShowSearch} />
+      </div>
+      {
+        showSearch && <SearchForm setArtworks={setArtworks} />
+      }
       <div className="gallery-container">
         <Gallery artworks={artworks} />
       </div>

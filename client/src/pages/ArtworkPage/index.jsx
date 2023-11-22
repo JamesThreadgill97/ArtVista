@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { Gallery, ProfileLink, Comments, CommentForm, Modal, Likes, TagsCard } from "../../components"
+import dots from "../../../assets/icons8-dots-50.png"
 
 export default function ArtworkPage() {
   const { id } = useParams()
@@ -21,7 +22,7 @@ export default function ArtworkPage() {
     setIsModalOpen(false);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     const fetchArtworks = async () => {
       try {
         const response = await fetch("https://artvista-api.onrender.com/art/")
@@ -30,11 +31,11 @@ export default function ArtworkPage() {
           setArtworks(data)
         }
       } catch (err) {
-        console.error({error:err.message})
+        console.error({ error: err.message })
       }
     }
     fetchArtworks()
-  },[])
+  }, [])
 
 
   useEffect(() => {
@@ -48,7 +49,7 @@ export default function ArtworkPage() {
         const data = await response.json()
         if (response.status == 200) {
 
-          setArtworks(data.slice(0,20))
+          setArtworks(data.slice(0, 20))
         }
       } catch (err) {
         console.error({ error: err.message })
@@ -115,8 +116,15 @@ export default function ArtworkPage() {
             </div>
           </Modal>
         </div>
+
         <div className="artwork-info">
+          <div className="artwork-info-title">
           <h1>{artwork.title}</h1>
+          {
+            artwork.user_id == localStorage.getItem("user_id") && <img src={dots} alt="delete dots" />
+          }
+          
+          </div>
           <ProfileLink id={artwork.user_id} />
           <TagsCard id={id} />
           <p>{artwork.description}</p>

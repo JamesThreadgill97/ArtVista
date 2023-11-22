@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom' 
 
 export default function SearchForm({setArtworks}) {
   const navigate = useNavigate()
@@ -9,6 +9,7 @@ export default function SearchForm({setArtworks}) {
   const handleTextInput = (e) => {
     setTextInput(e.target.value)
   }
+
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -45,14 +46,12 @@ export default function SearchForm({setArtworks}) {
       setArtworks(artworksMatchingSearch)
     }
     fetchArtworks()
+    // setTextInput("")
   }
 
   return (
-    <div>
       <form className="search-form" onSubmit={handleSubmit}>
         <input type="text" placeholder='Search for artworks or creators...' onChange={handleTextInput} value={textInput} />
-        <input type="submit" value="&#128270;" />
       </form>
-    </div>
   )
 }
