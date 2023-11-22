@@ -176,8 +176,9 @@ textarea {
 /* artwork page */
 .artwork-and-info {
   display: flex;
-  height: 65vh;
+  height: calc(90vh - 150px);
   padding: 30px;
+  padding-top: 10px;
   justify-content: center;
 }
 
@@ -912,7 +913,7 @@ header {
   transition: transform 0.3s ease;
 }
 .profile-page-info > .edit-button > img:hover {
-
+}
 
 .artwork-info-title {
   display: flex;
