@@ -19,7 +19,6 @@ app.get('/', (req, res) => {
 
 // Routes
 app.use('/art', artRouter);
-app.use('/artwork', artRouter)
 app.use('/users', userRouter);
 app.use('/comment', commentRouter);
 app.use('/tag', tagRouter);
