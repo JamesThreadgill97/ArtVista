@@ -9,6 +9,7 @@ async function register(req, res) {
     const data = req.body;
     const file = req.file;
 
+
     // Generate a salt with a specific cost
     const salt = await bcrypt.genSalt(parseInt(process.env.BCRYPT_SALT_ROUNDS));
 
