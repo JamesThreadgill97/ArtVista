@@ -121,7 +121,7 @@ export default function CreateArtwork() {
           </div>
           <div className="create-artwork-details">
             <input type="text" placeholder="Title..." onChange={handleTextInput} value={title} maxLength="40" />
-            <textarea placeholder="Description..." onChange={handleTextarea} value={description} maxLength="500" rows="8"></textarea>
+            <textarea placeholder="Description..." onChange={handleTextarea} value={description} maxLength="200" rows="8"></textarea>
             <TagForm tags={tags} setTags={setTags} handleCheckbox={handleCheckbox} />
           </div>
         </div>
