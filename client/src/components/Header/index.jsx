@@ -66,15 +66,10 @@ export default function Header() {
               <NavLink className="dropdown-item" to="/">
                 Home
               </NavLink>
-              <NavLink className="dropdown-item" to="/dmca">
-                DMCA
-              </NavLink>
               <NavLink className="dropdown-item" to="/etiquette">
                 Etiquette
               </NavLink>
-              <NavLink className="dropdown-item" to="/contactUs">
-                Contact Us
-              </NavLink>
+              
             </div>
           )}
         </div>
@@ -110,15 +105,11 @@ export default function Header() {
         <NavLink className="nav-link" to="/about">
           About
         </NavLink>
-        <NavLink className="nav-link" to="/dmca">
-          DMCA
-        </NavLink>
+        
         <NavLink className="nav-link" to="/etiquette">
           Etiquette
         </NavLink>
-        <NavLink className="nav-link" to="/contactUs">
-          Contact Us
-        </NavLink>
+       
       </footer>
     </>
   );

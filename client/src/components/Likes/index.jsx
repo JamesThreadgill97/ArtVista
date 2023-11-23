@@ -164,7 +164,7 @@ export default function Likes({ id, artwork }) {
     }
   }
   return (
-    <div>
+    <div className="like-div">
       <img className="like-image" src={likeImg} alt="" onClick={handleClick} />
       <h3>{likeNum}</h3>
     </div>
