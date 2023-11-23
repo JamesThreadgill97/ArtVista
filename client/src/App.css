@@ -1079,3 +1079,18 @@ header {
 .edit-form button:hover {
   transform: scale(1.2);
 }
+
+input::file-selector-button {
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #373d20;
+  background-color: #88c093; /* Example color */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 5px;
+  transition: transform 0.3s ease;
+}
+input::file-selector-button:hover {
+  transform: scale(1.1);
+}

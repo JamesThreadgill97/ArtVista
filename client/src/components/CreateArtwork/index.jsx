@@ -110,7 +110,6 @@ export default function CreateArtwork() {
         {/* <h2>Post your art!</h2> */}
         <div className="row">
           <div className="create-artwork-image">
-
             <input id="file-upload" type="file" accept="image/*" onChange={handleFileChange} />
 
             {
