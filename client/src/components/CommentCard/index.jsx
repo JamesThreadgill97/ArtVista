@@ -5,7 +5,7 @@ export default function CommentCard({ commentData }) {
   const [userInfo, setUserInfo] = useState({})
   useEffect(() => {
     const fetchUserDataById = async () => {
-      const response = await fetch(`https://artvista-api.onrender.com/users/userInfo/${commentData.user_id}`)
+      const response = await fetch(`https://artvista-frontend.onrender.com/users/userInfo/${commentData.user_id}`)
       const data = await response.json()
       if (response.status == 200) {
         setUserInfo(data)

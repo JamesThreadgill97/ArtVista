@@ -17,7 +17,7 @@ export default function CreateArtwork() {
   useEffect(() => {
     const fetchTags = async () => {
       try {
-        const response = await fetch("https://artvista-api.onrender.com/tag")
+        const response = await fetch("https://artvista-frontend.onrender.com/tag")
         const data = await response.json()
         if (response.status == 200) {
           setTags(data.data)
@@ -57,9 +57,6 @@ export default function CreateArtwork() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-
-
-
     if (!description || !title || !file) {
       Swal.fire({
         title: "Oops...",

@@ -7,14 +7,14 @@ const Token = require('../models/Token');
 async function register(req, res) {
   try {
     const data = req.body;
-
+    const file = req.file;
     // Generate a salt with a specific cost
     const salt = await bcrypt.genSalt(parseInt(process.env.BCRYPT_SALT_ROUNDS));
 
     // Hash the password
     data['password'] = await bcrypt.hash(data['password'], salt);
 
-    const result = await User.create(data);
+    const result = await User.uploadAndCreate(data, file);
 
     res.status(201).send(result);
   } catch (err) {
@@ -64,9 +64,22 @@ async function getUserId(req, res) {
     }
   }
 
+  async function update(req, res) {
+    try {
+      const id = parseInt(req.params.id);
+      const data = req.body;
+      const userToUpdate = await User.getOneById(id);
+  
+      const updatedUser = await userToUpdate.update(data);
+      res.status(200).json(updatedUser);
+    } catch (err) {
+      res.status(404).json({ error: err.message });
+    }
+  }
 module.exports = {
   register,
   login,
   getUserId,
-  getUserInfo
+  getUserInfo,
+  update
 };

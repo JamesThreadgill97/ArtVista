@@ -15,12 +15,12 @@ export default function Header() {
 
   const toggleLogoDropdown = () => {
     setShowLogoDropdown(!showLogoDropdown);
-    setShowProfileDropdown(false); // Close the other dropdown
+    setShowProfileDropdown(false);
   };
 
   const toggleProfileDropdown = () => {
     setShowProfileDropdown(!showProfileDropdown);
-    setShowLogoDropdown(false); // Close the other dropdown
+    setShowLogoDropdown(false);
   };
 
   const handleLogout = () => {

@@ -60,7 +60,7 @@ export default function ArtworkPage() {
 
     const fetchArtwork = async () => {
       try {
-        const response = await fetch(`https://artvista-api.onrender.com/art/${id}`)
+        const response = await fetch(`https://artvista-frontend.onrender.com/art/${id}`)
         const data = await response.json()
         if (response.status == 200) {
           setArtwork(data)
@@ -72,7 +72,7 @@ export default function ArtworkPage() {
       }
     }
     const fetchComments = async () => {
-      const response = await fetch(`https://artvista-api.onrender.com/art/${id}/comments`)
+      const response = await fetch(`https://artvista-frontend.onrender.com/art/${id}/comments`)
       const data = await response.json()
       if (data == "no comments") {
         setComments([])
