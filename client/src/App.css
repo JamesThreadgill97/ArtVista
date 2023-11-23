@@ -248,6 +248,7 @@ textarea {
   align-items: center;
   height: 5%;
   width: 100%;
+  
   font-size: calc(5px + 0.75vh);
   /* margin-bottom: calc((70px + 35%));
   position: absolute;
