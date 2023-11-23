@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import Swal from 'sweetalert2'
+
 
 export default function Likes({ id, artwork }) {
   const [likeNum, setLikeNum] = useState(0)
@@ -8,8 +10,7 @@ export default function Likes({ id, artwork }) {
 
 
   useEffect(() => {
-    setLikeNum(artwork.likes)
-
+    setLikeNum(artwork.likes);
     const checkIfLiked = async () => {
       try {
         if (localStorage.getItem("token")) {
@@ -17,27 +18,22 @@ export default function Likes({ id, artwork }) {
             headers: {
               "Authorization": localStorage.getItem('token')
             }
-          }
-          const response = await fetch(`https://artvista-frontend.onrender.com/art/like/${id}/${localStorage.getItem("user_id")}`, options)
-          const data = await response
-          if (response.status == 200) {
-            setLiked(await response.json())
-            if (liked) { //issue here?
-              setLikeImg("https://storage.googleapis.com/artvista-images/heart.png")
-            } else {
-              setLikeImg("https://storage.googleapis.com/artvista-images/blackheart.png")
-            }
+          };
+          const response = await fetch(`https://artvista-api.onrender.com/art/like/${id}/${localStorage.getItem("user_id")}`, options);
+          if (response.status === 200) {
+            const likedData = await response.json();
+            setLiked(likedData);
+            // Update likeImg here based on the updated 'liked' state
+            setLikeImg(likedData ? "https://storage.googleapis.com/artvista-images/heart.png" : "https://storage.googleapis.com/artvista-images/blackheart.png");
           }
         }
       } catch (err) {
-        console.error({ error: err.message })
+        console.error({ error: err.message });
       }
-    }
-
-
-    checkIfLiked()
-
-  }, [artwork])
+    };
+  
+    checkIfLiked();
+  }, [artwork, id]);
 
 
   useEffect(() => {
@@ -89,6 +85,9 @@ export default function Likes({ id, artwork }) {
           }
           const response = await fetch(`https://artvista-frontend.onrender.com/art/like/${id}/${localStorage.getItem("user_id")}`, options)
           const data = await response.json()
+          if (response.status == 200) {
+            console.log("posted")
+          }
         }
       } catch (err) {
         console.error({ error: err.message })
@@ -113,6 +112,7 @@ export default function Likes({ id, artwork }) {
           const response = await fetch(`https://artvista-frontend.onrender.com/art/${id}`, options)
           if (response.status == 200) {
             setLikeNum(likeNum + 1)
+            artwork.likes++
             postLike()
           }
         }
@@ -139,6 +139,7 @@ export default function Likes({ id, artwork }) {
           const response = await fetch(`https://artvista-frontend.onrender.com/art/${id}`, options)
           if (response.status == 200) {
             setLikeNum(likeNum - 1)
+            artwork.likes--
             destroyLike()
           }
         }
@@ -146,16 +147,24 @@ export default function Likes({ id, artwork }) {
         console.error({ error: err.message })
       }
     }
-    if (!liked) {
-      likeArtwork()
-      setLiked(true)
+    if (localStorage.getItem("token")) {
+      if (!liked) {
+        likeArtwork()
+        setLiked(true)
+      } else {
+        unlikeArtwork()
+        setLiked(false)
+      }
     } else {
-      unlikeArtwork()
-      setLiked(false)
+      Swal.fire({
+        title: "Oops...",
+        text: "Unable to like this artwork. Make sure to login before liking a post.",
+        icon: "error"
+      });
     }
   }
   return (
-    <div>
+    <div className="like-div">
       <img className="like-image" src={likeImg} alt="" onClick={handleClick} />
       <h3>{likeNum}</h3>
     </div>

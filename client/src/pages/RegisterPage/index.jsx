@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import Swal from 'sweetalert2'
 
 export default function Register() {
   const navigate = useNavigate()
@@ -8,6 +9,7 @@ export default function Register() {
   const [password2, setPassword2] = useState("")
   const [message, setMessage] = useState("")
   const [file, setFile] = useState(null)
+  const [image, setImage] = useState("")
 
   const handleTextInput = (e) => {
     setUsername(e.target.value)
@@ -24,6 +26,7 @@ export default function Register() {
       data: e.target.files[0],
 
     }
+    setImage(img.preview)
     setFile(img)
   }
   const handleSubmit = (e) => {
@@ -45,8 +48,11 @@ export default function Register() {
         localStorage.setItem("token", data.token)
         localStorage.setItem("user_id", data.user_id)
         if (response.status == 200) {
-          setMessage("Register and Login successful!")
-
+          Swal.fire({
+            title: "Welcome to ArtVista!",
+            text: "Account created. You are being logged in.",
+            icon: "success"
+          })
           setTimeout(() => {
             navigate("/")
             setMessage("")
@@ -66,7 +72,6 @@ export default function Register() {
         if (file) {
           formData.append("file", file.data)
         }
-
         const options = {
           method: "POST",
           body: formData
@@ -74,9 +79,14 @@ export default function Register() {
         const response = await fetch('https://artvista-frontend.onrender.com/users/register', options)
         const data = await response.json()
         if (response.status == 201) {
+          console.log(data)
           loginAccount()
         } else {
-          setMessage("Failed to register.")
+          Swal.fire({
+            title: "Unable to create account",
+            text: "Check all information been entered correctly.",
+            icon: "error"
+          })
           setTimeout(() => {
             setMessage("")
           }, 5000)
@@ -84,7 +94,6 @@ export default function Register() {
       }
       catch (err) {
         console.error(err.message)
-        setMessage("Register unsuccessful. Try again.")
         setTimeout(() => {
           setMessage("")
         }, 5000)
@@ -93,7 +102,11 @@ export default function Register() {
     if (password1 == password2) {
       registerAccount()
     } else {
-      setMessage("Passwords do not match. Try again.")
+      Swal.fire({
+        title: "Passwords don't match",
+        text: "Try again. Make sure the passwords match.",
+        icon: "error"
+      })
       setTimeout(() => {
         setMessage("")
       }, 5000)
@@ -106,10 +119,16 @@ export default function Register() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <input type="text" placeholder="Enter username" onChange={handleTextInput} value={username} />
-        <input type="password" placeholder="Enter password" onChange={handlePassword1Input} value={password1} />
-        <input type="password" placeholder="Enter password again" onChange={handlePassword2Input} value={password2} />
+        <input type="text" placeholder="Enter username" onChange={handleTextInput} value={username} maxLength="15"/>
+        <input type="password" placeholder="Enter password" onChange={handlePassword1Input} value={password1} maxLength="15"/>
+        <input type="password" placeholder="Enter password again" onChange={handlePassword2Input} value={password2} maxLength="15" />
+        <div className="profile-image-input">
         <input type="file" accept="image/*" onChange={handleFileChange} />
+        {
+          image && <img src={image} alt="profile picture preview" />
+        }
+        
+        </div>
         <input type="submit" value="Enter" />
       </form>
       <h2>{message}</h2>
