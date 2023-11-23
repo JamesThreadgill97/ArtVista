@@ -233,6 +233,7 @@ textarea {
 .tags > h3 {
   background-color: var(--logo-colour);
   padding: 5px;
+  padding-top: 1.5px;
   /* padding-top: 0; */
   /* padding-bottom: 0; */
   border-radius: 5px;
@@ -243,15 +244,21 @@ textarea {
 
 .statistics-bar {
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+  align-items: left;
   height: 5%;
   width: 100%;
+  padding-bottom: 20px;
+  padding-left: 20px;
   font-size: calc(5px + 0.75vh);
   /* margin-bottom: calc((70px + 35%));
   position: absolute;
   bottom: 0; */
+}
+.statistics-bar > h3 {
+  text-align: left;
+  
 }
 .statistics-bar > div {
   display: flex;
@@ -261,12 +268,16 @@ textarea {
 }
 
 .statistics-bar > div > .like-image {
-  height: inherit;
+  height: 20px;
   width: auto;
   max-height: 30px;
   aspect-ratio: 1 / 1;
 }
-
+.like-div{
+  display:flex;
+  margin-left:auto;
+  margin-right:14px;
+}
 /* MODAL */
 .modal-image {
   width: auto;
@@ -429,6 +440,7 @@ textarea {
 .comment-create > input {
   /* background-image: url("../assets/send-comment.png");
   background-size: cover; */
+  padding-top: 40px;
   width: 2vw;
   /* z-index: 1; */
   height: 2vw;
@@ -841,6 +853,7 @@ header {
 
 .show-more-btn {
   padding: 10px;
+  padding-top: 10px;
   text-decoration: none;
   color: #373d20;
   background-color: #88c093; /* Example color */
@@ -979,13 +992,17 @@ header {
   display: flex;
   justify-content: center;
   height: 5%;
+  margin-top: 10px;
+  padding-bottom: 40px;
 }
 .artwork-info-title h1 {
-  /* position: absolute; */
-  /* left: 50%;  */
-  /* transform: translateX(-50%); */
+  /* position: absolute;
+  transform: translateX(-50%);
+  left: 50%;  */
   font-size: calc(5px + 0.75vh + 0.5vw);
   font-family: var(--font-family);
+  margin-left: 20px;
+  
 }
 .artwork-info-title img {
   height: 20px;

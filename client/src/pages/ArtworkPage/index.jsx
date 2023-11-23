@@ -134,15 +134,18 @@ export default function ArtworkPage() {
         </div>
 
         <div className="artwork-info">
-          <div className="artwork-info-title">            
+          <div className="artwork-info-title"> 
             <h1>{artwork.title}</h1>
+            <Likes id={id} artwork={artwork} />           
+
           </div>
+
           <ProfileLink id={artwork.user_id} />
           <p className="artwork-description">{artwork.description}</p>
           <TagsCard id={id} />
           <div className="statistics-bar">
             <h3>{commentMessage}</h3>
-            <Likes id={id} artwork={artwork} />
+
           </div>
           <div className="comments">
             <div className="comment-section">
