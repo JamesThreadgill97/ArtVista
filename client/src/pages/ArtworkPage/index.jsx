@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { Gallery, ProfileLink, Comments, CommentForm, Modal, Likes, TagsCard } from "../../components"
-import dots from "../../../assets/icons8-dots-50.png"
+import Swal from "sweetalert2"
 
 export default function ArtworkPage() {
   const navigate = useNavigate()
@@ -120,7 +120,7 @@ export default function ArtworkPage() {
         </div>
 
         <div className="artwork-info">
-          <div className="artwork-info-title">
+          <div className="artwork-info-title">            
             <h1>{artwork.title}</h1>
           </div>
           <ProfileLink id={artwork.user_id} />
