@@ -499,6 +499,7 @@ textarea {
   max-width: none;
   background-color: var(--logo-colour);
   margin-bottom: 50px;
+  margin-top:5px
 }
 
 .create-artwork-image,
