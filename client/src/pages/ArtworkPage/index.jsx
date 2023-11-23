@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { Gallery, ProfileLink, Comments, CommentForm, Modal, Likes, TagsCard } from "../../components"
-import bin from "../../../assets/trash-bin.png"
 import Swal from "sweetalert2"
 
 export default function ArtworkPage() {
@@ -13,11 +12,6 @@ export default function ArtworkPage() {
   const [comments, setComments] = useState([])
   const [commentMessage, setCommentMessage] = useState("")
   const [showMoreArtworks, setShowMoreArtworks] = useState(false)
-
-  const handleDelete = () => {
-    //sweetalert to confirm delete
-    //delete request
-  }
 
 
   const openModal = () => {
@@ -126,11 +120,7 @@ export default function ArtworkPage() {
         </div>
 
         <div className="artwork-info">
-          <div className="artwork-info-title">
-            {
-              localStorage.getItem("user_id") == artwork.user_id && <img src={bin} alt="" onClick={handleDelete}/>
-            }
-            
+          <div className="artwork-info-title">            
             <h1>{artwork.title}</h1>
           </div>
           <ProfileLink id={artwork.user_id} />
