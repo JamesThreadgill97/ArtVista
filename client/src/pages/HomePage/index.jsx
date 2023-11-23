@@ -1,24 +1,43 @@
-import React, {useState, useEffect} from "react"
-import { Gallery } from "../../components"
+import React, { useState, useEffect } from "react"
+import { Gallery, SearchForm } from "../../components"
+import searchIcon from "../../../assets/icons8-search-90.png"
 
 export default function HomePage() {
-  const [artworks,setArtworks] = useState([])
+  const [artworks, setArtworks] = useState([])
+
+
 
   //gets all images
-  useEffect(()=>{
+  useEffect(() => {
     const fetchArtworks = async () => {
-      const response = await fetch("https://artvista-api.onrender.com/art/")
-      const data = await response.json()
-      setArtworks(data)
+      try {
+        const response = await fetch("https://artvista-api.onrender.com/art/")
+        const data = await response.json()
+        if (response.status == 200) {
+          let array = data;
+          array.sort((a,b) => b.id - a.id)
+          setArtworks(array)
+
+        } else {
+          setArtworks([])
+        }
+      } catch (err) {
+        console.error({error:err.message})
+      }
     }
     fetchArtworks()
-  },[])
+  }, [])
+
+
 
   return (
     <>
-      <h1>Welcome to ArtVista</h1>
+      <div className="home-page-top">
+      <SearchForm setArtworks={setArtworks} />
+      </div>
+     
       <div className="gallery-container">
-        <Gallery artworks={artworks}/>
+        <Gallery artworks={artworks} />
       </div>
     </>
   )

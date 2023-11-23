@@ -54,7 +54,7 @@ class Art {
   }
   
 static async getAllByTag(tag_id) {
-  const response = await db.query('SELECT * FROM art WHERE tag_id = $1', [tag_id])
+  const response = await db.query('SELECT * FROM artTags WHERE tag_id = $1', [tag_id])
   if (response.rows.length === 0) {
     throw new Error('Unable to locate art.');
   }
@@ -62,15 +62,67 @@ static async getAllByTag(tag_id) {
   return response.rows;
 }
 
- static async uploadAndCreate(data, file) {
-  const { user_id, title, description, likes, tag_id } = data;
+
+static async isLiked(user_id, art_id) {
+  const response = await db.query('SELECT * FROM userLikes WHERE art_id = $1 AND user_id = $2', [art_id, user_id]);
+  if(response.rows.length === 0) {
+    return false;
+  }
+  return true;
+}
+
+static async addLike(user_id, art_id) {
+  const response = await db.query('INSERT INTO userLikes (user_id, art_id) VALUES ($1, $2) RETURNING *', [user_id, art_id])
+  if (response.rows.length === 0) {
+    throw new Error('Unable to add like.');
+  }
+  return response.rows[0];
+}
+
+static async deleteLike(user_id, art_id) {
+  const response = await db.query('DELETE FROM userLikes WHERE user_id = $1 AND art_id = $2 RETURNING *', [user_id, art_id])
+  if (response.rows.length !== 1) {
+    throw new Error('Unable to delete like from table.');
+  }
+  return new Art(response.rows[0]);
+}
+
+
+
+
+static async getTagsById(art_id) {
+  const response = await db.query('SELECT * FROM artTags JOIN tags ON artTags.tag_id = tags.tag_id WHERE artTags.art_id = $1',[art_id])
+  if (response.rows.length === 0) {
+    throw new Error('Unable to locate tags.');
+  }
+
+  return response.rows;
+}
+
+
+
+static async uploadAndCreate(data, file, tag_ids) {
+  const { user_id, title, description, likes } = data;
+
   // Upload the file to Cloud Storage
   const publicUrl = await this.uploadFileToStorage(file);
+
   // Create a new art entry in the database
   const response = await db.query(
-    'INSERT INTO art (user_id, tag_id, title, description, likes, url) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;',
-    [user_id, tag_id, title, description, likes, publicUrl]
+    'INSERT INTO art (user_id, title, description, likes, url) VALUES ($1, $2, $3, $4, $5) RETURNING art_id;',
+    [user_id, title, description, likes, publicUrl]
   );
+
+  const artId = response.rows[0].art_id;
+
+  // Associate the art piece with multiple tags
+  for (let i = 0; i < tag_ids.length; i++) {
+    const tag_id = tag_ids[i]
+    if(tag_id != ','){
+      await db.query('INSERT INTO artTags (art_id, tag_id) VALUES ($1, $2);', [artId, tag_id]);
+    }
+  }
+
   return new Art(response.rows[0]);
 }
 
@@ -100,10 +152,10 @@ static async getAllByTag(tag_id) {
 }
 
   async update(data) {
-    const { user_id, title, description, likes, tag_id} = data;
+    const { user_id, title, description, likes} = data;
     const response = await db.query(
-      'UPDATE art SET user_id = $1, title = $2, description = $3, likes = $4, tag_id = $5 WHERE art_id = $6 RETURNING *;',
-      [user_id, title, description, likes, tag_id, this.id]
+      'UPDATE art SET user_id = $1, title = $2, description = $3, likes = $4 WHERE art_id = $5 RETURNING *;',
+      [user_id, title, description, likes, this.id]
     );
     if (response.rows.length !== 1) {
       throw new Error('Unable to update art.');

@@ -1,4 +1,5 @@
 const Art = require('../models/Art.js');
+const { search } = require('../routers/art.js');
 
 async function index(req, res) {
   try {
@@ -19,6 +20,38 @@ async function comments(req, res) {
   }
 }
 
+async function likes(req, res) {
+  try {
+    const user_id = req.params.user_id
+    const art_id = req.params.art_id
+    const liked = await Art.isLiked(user_id, art_id)
+    res.status(200).json(liked)
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+async function postLike(req, res) {
+  try {
+    const user_id = req.params.user_id
+    const art_id = req.params.art_id
+    const like = await Art.addLike(user_id, art_id)
+    res.status(200).json(like)
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+async function destroyLike(req, res) {
+  try {
+    const user_id = req.params.user_id
+    const art_id = req.params.art_id
+    const like = await Art.deleteLike(user_id, art_id)
+    res.status(200).json(like)
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
 
 async function show(req, res) {
   try {
@@ -30,11 +63,23 @@ async function show(req, res) {
   }
 }
 
+async function showTags(req,res) {
+  try {
+    const id = parseInt(req.params.id);
+    const tags = await Art.getTagsById(id)
+    res.status(200).json(tags);
+  } catch (err) {
+    res.status(404).json({ error: err.message });
+  }
+}
+
 async function create(req, res) {
   try {
     const data = req.body;
     const file = req.file;
-    const newArt = await Art.uploadAndCreate(data, file);
+    const tagIds = req.body.tag_ids; // Assuming the frontend sends tag_ids as an array
+
+    const newArt = await Art.uploadAndCreate(data, file, tagIds);
     res.status(201).json(newArt);
   } catch (err) {
     res.status(400).json({ error: err.message });
@@ -66,4 +111,5 @@ async function destroy(req, res) {
 }
 
 
-module.exports = { index, show, create, comments, update, destroy };
+
+module.exports = { index, show, create, comments, likes, postLike, destroyLike, showTags, update, destroy };
