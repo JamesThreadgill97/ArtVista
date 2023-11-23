@@ -237,6 +237,7 @@ textarea {
   /* padding-bottom: 0; */
   border-radius: 5px;
   height: calc((12.5px + 0.5vh + 0.25vw) * 1.6);
+  height: calc((50%  - 5px));
   font-size: calc(2.5px + 0.5vh + 0.25vw);
 }
 
@@ -385,6 +386,7 @@ textarea {
   min-height: 25%;
   height: auto;
   max-height: 70%;
+  height: 50%;
   width: 100%;
   /* margin-bottom: calc((30%));
   position: absolute;
@@ -398,6 +400,7 @@ textarea {
   min-height: 25%;
   height: 40vh;
   max-height: 50%;
+
   width: 100%;
  
 }
@@ -414,7 +417,7 @@ textarea {
   width: 100%;
   padding: 5%;
   padding-bottom: 0;
-  max-height: 40%;
+  height: 50%;
 }
 
 .comment-create > textarea {
@@ -917,6 +920,9 @@ header {
 }
 .create-artwork-submit:hover {
   transform: scale(1.05);
+}
+.create-artwork-submit-div {
+  width: 50%;
 }
 
 .tags-title {

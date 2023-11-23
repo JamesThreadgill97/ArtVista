@@ -107,6 +107,20 @@ export default function ArtworkPage() {
     }
   }
 
+  useEffect(() => {
+    const handleContextMenu = (event) => {
+        event.preventDefault();
+    };
+
+    window.addEventListener('contextmenu', handleContextMenu);
+
+    // Clean up the event listener on component unmount
+    return () => {
+        window.removeEventListener('contextmenu', handleContextMenu);
+    };
+}, []);
+
+
   return (
     <>
       <div className="artwork-and-info">
