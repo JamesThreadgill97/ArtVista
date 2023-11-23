@@ -212,7 +212,7 @@ textarea {
   height: 25%;
   word-wrap: break-word;
   padding: 5px;
-  font-size: calc(2px + 0.6vh + 0.3vw);
+  font-size: calc(5px + 0.6vh + 0.3vw);
   font-family: var(--font-family);
 }
 
