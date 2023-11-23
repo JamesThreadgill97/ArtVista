@@ -850,6 +850,7 @@ header {
 }
 
 .create-artwork-details input {
+  font-family: var(--font-family);
   font-size: 25px;
 }
 .create-artwork-details textarea {
