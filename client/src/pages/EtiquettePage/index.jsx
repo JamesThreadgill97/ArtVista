@@ -42,7 +42,7 @@ export default function EtiquettePage() {
     <p>By adhering to these etiquette guidelines, you help foster a community that values creativity, respect, individuality, and artistic growth.</p>
 
     <h2>Contact Us</h2>
-    <p>For any questions or concerns about our community etiquette, please feel free to contact one of the team members at <a href="mailto:jpgthreadgill97@gmail.com">jpgthreadgill97@gmail.com</a>.</p>
+    <p>For any questions or concerns about our community etiquette, please feel free to contact one of the team members <a href="mailto:jpgthreadgill97@gmail.com">here</a>.</p>
 </div>  
 )
 }
