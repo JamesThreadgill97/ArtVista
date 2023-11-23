@@ -55,7 +55,7 @@ body {
 
 /* Header Styles */
 header {
-  background-color: var(--background-colour);
+  background-color: #dddfdc;
   color: var(--text-colour);
   padding: 20px;
   text-align: center;
