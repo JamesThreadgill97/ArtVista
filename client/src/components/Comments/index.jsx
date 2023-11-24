@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import CommentCard from '../CommentCard'
 
+
 export default function Comments({ comments }) {
 
   return (

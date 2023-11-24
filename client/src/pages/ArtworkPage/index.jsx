@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+
 import { useParams, useNavigate } from "react-router-dom"
 import { Gallery, ProfileLink, Comments, CommentForm, Modal, Likes, TagsCard } from "../../components"
 import Swal from "sweetalert2"
@@ -10,6 +11,7 @@ export default function ArtworkPage() {
   const [artwork, setArtwork] = useState({})
   const [artworks, setArtworks] = useState([])
   const [comments, setComments] = useState([])
+
   const [commentMessage, setCommentMessage] = useState("")
   const [showMoreArtworks, setShowMoreArtworks] = useState(false)
 
@@ -23,6 +25,7 @@ export default function ArtworkPage() {
   };
 
   useEffect(() => {
+
     const fetchArtworks = async () => {
       try {
         const response = await fetch("https://artvista-api.onrender.com/art/")
@@ -69,6 +72,7 @@ export default function ArtworkPage() {
       }
       catch (err) {
         console.error({ error: err.message })
+
       }
     }
     const fetchComments = async () => {
@@ -86,6 +90,7 @@ export default function ArtworkPage() {
   }, [id])
 
   useEffect(() => {
+
     if (comments.length == 0) {
       setCommentMessage("No comments")
     } else if (comments.length == 1) {
@@ -94,7 +99,6 @@ export default function ArtworkPage() {
       setCommentMessage(`${comments.length} comments`)
     }
   }, [comments])
-
 
   const toggleShowMoreArtworks = () => {
     if (!showMoreArtworks) {
@@ -120,7 +124,6 @@ export default function ArtworkPage() {
     };
 }, []);
 
-
   return (
     <>
       <div className="artwork-and-info">
@@ -138,6 +141,7 @@ export default function ArtworkPage() {
             <h1>{artwork.title}</h1>
           </div>
           <ProfileLink id={artwork.user_id} />
+
           <p className="artwork-description">{artwork.description}</p>
           <TagsCard id={id} />
           <div className="statistics-bar">

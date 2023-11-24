@@ -1,5 +1,6 @@
 import React, {useState} from "react"
 import { useNavigate } from "react-router-dom"
+
 import Swal from 'sweetalert2'
 
 export default function LoginPage() {
@@ -23,7 +24,6 @@ export default function LoginPage() {
         const options = {
           method: "POST",
           headers: {
-            Accept: 'application/json',
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
@@ -31,8 +31,7 @@ export default function LoginPage() {
             password: password
           })
         }
-
-        const response = await fetch('https://artvista-api.onrender.com/users/login', options)
+        const response = await fetch('https://artvista-api.onrender.com/users/login',options)
         const data = await response.json()
         localStorage.setItem("token", data.token)
         localStorage.setItem("user_id",data.user_id)
@@ -55,8 +54,9 @@ export default function LoginPage() {
           setUsername("")
           setPassword("")
           setTimeout(()=>{
+            navigate("/")
             setMessage("")
-          },5000)
+          },1000)
         }
         
       }

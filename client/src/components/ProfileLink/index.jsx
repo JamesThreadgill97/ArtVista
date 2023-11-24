@@ -22,6 +22,7 @@ export default function ProfileLink({ id }) {
   }, [id])
 
   return (
+
     <div className='profile-link-div'>
       <img className="profile-link-pic" src={userInfo.profile_url} alt="profile pic" />
       <NavLink className="nav-link profile-link" to={`/profile/${id}`}>

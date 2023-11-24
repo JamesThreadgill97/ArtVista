@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react'
 import { NavLink } from "react-router-dom"
 
@@ -12,6 +13,7 @@ export default function CommentCard({ commentData }) {
       }
     }
     fetchUserDataById()
+
   }, [])
   return (
     <div className='comment-card'>

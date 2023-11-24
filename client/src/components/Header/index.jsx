@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import logo from "../../../assets/Logo.png"; // Import your logo image
@@ -46,6 +47,7 @@ export default function Header() {
         console.error({error:err.message})
       }
     }
+
     fetchUserData()
   },[localStorage.getItem("user_id")])
 

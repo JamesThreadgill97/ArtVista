@@ -2,6 +2,7 @@ import React from 'react'
 
 export default function EtiquettePage() {
   return (
+
     <div className="etiquette-page">
     <h1>ArtVista Community Etiquette</h1>
     

@@ -7,6 +7,7 @@ export {default as Comments} from "./Comments"
 export {default as CommentForm} from "./CommentForm"
 export {default as CommentCard} from "./CommentCard"
 export {default as Modal} from "./Modal"
+
 export {default as Likes} from "./Likes"
 export {default as SearchForm} from "./SearchForm"
 export {default as TagsCard} from "./TagsCard"

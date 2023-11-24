@@ -10,6 +10,7 @@ export default function CreateArtwork() {
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
   const [message, setMessage] = useState("")
+
   const [tags, setTags] = useState([])
   const [selectedTags, setSelectedTags] = useState([])
   const [image, setImage] = useState("")
@@ -55,8 +56,9 @@ export default function CreateArtwork() {
     setDescription(e.target.value)
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
+
 
 
 
@@ -101,11 +103,19 @@ export default function CreateArtwork() {
       formData.append("tag_ids", selectedTags)
       uploadFile()
     }
+
     setDescription("")
     setTitle("")
   }
   return (
     <>
+      <form onSubmit={handleSubmit}>
+        <h2>Post your art!</h2>
+        <input type="file" accept="image/*" onChange={handleFileChange} />
+        <input type="text" placeholder="Enter title..." onChange={handleTextInput} value={title} />
+        <textarea placeholder="Enter description..." onChange={handleTextarea} value={description}></textarea>
+        <h3>(tags here too)</h3>
+        <input type="submit" />
       <form className="create-artwork" onSubmit={handleSubmit}>
         {/* <h2>Post your art!</h2> */}
         <div className="row">

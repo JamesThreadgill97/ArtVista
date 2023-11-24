@@ -5,6 +5,7 @@ import pen from "../../../assets/pen.png"
 
 export default function ProfilePage() {
   const { id } = useParams()
+
   const [artworks, setArtworks] = useState([])
   const [userInfo, setUserInfo] = useState({})
   const [showEditForm, setShowEditForm] = useState(false)
@@ -25,6 +26,7 @@ export default function ProfilePage() {
       }
     }
     fetchArtworks()
+
   }, [id])
   useEffect(() => {
     setUserInfo({})

@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
+
 import Swal from 'sweetalert2'
 
 export default function Register() {
@@ -46,6 +47,7 @@ export default function Register() {
         const response = await fetch('https://artvista-api.onrender.com/users/login', options)
         const data = await response.json()
         localStorage.setItem("token", data.token)
+
         localStorage.setItem("user_id", data.user_id)
         if (response.status == 200) {
           Swal.fire({

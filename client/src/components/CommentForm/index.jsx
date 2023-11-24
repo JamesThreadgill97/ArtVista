@@ -51,6 +51,7 @@ export default function CommentForm({ id, setComments }) {
   }
 
   return (
+
     <div className="comment-create" onSubmit={handleSubmit}>
       <textarea name="" id="" cols="30" rows="3" placeholder='Comment here...' onChange={handleTextarea} value={comment} maxLength="200"></textarea>
       <input value="" type="submit" onClick={handleSubmit} />
